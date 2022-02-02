@@ -1,0 +1,8 @@
+@use '../../../styles/theme' as theme;
+.BrandAppBar {
+    &_Container {
+        background-color: theme.$darkGrey;
+        display: flex;
+        flex-direction: column;
+    }
+}
