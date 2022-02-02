@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div className={Style.index_Scaffold}>
       <BrandAppBar />
-      Hola
+      Holaaa
     </div>
   );
 }
