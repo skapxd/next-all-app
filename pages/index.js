@@ -5,6 +5,7 @@ export default function Home() {
     <div className={Style.index_Scaffold}>
       <BrandAppBar />
       Holaaa
+      ejejejej
     </div>
   );
 }
