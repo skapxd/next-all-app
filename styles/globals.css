@@ -13,3 +13,11 @@ a {
 * {
     box-sizing: border-box;
 }
+
+.MuiLinearProgress-root {
+    background-color: #0000!important;
+}
+
+.MuiLinearProgress-bar {
+    background-color: #ffbf80!important;
+}
