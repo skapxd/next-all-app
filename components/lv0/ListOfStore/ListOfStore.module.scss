@@ -34,9 +34,9 @@
             }
             &_Image {
                 aspect-ratio: 1/1;
-                height: 100%;
                 border-radius: 8px;
-                max-height: 100px;
+                height: 100px;
+                width: 100px;
                 object-fit: cover;
                 box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.16);
                 background: theme.$darkGrey;

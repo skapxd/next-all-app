@@ -1,0 +1,13 @@
+@use '/styles/theme.scss' as theme;
+.Box {
+    width: 100%;
+    min-height: 100vh;
+    background-color: theme.$black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &_MaxWidth {
+        width: 100%;
+        max-width: 430px;
+    }
+}

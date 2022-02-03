@@ -1,25 +1,31 @@
 import Style from "./Icon.module.scss";
 
-export class ArrowDirection{
-  static up = Style.Icon_Arrow_Up
-  static right = Style.Icon_Arrow_Right
-  static down = Style.Icon_Arrow_Down
-  static left = Style.Icon_Arrow_Left
+export class ArrowDirection {
+  static up = Style.Icon_Arrow_Up;
+  static right = Style.Icon_Arrow_Right;
+  static down = Style.Icon_Arrow_Down;
+  static left = Style.Icon_Arrow_Left;
 }
 
 /**
- * 
- * @param {Object} props 
- * @param {ArrowDirection} props.direction 
- * @returns 
+ *
+ * @param {Object} props
+ * @param {ArrowDirection} props.direction
+ * @param {onClick} [props.onClick]
+ * @param {string} [props.className]
+ * @returns
  */
 export function ArrowIcon(props) {
-
-  const {direction = ArrowDirection.left} = props
+  const {
+    direction = ArrowDirection.left,
+    onClick = () => {},
+    className = "",
+  } = props;
 
   return (
     <svg
-    className={`${Style.Icon_Size} ${direction}`}
+      onClick={() => onClick && onClick()}
+      className={`${Style.Icon_Size} ${direction} ${className}`}
       xmlns="http://www.w3.org/2000/svg"
       width="27.592"
       height="22.785"

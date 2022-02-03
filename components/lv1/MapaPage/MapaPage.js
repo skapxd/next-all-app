@@ -1,5 +1,4 @@
 // @ts-check
-
 import GoogleMapReact from "google-map-react";
 
 export function GoogleMapPage() {
