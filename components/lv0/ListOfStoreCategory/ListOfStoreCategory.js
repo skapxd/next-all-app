@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite";
  * @param {Object} props
  * @param {string} [props.className]
  */
-function _ListOfStoreCategory(props) {
+export function _ListOfStoreCategory(props) {
   const { className = "" } = props;
   const stateListOfStoreCategory = StateListOfStoreCategory.Instance;
 
@@ -15,21 +15,23 @@ function _ListOfStoreCategory(props) {
    * @param {string} currentCategory
    */
   const styleText = (currentCategory) => {
-    if (!currentCategory) throw new Error("param currentCategory of styleText is empty");
+    if (!currentCategory)
+      throw new Error("param currentCategory of styleText is empty");
     if (currentCategory === stateListOfStoreCategory._currentCategory)
       return Style.ListOfStoreCategory_Box_TextActive;
     return Style.ListOfStoreCategory_Box_Text;
   };
 
   /**
-   * @param {string} currentCategory 
+   * @param {string} currentCategory
    */
   const styleUnderline = (currentCategory) => {
-      if (!currentCategory) throw new Error("param currentCategory of styleUnderline is empty");
-      if (currentCategory === stateListOfStoreCategory._currentCategory)
-        return Style.ListOfStoreCategory_Box_UnderlineActive;
-      return Style.ListOfStoreCategory_Box_Underline;
-  }
+    if (!currentCategory)
+      throw new Error("param currentCategory of styleUnderline is empty");
+    if (currentCategory === stateListOfStoreCategory._currentCategory)
+      return Style.ListOfStoreCategory_Box_UnderlineActive;
+    return Style.ListOfStoreCategory_Box_Underline;
+  };
 
   return (
     <div className={`${className} ${Style.ListOfStoreCategory}`}>
@@ -50,4 +52,5 @@ function _ListOfStoreCategory(props) {
   );
 }
 
+// export const ListOfStoreCategory = _ListOfStoreCategory
 export const ListOfStoreCategory = observer(_ListOfStoreCategory);
