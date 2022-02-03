@@ -1,0 +1,51 @@
+@use '/styles/theme.scss' as theme;
+.Box {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    &:last-child {
+        margin-bottom: 100px;
+    }
+    &_Title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-right: 16px;
+        &_Text {
+            margin-left: 16px;
+            color: theme.$white;
+        }
+    }
+    &_BoxListStore {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 8px;
+        &_Box {
+            gap: 8px;
+            display: flex;
+            flex-direction: column;
+            &:first-child {
+                margin-left: 16px;
+            }
+            &:last-child {
+                margin-right: 16px;
+            }
+            &_Image {
+                aspect-ratio: 1/1;
+                height: 100%;
+                border-radius: 8px;
+                max-height: 100px;
+                object-fit: cover;
+                box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.16);
+                background: theme.$darkGrey;
+            }
+            &_Name {
+                max-width: 100px;
+                color: theme.$white;
+                font-size: 14px;
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+@use '/styles/theme.scss' as theme;
+.Box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    &_Icon {
+        & path {
+            fill: theme.$white;
+        }
+    }
+    &_Text {
+        color: theme.$white;
+    }
+    &_IconActive {
+        & path {
+            fill: theme.$subject;
+        }
+    }
+    &_TextActive {
+        color: theme.$subject;
+    }
+}

@@ -10,7 +10,7 @@ export class StateListOfStoreCategory {
     "Drogerias",
   ];
 
-  get currentCategory() {
+  get getCurrentCategory() {
     return this._currentCategory
   }
 
@@ -23,7 +23,7 @@ export class StateListOfStoreCategory {
       _currentCategory: observable,
       listOfCategoriesStoreName: observable,
       changeCurrentCategory: action, 
-      currentCategory: computed,
+      getCurrentCategory: computed,
     });
   }
 
@@ -36,3 +36,5 @@ export class StateListOfStoreCategory {
     this._currentCategory = category;
   }
 }
+
+export const stateListOfStoreCategory = StateListOfStoreCategory.Instance

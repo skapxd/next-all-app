@@ -5,4 +5,18 @@
         max-height: 28px;
         max-width: 28px;
     }
+    &_Arrow {
+        &_Up {
+            transform: rotate(90deg);
+        }
+        &_Down {
+            transform: rotate(270deg);
+        }
+        &_Right {
+            transform: rotate(180deg);
+        }
+        &_Left {
+            transform: rotate(0deg);
+        }
+    }
 }

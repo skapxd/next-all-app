@@ -1,7 +1,6 @@
-@use '../styles/theme.scss' as theme;
+@use '/styles/theme.scss' as theme;
 .Box {
     width: 100%;
     max-width: 430px;
-    min-height: 100vh;
     background: theme.$dark;
 }

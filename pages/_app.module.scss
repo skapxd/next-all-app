@@ -1,7 +1,6 @@
-@use '../styles/theme.scss' as theme;
+@use '/styles/theme.scss' as theme;
 .app {
     &_Scaffold {
-        height: 100vh;
         width: 100%;
         display: flex;
         background-color: theme.$black;

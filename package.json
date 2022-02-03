@@ -8,13 +8,21 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@emotion/react": "^11.7.1",
+        "@emotion/styled": "^11.6.0",
+        "@mui/material": "^5.4.0",
+        "@mui/styled-engine-sc": "^5.3.0",
+        "@types/faker": "^5.5.3",
+        "faker": "^5.5.3",
         "mobx": "^6.3.13",
         "mobx-react-lite": "^3.2.3",
         "next": "12.0.10",
         "next-pwa": "^5.4.4",
         "react": "17.0.2",
         "react-dom": "17.0.2",
-        "sass": "^1.49.7"
+        "sass": "^1.49.7",
+        "styled-components": "^5.3.3",
+        "uuid": "^8.3.2"
     },
     "devDependencies": {
         "@commitlint/cli": "^16.1.0",

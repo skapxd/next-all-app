@@ -1,13 +1,13 @@
 // @ts-check
 import Style from "./ListOfStoreCategory.module.scss";
-import { stateListOfStoreCategory } from "./StateListOfStoreCategory";
 import { observer } from "mobx-react-lite";
+import { stateListOfStoreCategory } from "./StateListOfStoreCategory";
 
 /**
  * @param {Object} props
  * @param {string} [props.className]
  */
-function _ListOfStoreCategory(props) {
+export function _ListOfStoreCategory(props) {
   const { className = "" } = props;
 
   /**

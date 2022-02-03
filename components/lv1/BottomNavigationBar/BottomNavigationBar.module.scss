@@ -1,0 +1,14 @@
+@use '/styles/theme.scss' as theme;
+.Box {
+    position: fixed;
+    bottom: 0;
+    height: 80px;
+    width: 100%;
+    max-width: 430px;
+    background: theme.$darkGrey;
+    box-shadow: 0 -6px 12px rgba(0, 0, 0, .24);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 8px;
+}

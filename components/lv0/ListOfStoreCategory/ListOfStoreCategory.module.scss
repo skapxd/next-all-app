@@ -10,14 +10,12 @@
         flex-direction: column;
         justify-content: space-between;
         &_Text {
-            cursor: pointer;
             white-space: nowrap;
             text-overflow: ellipsis;
             font-size: 18px;
             color: #E3E3E5;
         }
         &_TextActive {
-            cursor: pointer;
             white-space: nowrap;
             text-overflow: ellipsis;
             font-size: 18px;
