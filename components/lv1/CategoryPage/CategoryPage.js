@@ -24,9 +24,9 @@ function _CategoryPage() {
     const response = await fetch(`/api/hello?category=${currentCategory}`);
     const data = await response.json();
 
-    // setTimeout(() => {
+    setTimeout(() => {
     setListOfStoreModel(() => data.listOfStoreModel);
-    // }, 1000);
+    }, 1000);
   };
 
   if (!listOfStoreModel) {
