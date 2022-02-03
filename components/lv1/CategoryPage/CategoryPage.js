@@ -1,5 +1,9 @@
 // @ts-check
-import { CircularProgress, LinearProgress } from "@mui/material";
+import { LinearProgress } from "@mui/material";
+import {
+  stateBottomNavigationBarButton,
+  TypeBottomNavigationBarButton,
+} from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
 import { ListOfStore } from "components/lv0/ListOfStore/ListOfStore";
 import { StoreModel } from "components/lv0/ListOfStore/StoreModel";
 import { stateListOfStoreCategory } from "components/lv0/ListOfStoreCategory/StateListOfStoreCategory";
@@ -25,7 +29,12 @@ function _CategoryPage() {
     const data = await response.json();
 
     setTimeout(() => {
-    setListOfStoreModel(() => data.listOfStoreModel);
+      if (
+        stateBottomNavigationBarButton.getCurrentButton !==
+        TypeBottomNavigationBarButton.store
+      )
+        return;
+      setListOfStoreModel(() => data.listOfStoreModel);
     }, 1000);
   };
 
