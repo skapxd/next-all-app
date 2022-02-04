@@ -1,14 +1,12 @@
 // @ts-check
 import { LinearProgress } from "@mui/material";
-import {
-  stateBottomNavigationBarButton,
-  TypeBottomNavigationBarButton,
-} from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
 import { ListOfStore } from "components/lv0/ListOfStore/ListOfStore";
 import { StoreModel } from "components/lv0/ListOfStore/StoreModel";
 import { stateListOfStoreCategory } from "components/lv0/ListOfStoreCategory/StateListOfStoreCategory";
+import { Debounce } from "helpers/debounce";
+import { useDebounce } from "hooks/useDebounce";
 import { observer } from "mobx-react-lite";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Style from "./CategoryPage.module.scss";
 
 function _CategoryPage() {
@@ -21,22 +19,21 @@ function _CategoryPage() {
 
   useEffect(() => {
     setListOfStoreModel(null);
-    getListOfStore();
+    debounceGetListOfStore(currentCategory);
   }, [currentCategory]);
 
-  const getListOfStore = async () => {
+  const getListOfStore = async (currentCategory) => {
+    setListOfStoreModel(null);
     const response = await fetch(`/api/hello?category=${currentCategory}`);
     const data = await response.json();
 
-    setTimeout(() => {
-      if (
-        stateBottomNavigationBarButton.getCurrentButton !==
-        TypeBottomNavigationBarButton.store
-      )
-        return;
-      setListOfStoreModel(() => data.listOfStoreModel);
-    }, 1000);
+    setListOfStoreModel(() => data.listOfStoreModel);
   };
+
+  const debounceGetListOfStore = useDebounce({
+    fn: () => getListOfStore(currentCategory),
+    delay: 1000,
+  });
 
   if (!listOfStoreModel) {
     return <LinearProgress />;
