@@ -1,5 +1,10 @@
 // @ts-check
+import { useEffect, useRef, useState } from "react";
 import { ArrowDirection, ArrowIcon } from "../Icon/ArrowIcon";
+import {
+  AxisInfiniteScroll,
+  InfinityScroll,
+} from "../InfinityScroll/InfinityScroll";
 import Style from "./ListOfStore.module.scss";
 import { StoreModel } from "./StoreModel";
 
@@ -7,11 +12,13 @@ import { StoreModel } from "./StoreModel";
  * @param {Object} props
  * @param {string} [props.className]
  * @param {string} [props.title]
+ * @param {(value: boolean) => void} [props.onNext]
  * @param {StoreModel[]} [props.listOfStoreModel]
  */
 export function ListOfStore(props) {
   const {
     className = "",
+    onNext = () => console.log("default onNext param of ListOfStore"),
     listOfStoreModel = [],
     title = "Default Title",
   } = props;
@@ -23,10 +30,15 @@ export function ListOfStore(props) {
         <ArrowIcon direction={ArrowDirection.right} />
       </div>
 
-      <div className={Style.Box_BoxListStore}>
-        {listOfStoreModel.map((e, i) => {
+      <InfinityScroll
+        className={Style.Box_BoxListStore}
+        axis={AxisInfiniteScroll.horizontal}
+        iterable={listOfStoreModel}
+        onNext={onNext}
+        itemBuilder={(i) => {
+          const e = listOfStoreModel[i];
           const name =
-            e.name.length > 23 ? e.name.substring(0, 20) + "..." : e.name;
+            e.name.length > 23 ? e.name.substring(0, 17) + "..." : e.name;
 
           return (
             <button
@@ -43,8 +55,8 @@ export function ListOfStore(props) {
               <h3 className={Style.Box_BoxListStore_Box_Name}>{name}</h3>
             </button>
           );
-        })}
-      </div>
+        }}
+      />
     </div>
   );
 }

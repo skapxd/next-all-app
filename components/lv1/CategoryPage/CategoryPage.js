@@ -1,12 +1,11 @@
 // @ts-check
 import { LinearProgress } from "@mui/material";
+import { useDebounce, useInverseDebounce } from "@skapxd/debounce";
 import { ListOfStore } from "components/lv0/ListOfStore/ListOfStore";
 import { StoreModel } from "components/lv0/ListOfStore/StoreModel";
 import { stateListOfStoreCategory } from "components/lv0/ListOfStoreCategory/StateListOfStoreCategory";
-import { Debounce } from "helpers/debounce";
-import { useDebounce } from "hooks/useDebounce";
 import { observer } from "mobx-react-lite";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import Style from "./CategoryPage.module.scss";
 
 function _CategoryPage() {
@@ -22,8 +21,8 @@ function _CategoryPage() {
     debounceGetListOfStore(currentCategory);
   }, [currentCategory]);
 
+  /**@param {string} currentCategory */
   const getListOfStore = async (currentCategory) => {
-    setListOfStoreModel(null);
     const response = await fetch(`/api/hello?category=${currentCategory}`);
     const data = await response.json();
 
@@ -31,8 +30,8 @@ function _CategoryPage() {
   };
 
   const debounceGetListOfStore = useDebounce({
-    fn: () => getListOfStore(currentCategory),
     delay: 1000,
+    fn: () => getListOfStore(currentCategory),
   });
 
   if (!listOfStoreModel) {
@@ -41,7 +40,18 @@ function _CategoryPage() {
 
   return (
     <div className={" "}>
-      <ListOfStore title="Patrocinadores" listOfStoreModel={listOfStoreModel} />
+      <ListOfStore
+        onNext={async (value) => {
+          const response = await fetch(
+            `/api/hello?category=${currentCategory}`
+          );
+          const data = await response.json();
+
+          setListOfStoreModel((s) => [...s, ...data.listOfStoreModel]);
+        }}
+        title="Patrocinadores"
+        listOfStoreModel={listOfStoreModel}
+      />
       <ListOfStore title="Populares" listOfStoreModel={listOfStoreModel} />
       <ListOfStore
         title="Nuevos comercios"
