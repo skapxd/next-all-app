@@ -13,7 +13,7 @@ export class AxisInfiniteScroll {
  * @param {string} [props.className]
  * @param {number} [props.pixelsBeforeCallOnNext]
  * @param {AxisInfiniteScroll} [props.axis]
- * @param {(value: boolean) => void} [props.onNext]
+ * @param {(value: boolean) => Promise<void>} [props.onNext]
  * @param {(index: number) => JSX.Element} [props.itemBuilder]
  * @param {import("react").HTMLAttributes<HTMLButtonElement> } [props.style]
  */
@@ -23,7 +23,7 @@ export function InfinityScroll(props) {
     itemBuilder = () => <></>,
     pixelsBeforeCallOnNext = 500,
     axis = AxisInfiniteScroll.horizontal,
-    onNext = () =>
+    onNext = async () =>
       console.log("default function onNext param of InfiniteScroll"),
     iterable = [],
   } = props;

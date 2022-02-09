@@ -23,10 +23,14 @@ function _CategoryPage() {
 
   /**@param {string} currentCategory */
   const getListOfStore = async (currentCategory) => {
-    const response = await fetch(`/api/hello?category=${currentCategory}`);
-    const data = await response.json();
+    try {
+      const response = await fetch(`/api/store?category=${currentCategory}`);
+      const data = await response.json();
 
-    setListOfStoreModel(() => data.listOfStoreModel);
+      setListOfStoreModel(() => data.listOfStoreModel);
+    } catch (error) {
+      console.log({ error });
+    }
   };
 
   const debounceGetListOfStore = useDebounce({
@@ -42,9 +46,7 @@ function _CategoryPage() {
     <div className={" "}>
       <ListOfStore
         onNext={async (value) => {
-          const response = await fetch(
-            `/api/hello?category=${currentCategory}`
-          );
+          const response = await fetch(`/api/store?category=${currentCategory}`);
           const data = await response.json();
 
           setListOfStoreModel((s) => [...s, ...data.listOfStoreModel]);

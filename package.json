@@ -13,6 +13,8 @@
         "@mui/material": "^5.4.0",
         "@mui/styled-engine-sc": "^5.3.0",
         "@skapxd/debounce": "^1.0.15",
+        "@skapxd/regex-validate": "^1.0.0",
+        "@skapxd/regexp-validate": "^1.0.0",
         "@types/faker": "5.5.3",
         "faker": "5.5.3",
         "google-map-react": "^2.1.10",

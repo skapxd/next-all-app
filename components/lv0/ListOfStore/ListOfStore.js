@@ -12,13 +12,13 @@ import { StoreModel } from "./StoreModel";
  * @param {Object} props
  * @param {string} [props.className]
  * @param {string} [props.title]
- * @param {(value: boolean) => void} [props.onNext]
+ * @param {(value: boolean) => Promise<void>} [props.onNext]
  * @param {StoreModel[]} [props.listOfStoreModel]
  */
 export function ListOfStore(props) {
   const {
     className = "",
-    onNext = () => console.log("default onNext param of ListOfStore"),
+    onNext = async () => console.log("default onNext param of ListOfStore"),
     listOfStoreModel = [],
     title = "Default Title",
   } = props;
@@ -38,7 +38,7 @@ export function ListOfStore(props) {
         itemBuilder={(i) => {
           const e = listOfStoreModel[i];
           const name =
-            e.name.length > 23 ? e.name.substring(0, 17) + "..." : e.name;
+            e.name.length >= 23 ? e.name.substring(0, 17 ) + "..." : e.name;
 
           return (
             <button
