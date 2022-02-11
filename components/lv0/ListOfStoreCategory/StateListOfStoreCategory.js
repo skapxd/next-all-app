@@ -1,14 +1,16 @@
 import { action, computed, makeObservable, observable } from "mobx";
+import { listOfNameStoreCategory } from "Model/ListOfStore";
 
 export class StateListOfStoreCategory {
   _currentCategory = "Mercado";
 
-  listOfCategoriesStoreName = [
-    "Mercado",
-    "Comida rápida",
-    "Restaurantes",
-    "Drogerias",
-  ];
+  listOfCategoriesStoreName = listOfNameStoreCategory
+  // listOfCategoriesStoreName = [
+  //   "Mercado",
+  //   "Comida rápida",
+  //   "Restaurantes",
+  //   "Drogerias",
+  // ];
 
   get getCurrentCategory() {
     return this._currentCategory

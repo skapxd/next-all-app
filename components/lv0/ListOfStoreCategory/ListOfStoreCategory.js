@@ -51,5 +51,4 @@ function _ListOfStoreCategory(props) {
   );
 }
 
-// export const ListOfStoreCategory = _ListOfStoreCategory
 export const ListOfStoreCategory = observer(_ListOfStoreCategory);

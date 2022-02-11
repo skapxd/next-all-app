@@ -1,4 +1,4 @@
 {
-    "commentTranslate.targetLanguage": "es",
-    "js/ts.implicitProjectConfig.checkJs": true,
+  "commentTranslate.targetLanguage": "es",
+  "js/ts.implicitProjectConfig.checkJs": true,
 }

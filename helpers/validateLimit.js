@@ -1,7 +1,7 @@
 // @ts-check
 
-import { MapOfRegexValidate } from "@skapxd/regex-validate";
-import { regexValidate } from "@skapxd/regex-validate";
+import { isNumber } from "@skapxd/validate";
+import { validate, MapOfValidate } from "@skapxd/validate";
 import { response } from "./response";
 
 /**
@@ -27,10 +27,7 @@ export const validateLimit = ({ limit, res }) => {
     };
   }
 
-  const isOnlyNumber = regexValidate({
-    stringToValidate: limit,
-    regexp: MapOfRegexValidate.number,
-  });
+  const isOnlyNumber = isNumber(limit)
 
   if (!isOnlyNumber) {
     response({
@@ -65,3 +62,4 @@ export const validateLimit = ({ limit, res }) => {
     limitAsNumber,
   };
 };
+

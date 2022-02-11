@@ -10,6 +10,9 @@ export class StoreModel {
   /** @type {string} */
   id;
 
+  /**@type {number} */
+  index;
+
   /** @type {string} */
   name;
 

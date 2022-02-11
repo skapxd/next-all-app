@@ -24,7 +24,8 @@ function _CategoryPage() {
   /**@param {string} currentCategory */
   const getListOfStore = async (currentCategory) => {
     try {
-      const response = await fetch(`/api/store?category=${currentCategory}`);
+      const url = `/api/store?category=${currentCategory}&limit=${20}&from=${0}`
+      const response = await fetch(url);
       const data = await response.json();
 
       setListOfStoreModel(() => data.listOfStoreModel);
@@ -46,7 +47,8 @@ function _CategoryPage() {
     <div className={" "}>
       <ListOfStore
         onNext={async (value) => {
-          const response = await fetch(`/api/store?category=${currentCategory}`);
+          const url = `/api/store?category=${currentCategory}&limit=${20}&from=${0}`
+          const response = await fetch(url);
           const data = await response.json();
 
           setListOfStoreModel((s) => [...s, ...data.listOfStoreModel]);
@@ -55,12 +57,12 @@ function _CategoryPage() {
         listOfStoreModel={listOfStoreModel}
       />
       <ListOfStore title="Populares" listOfStoreModel={listOfStoreModel} />
+      <ListOfStore title="Actualizado" listOfStoreModel={listOfStoreModel} />
       <ListOfStore
         title="Nuevos comercios"
         listOfStoreModel={listOfStoreModel}
       />
       <ListOfStore title="Aleatorios" listOfStoreModel={listOfStoreModel} />
-      <ListOfStore title="Actualizado" listOfStoreModel={listOfStoreModel} />
     </div>
   );
 }

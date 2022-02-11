@@ -5,9 +5,7 @@ import Faker from "faker";
 import { v4 as idV4 } from "uuid";
 import { response } from "helpers/response";
 import { StoreModel } from "components/lv0/ListOfStore/StoreModel";
-import { regexValidate } from "@skapxd/regexp-validate";
-import { MapOfRegexValidate } from "@skapxd/regex-validate";
-import { validateLimit } from "helpers/validateLimit";
+import { TypeDataValidateParam, ValidateParam } from "helpers/validateParam";
 
 /**
  * @param {import("next").NextApiRequest} req
@@ -18,29 +16,79 @@ export default function handler(req, res) {
    * @type {{
    * category?: string,
    * limit?: string,
+   * from?: string,
    * }}
    */
-  const { category = "", limit = "0" } = req.query;
+  const { category, limit, from } = req.query;
 
-  const { limitAsNumber, isValidLimit } = validateLimit({
-    res,
-    limit,
+  const {
+    isValidParam: isValidLimit,
+    value: limitAsNumber,
+    message: messageOfLimit,
+  } = ValidateParam({
+    nameParam: "*limit query param*",
+    param: limit,
+    typeData: TypeDataValidateParam.number,
   });
 
-  if (!isValidLimit) return;
+  if (!isValidLimit)
+    return response({
+      res,
+      message: messageOfLimit,
+      success: false,
+    });
 
-  if (!category || category === "") {
+  if (limitAsNumber > 20) {
     return response({
       res,
       success: false,
-      message: "*category* param is empty, By is a ",
+      message: "*limit* param is greater than 20",
     });
   }
 
+  const {
+    isValidParam: isValidFrom,
+    value: fromAsNumber,
+    message: messageOfFrom,
+  } = ValidateParam({
+    nameParam: "*from query param*",
+    param: from,
+    typeData: TypeDataValidateParam.number,
+  });
+
+  if (!isValidFrom)
+    return response({
+      res,
+      message: messageOfFrom,
+      success: false,
+    });
+
+  const {
+    isValidParam: isValidCategory,
+    value: categoryAsString,
+    message: messageOfCategory,
+  } = ValidateParam({
+    nameParam: "*category query param*",
+    param: category,
+    typeData: TypeDataValidateParam.string,
+  });
+
+  if (!isValidCategory)
+    return response({
+      res,
+      message: messageOfCategory,
+      success: false,
+    });
+
   const listOfStoreModel = [];
 
-  for (let index = 0; index < limitAsNumber; index++) {
+  for (
+    let index = fromAsNumber;
+    index < limitAsNumber + fromAsNumber;
+    index++
+  ) {
     const storeModel = new StoreModel({
+      index,
       id: idV4(),
       creatingDate: Faker.date.recent().toString(),
       name: Faker.company.companyName(),
