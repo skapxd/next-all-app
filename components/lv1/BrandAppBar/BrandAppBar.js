@@ -10,14 +10,13 @@ export function BrandAppBar() {
       <div className={Style.BrandAppBar_Box_Icons}>
         <Brand className={Style.BrandAppBar_Box_Icons_Brand} />
         <Link href="/search">
-        <a >
-
-        <SearchIcon />
-        </a>
+          <a>
+            <SearchIcon />
+          </a>
         </Link>
         <MenuIcon />
       </div>
-      <ListOfStoreCategory/>
+      <ListOfStoreCategory />
     </div>
   );
 }

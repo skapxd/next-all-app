@@ -1,6 +1,8 @@
 {
     "compilerOptions": {
         "jsx": "react-jsx",
-        "baseUrl": "."
+        "baseUrl": ".",
+        "target": "ES2015",
+        "module": "CommonJS"
     }
 }

@@ -1,6 +1,8 @@
 // @ts-check
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { ArrowDirection, ArrowIcon } from "../Icon/ArrowIcon";
+import { PlaceholderImage } from "../Icon/PlaceholderImage";
 import {
   AxisInfiniteScroll,
   InfinityScroll,
@@ -38,7 +40,7 @@ export function ListOfStore(props) {
         itemBuilder={(i) => {
           const e = listOfStoreModel[i];
           const name =
-            e.name.length >= 23 ? e.name.substring(0, 17 ) + "..." : e.name;
+            e.name.length >= 20 ? e.name.substring(0, 16) + "..." : e.name;
 
           return (
             <button
@@ -46,11 +48,20 @@ export function ListOfStore(props) {
               className={Style.Box_BoxListStore_Box}
               onClick={() => {}}
             >
-              <img
+              {/* <img
                 alt={e.name}
                 className={Style.Box_BoxListStore_Box_Image}
                 src={e.urlImage}
-              />
+              /> */}
+              <div className={Style.Box_BoxListStore_Box_Image}>
+                <Image
+                  alt={e.name}
+                  className={Style.Box_BoxListStore_Box_Image}
+                  height={100}
+                  width={100}
+                  src={`${e.urlImage}`}
+                />
+              </div>
 
               <h3 className={Style.Box_BoxListStore_Box_Name}>{name}</h3>
             </button>

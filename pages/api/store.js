@@ -17,9 +17,10 @@ export default function handler(req, res) {
    * category?: string,
    * limit?: string,
    * from?: string,
+   * by?: string
    * }}
    */
-  const { category, limit, from } = req.query;
+  const { category, limit, from, by } = req.query;
 
   const {
     isValidParam: isValidLimit,
@@ -80,6 +81,27 @@ export default function handler(req, res) {
       success: false,
     });
 
+  const {
+    isValidParam: isValidBy,
+    value: byAsString,
+    message: messageOfBy,
+  } = ValidateParam({
+    nameParam: "*by query param*",
+    param: by,
+    typeData: TypeDataValidateParam.string,
+  });
+
+  if (!isValidBy)
+    return response({
+      res,
+      message: messageOfBy,
+      success: false,
+    });
+
+  // console.log({ fromAsNumber });
+  // console.log({ categoryAsString });
+  // console.log({ byAsString });
+
   const listOfStoreModel = [];
 
   for (
@@ -98,10 +120,13 @@ export default function handler(req, res) {
         isSponsor: true,
       },
       updateDate: Faker.date.past().toString(),
-      urlImage: Faker.random.image(),
+      urlImage: `https://picsum.photos/400/400?image=${index}`,
+      // urlImage: Faker.random.image(),
     });
 
     listOfStoreModel.push(storeModel);
   }
-  return res.status(200).json({ listOfStoreModel });
+  return res
+    .status(200)
+    .json({ categoryAsString, byAsString, listOfStoreModel });
 }

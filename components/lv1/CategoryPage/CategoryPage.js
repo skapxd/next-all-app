@@ -4,31 +4,89 @@ import { useDebounce, useInverseDebounce } from "@skapxd/debounce";
 import { ListOfStore } from "components/lv0/ListOfStore/ListOfStore";
 import { StoreModel } from "components/lv0/ListOfStore/StoreModel";
 import { stateListOfStoreCategory } from "components/lv0/ListOfStoreCategory/StateListOfStoreCategory";
+import { response } from "helpers/response";
 import { observer } from "mobx-react-lite";
+import { listOfNameStoreCategory } from "Model/ListOfStore";
 import { useEffect, useState } from "react";
+import { serviceGetListOfStore } from "service/getListOfStore";
 import Style from "./CategoryPage.module.scss";
+import { stateCategoryPage } from "./StateCategoryPage";
 
-function _CategoryPage() {
-  /** @type {StoreModel[]} */
-  const initListOfStoreModel = null;
-  const [listOfStoreModel, setListOfStoreModel] =
-    useState(initListOfStoreModel);
-
-  const currentCategory = stateListOfStoreCategory.getCurrentCategory;
+/**
+ *
+ * @param {Object} props
+ * @param {{
+ * byAsString: any;
+ * categoryAsString: string;
+ * listOfStoreModel: StoreModel[];
+ * }} props.listOfStore
+ * @returns
+ */
+function _CategoryPage(props) {
+  const { listOfStore } = props;
 
   useEffect(() => {
-    setListOfStoreModel(null);
-    debounceGetListOfStore(currentCategory);
-  }, [currentCategory]);
+    // if (
+    //   stateListOfStoreCategory.getCurrentCategory === listOfNameStoreCategory[0]
+    // )
+    //   return;
+
+    console.log("init");
+    stateCategoryPage.setIsLoading(true);
+    debounceGetListOfStore(stateListOfStoreCategory.getCurrentCategory);
+    console.log({ getAll: stateCategoryPage.getAllList });
+  }, [stateListOfStoreCategory.getCurrentCategory]);
 
   /**@param {string} currentCategory */
   const getListOfStore = async (currentCategory) => {
     try {
-      const url = `/api/store?category=${currentCategory}&limit=${20}&from=${0}`
-      const response = await fetch(url);
-      const data = await response.json();
+      const patrons = serviceGetListOfStore({
+        currentCategory,
+        by: "patrons",
+        from: "0",
+      });
 
-      setListOfStoreModel(() => data.listOfStoreModel);
+      const popular = serviceGetListOfStore({
+        currentCategory,
+        by: "popular",
+        from: "0",
+      });
+
+      const update = serviceGetListOfStore({
+        currentCategory,
+        by: "update",
+        from: "0",
+      });
+
+      const news = serviceGetListOfStore({
+        currentCategory,
+        by: "news",
+        from: "0",
+      });
+
+      const random = serviceGetListOfStore({
+        currentCategory,
+        by: "random",
+        from: "0",
+      });
+
+      const listOfPromise = [patrons, popular, news, update, random];
+
+      const resp = await Promise.allSettled(listOfPromise);
+
+      resp.forEach((e) => {
+        if (e.status === "rejected") return;
+        const by = e.value.byAsString;
+
+        /**@type {Object<string, StoreModel[]>} */
+        const _ = {};
+
+        _[by] = e.value.listOfStoreModel;
+
+        stateCategoryPage.setAllList(_);
+      });
+
+      stateCategoryPage.setIsLoading(false);
     } catch (error) {
       console.log({ error });
     }
@@ -36,33 +94,58 @@ function _CategoryPage() {
 
   const debounceGetListOfStore = useDebounce({
     delay: 1000,
-    fn: () => getListOfStore(currentCategory),
+    fn: (value) => getListOfStore(value),
   });
 
-  if (!listOfStoreModel) {
+  if (stateCategoryPage.getIsLoading) {
     return <LinearProgress />;
   }
+
+  const onNext = async ({ by }) => {
+    let length = stateCategoryPage.getAllList[by].length;
+
+    const currentCategory = stateListOfStoreCategory.getCurrentCategory;
+    const resp = await serviceGetListOfStore({
+      by,
+      currentCategory,
+      from: "" + length,
+    });
+
+    /**@type {Object<string, StoreModel[]>} */
+    const _ = {};
+
+    _[by] = [...stateCategoryPage.getAllList[by], ...resp.listOfStoreModel];
+
+    stateCategoryPage.setAllList(_);
+  };
 
   return (
     <div className={" "}>
       <ListOfStore
-        onNext={async (value) => {
-          const url = `/api/store?category=${currentCategory}&limit=${20}&from=${0}`
-          const response = await fetch(url);
-          const data = await response.json();
-
-          setListOfStoreModel((s) => [...s, ...data.listOfStoreModel]);
-        }}
         title="Patrocinadores"
-        listOfStoreModel={listOfStoreModel}
+        listOfStoreModel={stateCategoryPage.getAllList.patrons}
+        onNext={async () => await onNext({ by: "patrons" })}
       />
-      <ListOfStore title="Populares" listOfStoreModel={listOfStoreModel} />
-      <ListOfStore title="Actualizado" listOfStoreModel={listOfStoreModel} />
+      <ListOfStore
+        title="Populares"
+        listOfStoreModel={stateCategoryPage.getAllList.popular}
+        onNext={async () => await onNext({ by: "popular" })}
+      />
+      <ListOfStore
+        title="Actualizado"
+        listOfStoreModel={stateCategoryPage.getAllList.update}
+        onNext={async () => await onNext({ by: "update" })}
+      />
       <ListOfStore
         title="Nuevos comercios"
-        listOfStoreModel={listOfStoreModel}
+        listOfStoreModel={stateCategoryPage.getAllList.news}
+        onNext={async () => await onNext({ by: "news" })}
       />
-      <ListOfStore title="Aleatorios" listOfStoreModel={listOfStoreModel} />
+      <ListOfStore
+        title="Aleatorios"
+        listOfStoreModel={stateCategoryPage.getAllList.random}
+        onNext={async () => await onNext({ by: "random" })}
+      />
     </div>
   );
 }

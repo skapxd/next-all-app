@@ -1,3 +1,4 @@
+// @ts-check
 import {
   stateBottomNavigationBarButton,
   TypeBottomNavigationBarButton,
@@ -6,31 +7,50 @@ import { CategoryPage } from "components/lv1/CategoryPage/CategoryPage";
 import { GoogleMapPage } from "components/lv1/MapaPage/MapaPage";
 import { Scaffold } from "components/lv2/Scaffold/Scaffold";
 import { observer } from "mobx-react-lite";
+import { getListOfStore } from "service/getListOfStore";
 import Style from "./index.module.scss";
 
-export default function Home() {
+export async function getStaticProps(){
+  
+  const listOfStore = await getListOfStore('Todo')
+  
+  const _ = listOfStore.map(e => {
+    if (e.status === "rejected") return ;
+    return e.value
+  })
+
+  console.log({_});
+  return {
+    props: {
+      listOfStore: _,
+    },
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every 10 seconds
+    revalidate: 10, // In seconds
+  }
+}
+
+export default function Home(props) {
   return (
     <div className={Style.Box}>
       <Scaffold>
-      <CurrentPage/>
+      <CurrentPage  listOfStore={props.listOfStore}/>
       </Scaffold>
     </div>
   );
 }
 
-function _CurrentPage() {
-  console.log();
+const CurrentPage = observer(_CurrentPage);
+
+function _CurrentPage(props) {
   if (stateBottomNavigationBarButton.getCurrentButton === TypeBottomNavigationBarButton.store) {
-    return <CategoryPage />;
+    return <CategoryPage listOfStore={props.listOfStore}/>;
   } else if (
     stateBottomNavigationBarButton.getCurrentButton === TypeBottomNavigationBarButton.location
   ) {
     return <GoogleMapPage />;
   }
 
-  return <CategoryPage />;
+  return <CategoryPage listOfStore={props.listOfStore}/>;
 }
-
-const CurrentPage = observer(_CurrentPage);
-
-// export default observer(Home);
