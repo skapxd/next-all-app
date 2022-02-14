@@ -47,7 +47,7 @@ export function InfinityScroll(props) {
     if (scroll.currentScroll === scroll.maxScroll) return;
 
     inverseDebounce(false);
-  }, [scroll]);
+  }, [scroll, inverseDebounce, isLoading]);
 
   return (
     <div

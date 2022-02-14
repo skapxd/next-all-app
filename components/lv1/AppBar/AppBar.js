@@ -17,7 +17,7 @@ export function AppBar() {
   useEffect(() => {
     if (!text && text === "") return;
     inverseDebounce(text);
-  }, [text]);
+  }, [text, inverseDebounce]);
 
   return (
     <div className={Style.Box}>
