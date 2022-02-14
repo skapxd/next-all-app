@@ -1,0 +1,51 @@
+    @use 'styles/theme.scss' as theme;
+    .Box {
+        width: 100%;
+        max-width: 430px;
+        min-height: 100vh;
+        background: theme.$dark;
+        &_BoxImgAndName {
+            padding: 14px 30px;
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+            &_Img {
+                aspect-ratio: 1/1;
+                border-radius: 8px;
+                height: 100px;
+                width: 100px;
+                background: theme.$darkGrey;
+                object-fit: contain;
+                box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.16);
+            }
+            &_Name {
+                font-size: 24px;
+                color: theme.$white;
+                font-weight: 600;
+            }
+        }
+        &_BoxUpdateAndRate {
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+            justify-content: center;
+            margin: 6px 0;
+            &_Divider {
+                height: auto;
+                width: 1px;
+                background: theme.$white;
+            }
+            &_Box {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                &_Value {
+                    color: theme.$white
+                }
+                &_Name {
+                    color: theme.$white2
+                }
+            }
+        }
+    }

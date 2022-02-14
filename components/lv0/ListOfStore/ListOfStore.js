@@ -1,5 +1,6 @@
 // @ts-check
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowDirection, ArrowIcon } from "../Icon/ArrowIcon";
 import { PlaceholderImage } from "../Icon/PlaceholderImage";
@@ -43,28 +44,21 @@ export function ListOfStore(props) {
             e.name.length >= 20 ? e.name.substring(0, 16) + "..." : e.name;
 
           return (
-            <button
-              key={i}
-              className={Style.Box_BoxListStore_Box}
-              onClick={() => {}}
-            >
-              {/* <img
-                alt={e.name}
-                className={Style.Box_BoxListStore_Box_Image}
-                src={e.urlImage}
-              /> */}
-              <div className={Style.Box_BoxListStore_Box_Image}>
-                <Image
-                  alt={e.name}
-                  className={Style.Box_BoxListStore_Box_Image}
-                  height={100}
-                  width={100}
-                  src={`${e.urlImage}`}
-                />
-              </div>
+            <Link key={i} href={e.id}>
+              <a className={Style.Box_BoxListStore_Box}>
+                <div className={Style.Box_BoxListStore_Box_Image}>
+                  <Image
+                    alt={e.name}
+                    className={Style.Box_BoxListStore_Box_Image}
+                    height={100}
+                    width={100}
+                    src={`${e.urlImage}`}
+                  />
+                </div>
 
-              <h3 className={Style.Box_BoxListStore_Box_Name}>{name}</h3>
-            </button>
+                <h3 className={Style.Box_BoxListStore_Box_Name}>{name}</h3>
+              </a>
+            </Link>
           );
         }}
       />

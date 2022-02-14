@@ -37,12 +37,12 @@ function _ListOfStoreCategory(props) {
       {stateListOfStoreCategory.listOfCategoriesStoreName.map((e, i) => {
         return (
           <div key={i} className={Style.ListOfStoreCategory_Box}>
-            <button
+            <p
               className={styleText(e)}
               onClick={() => stateListOfStoreCategory.changeCurrentCategory(e)}
             >
               {e}
-            </button>
+            </p>
             <div className={styleUnderline(e)}></div>
           </div>
         );

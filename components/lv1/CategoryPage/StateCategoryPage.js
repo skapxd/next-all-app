@@ -22,7 +22,7 @@ class StateCategoryPage {
   };
 
   /**@type {boolean} */
-  isLoading = true;
+  isLoading = false;
 
   static get Instance() {
     return this._instance || (this._instance = new this());

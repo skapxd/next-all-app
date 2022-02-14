@@ -10,26 +10,26 @@ import { observer } from "mobx-react-lite";
 import { getListOfStore } from "service/getListOfStore";
 import Style from "./index.module.scss";
 
-export async function getStaticProps(){
+// export async function getStaticProps(){
   
-  const listOfStore = await getListOfStore('Todo')
+//   const listOfStore = await getListOfStore('Todo')
   
-  const _ = listOfStore.map(e => {
-    if (e.status === "rejected") return ;
-    return e.value
-  })
+//   const _ = listOfStore.map(e => {
+//     if (e.status === "rejected") return ;
+//     return e.value
+//   })
 
-  console.log({_});
-  return {
-    props: {
-      listOfStore: _,
-    },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every 10 seconds
-    revalidate: 10, // In seconds
-  }
-}
+//   console.log({_});
+//   return {
+//     props: {
+//       listOfStore: _,
+//     },
+//     // Next.js will attempt to re-generate the page:
+//     // - When a request comes in
+//     // - At most once every 10 seconds
+//     revalidate: 10, // In seconds
+//   }
+// }
 
 export default function Home(props) {
   return (

@@ -15,26 +15,19 @@ import { stateCategoryPage } from "./StateCategoryPage";
 /**
  *
  * @param {Object} props
- * @param {{
- * byAsString: any;
- * categoryAsString: string;
- * listOfStoreModel: StoreModel[];
- * }} props.listOfStore
+ * @param {Object[]} props.listOfStore
+ * @param {string} props.listOfStore.byAsString
+ * @param {string} props.listOfStore.categoryAsString
+ * @param {StoreModel[]} props.listOfStore.listOfStoreModel
  * @returns
  */
 function _CategoryPage(props) {
+  // TODO: add rendering from server
   const { listOfStore } = props;
 
   useEffect(() => {
-    // if (
-    //   stateListOfStoreCategory.getCurrentCategory === listOfNameStoreCategory[0]
-    // )
-    //   return;
-
-    console.log("init");
     stateCategoryPage.setIsLoading(true);
     debounceGetListOfStore(stateListOfStoreCategory.getCurrentCategory);
-    console.log({ getAll: stateCategoryPage.getAllList });
   }, [stateListOfStoreCategory.getCurrentCategory]);
 
   /**@param {string} currentCategory */
