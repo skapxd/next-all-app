@@ -1,9 +1,8 @@
 // @ts-check
 import { format } from "date-fns";
-// import format from "date-fns/format";
 import { StoreModel } from "components/lv0/ListOfStore/StoreModel";
 import Image from "next/image";
-import { AppBar } from "./components/AppBar/AppBar";
+import { AppBar } from "components/components/AppBar/AppBar";
 import Style from "./store-front-page.module.scss";
 import { v4 as idV4 } from "uuid";
 import Faker from "faker";
@@ -13,11 +12,11 @@ export const getServerSideProps = async (context) => {
   // context.
   console.log({ params: context.params });
   // context.id
-  // if (!context.res) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
+  if (!context.res) {
+    return {
+      notFound: true,
+    };
+  }
 
   /**@type {StoreModel} */
   const storeModel = {
