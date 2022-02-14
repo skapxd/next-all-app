@@ -1,6 +1,6 @@
 // @ts-check
 import { action, computed, makeObservable, observable } from "mobx";
-import { listOfNameStoreCategory } from "Model/ListOfStore";
+import { listOfNameStoreCategory } from "model/ListOfStore";
 
 export class StateListOfStoreCategory {
   _currentCategory = listOfNameStoreCategory[0];

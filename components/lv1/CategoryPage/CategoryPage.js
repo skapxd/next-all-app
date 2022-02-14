@@ -6,7 +6,7 @@ import { StoreModel } from "components/lv0/ListOfStore/StoreModel";
 import { stateListOfStoreCategory } from "components/lv0/ListOfStoreCategory/StateListOfStoreCategory";
 import { response } from "helpers/response";
 import { observer } from "mobx-react-lite";
-import { listOfNameStoreCategory } from "Model/ListOfStore";
+import { listOfNameStoreCategory } from "model/ListOfStore";
 import { useEffect, useState } from "react";
 import { serviceGetListOfStore } from "service/getListOfStore";
 import Style from "./CategoryPage.module.scss";
