@@ -24,11 +24,18 @@ import { stateCategoryPage } from "./StateCategoryPage";
 function _CategoryPage(props) {
   // TODO: add rendering from server
   const { listOfStore } = props;
+  const debounceGetListOfStore = useDebounce({
+    delay: 1000,
+    fn: (value) => getListOfStore(value),
+  });
 
   useEffect(() => {
     stateCategoryPage.setIsLoading(true);
     debounceGetListOfStore(stateListOfStoreCategory.getCurrentCategory);
-  }, [stateListOfStoreCategory.getCurrentCategory]);
+  }, [
+    debounceGetListOfStore,
+    stateListOfStoreCategory.getCurrentCategory,
+  ]);
 
   /**@param {string} currentCategory */
   const getListOfStore = async (currentCategory) => {
@@ -84,11 +91,6 @@ function _CategoryPage(props) {
       console.log({ error });
     }
   };
-
-  const debounceGetListOfStore = useDebounce({
-    delay: 1000,
-    fn: (value) => getListOfStore(value),
-  });
 
   if (stateCategoryPage.getIsLoading) {
     return <LinearProgress />;
