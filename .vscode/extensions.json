@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "formulahendry.auto-close-tag",
+        "coenraads.bracket-pair-colorizer-2",
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "syler.sass-indented",
+        "gruntfuggly.todo-tree",
+        "pmneo.tsimporter"
+    ]
+}
