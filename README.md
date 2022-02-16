@@ -257,3 +257,55 @@ const person = {
 };
 
 ```
+
+### 9. **Mobx** como gestor de estado global y del estado de multiples componentes
+
+> Se escoge **MobX** por 2 razones
+>
+> - Trata al estado como una clase
+> - Al ser una clase soporta el **intellisense** y el chequeo de tipos de **TypeScript**
+>
+> **Redux** es una buena alternativa, pero la forma en como se administra el estado puede ser muy **difícil de mantener** cuando los **reducers** y los **actions** crecen mucho
+>
+> Un ejemplo muy claro de como **Redux** no es **type friendly** es al momento de "Despachar" un evento
+>
+> Ejemplo
+
+```JavaScript
+// @ts-check
+import {useDispatch, useSelector} from 'react-redux';
+
+// Usando Redux
+const AppRedux = () => {
+
+    const setState = useDispatch()
+    const state = useSelector(s => s)
+
+    return (
+        <div>
+            {/* Como puede notar, a primera vista no se sabe de donde provienen las funciones add o minus, y es justo esto más otras causas que pueden introducir errores en el código */}
+            <button onClick={() => setState(add(+1))} >+1</button>
+            <p>{state}<p>
+            <button onClick={() => setState(minus(-1))} >-1<button>
+        </div>
+    )
+}
+```
+
+```JavaScript
+// @ts-check
+import {stateApp} from './stateApp';
+
+// Usando MobX
+const AppMobX = () => {
+
+    return (
+        <div>
+            {/* Como puede notar, a primera vista es mucho mas intuitivo utilizar Mobx para el manejo del estado*/}
+            <button onClick={() => stateApp.add(+1)} >+1</button>
+            <p>{stateApp.counter}<p>
+            <button onClick={() => stateApp.minus(-1)} >-1<button>
+        </div>
+    )
+}
+```
