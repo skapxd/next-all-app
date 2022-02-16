@@ -92,7 +92,7 @@ const person = {
 ### 7. Forma de declarar funciones con más de un argumento
 
 > Para realizar un código mucho más legible se recomienda utilizar **Objetos primitivos** como alternativa a multiples parámetros
-
+>
 > Esto se recomienda por 3 motivos
 >
 > - Es menos problemático al momento de agregar nuevos parámetros
@@ -140,10 +140,10 @@ saludarConUnParametro({
 > Esto realmente no es un problema si se trata de una pequeña función o un componente de react muy pequeño
 >
 > Tener código **imperativo** en una lógica de negocio como un formulario dinámico con muchas validaciones puede volverse un infierno para depurar posibles bugs
-> 
+>
 > Un código imperativo se realiza con la intención de resolver un problema pero resulta difícil de leer porque se confunde donde comienza y donde termina, adicionalmente esta alternativa no puede aprovecharse
 >
-> Mientras que un código declarativo se aprovecha de la lógica creada con código imperativo y lo hace reutilizable 
+> Mientras que un código declarativo se aprovecha de la lógica creada con código imperativo y lo hace reutilizable
 >
 > Normalmente un archivo se debería construir con código declarativo y darle la responsabilidad de la logia a funciones externas
 >
@@ -193,12 +193,12 @@ export default function handler(req, res) {
 
     const { limit, from, by } = req.query;
 
-    const { 
-        isValidParam: isValidLimit, 
-        value: imitAsNumber, 
+    const {
+        isValidParam: isValidLimit,
+        value: imitAsNumber,
         message: messageOfLimit,
     } = ValidateParam({
-        min: 0
+        min: 0,
         max: 20,
         param: limit,
         isRequired: true,
@@ -211,5 +211,49 @@ export default function handler(req, res) {
         message: messageOfLimit
     });
 
+
+```
+
+### 8. Propiedades estáticas de clase como forma de **ENUM**
+
+> Debido a que en **JavaScript** no existe la palabra reservada **enum** para facilitar las opciones de un determinado argumento, se opto por utilizar un enfoque diferente que soluciona el mismo problema
+>
+> Una opción alternativa es usar un **Objeto primitivo** de **JavaScript** pero esto le genera problemas al analizador de tipos de **TypeScript**
+>
+> Ejemplo:
+
+```Javascript
+// @ts-check
+
+// Recommended
+class TypeOfGender {
+  static male = "male";
+  static female = "female";
+  static nonBinary = "nonBinary";
+}
+
+// No use
+const typeOfGender = {
+  male: "male",
+  female: "female",
+  nonBinary: "nonBinary",
+};
+
+/**
+ * @type {{
+ * name: string,
+ * age: number,
+ * gender: TypeOfGender // No use -> gender: typeOfGender
+ * }}
+ */
+const person = {
+  name: "Manuel",
+  age: 22,
+  // TypeScript no reconoce los tipos
+  // gender: typeOfGender.male
+  //
+  // Recommended
+  gender: TypeOfGender.male,
+};
 
 ```
