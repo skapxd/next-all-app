@@ -274,6 +274,7 @@ const person = {
 ```JavaScript
 // @ts-check
 import {useDispatch, useSelector} from 'react-redux';
+import {add, minus} from './actions';
 
 // Usando Redux
 const AppRedux = () => {
