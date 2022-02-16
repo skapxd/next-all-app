@@ -214,7 +214,7 @@ export default function handler(req, res) {
 
 ```
 
-### 8. Propiedades estáticas de clase como forma de **ENUM**
+### 9. Propiedades estáticas de clase como forma de **ENUM**
 
 > Debido a que en **JavaScript** no existe la palabra reservada **enum** para facilitar las opciones de un determinado argumento, se opto por utilizar un enfoque diferente que soluciona el mismo problema
 >
@@ -258,7 +258,7 @@ const person = {
 
 ```
 
-### 9. **Mobx** como gestor de estado global y del estado de multiples componentes
+### 10. **Mobx** como gestor de estado global y del estado de multiples componentes
 
 > Se escoge **MobX** por 2 razones
 >
