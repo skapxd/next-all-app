@@ -110,6 +110,7 @@ function saludarConMultiplesParametros(
     console.log(`Hola ${nombre}, buenos/as ${momentoDelDia} como esta?`)
 }
 
+// Como podrá notar se tiene que entender muy bien la función que se esta llamando para pasarle los argumentos en el orden correcto con los valores correctos
 saludarConMultiplesParametros('Manuel', 'tardes')
 
 // --------------------------------------------
@@ -125,13 +126,12 @@ function saludarConUnParametro(props){
     console.log(`Hola ${nombre}, buenos/as ${momentoDelDia} como esta?`)
 }
 
+// Como podrá notar es mucho fácil entender los argumentos con un solo parámetro de tipo `Objeto primitivo`
 saludarConUnParametro({
     nombre: 'Manuel',
     momentoDelDia: 'tardes'
 })
 ```
-
-> Como podrá notar es mucho fácil entender los argumentos con un solo parámetro de tipo `Objeto primitivo`
 
 ### 8. Código **declarativo** como preferencia a la hora de desarrollar
 
