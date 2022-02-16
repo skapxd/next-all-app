@@ -2,7 +2,6 @@
  * @param {Object} args
  * @param {import("next").NextApiResponse} args.res
  * @param {boolean} [args.success] 
-]
  * @param {string} [args.message]
  * @returns
  */

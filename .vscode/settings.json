@@ -1,4 +1,6 @@
 {
   "commentTranslate.targetLanguage": "es",
   "js/ts.implicitProjectConfig.checkJs": true,
+  "cSpell.language": "en,es-ES",
+  "editor.formatOnSave": true
 }
