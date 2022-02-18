@@ -25,10 +25,11 @@ export default function handler(req, res) {
   const {
     isValidParam: isValidLimit,
     value: limitAsNumber,
-    message: messageOfLimit,
+    errorMessage: messageOfLimit,
   } = ValidateParam({
     nameParam: "*limit query param*",
     param: limit,
+    length: 20,
     typeData: TypeDataValidateParam.number,
   });
 
@@ -39,18 +40,10 @@ export default function handler(req, res) {
       success: false,
     });
 
-  if (limitAsNumber > 20) {
-    return response({
-      res,
-      success: false,
-      message: "*limit* param is greater than 20",
-    });
-  }
-
   const {
     isValidParam: isValidFrom,
     value: fromAsNumber,
-    message: messageOfFrom,
+    errorMessage: messageOfFrom,
   } = ValidateParam({
     nameParam: "*from query param*",
     param: from,
@@ -67,7 +60,7 @@ export default function handler(req, res) {
   const {
     isValidParam: isValidCategory,
     value: categoryAsString,
-    message: messageOfCategory,
+    errorMessage: messageOfCategory,
   } = ValidateParam({
     nameParam: "*category query param*",
     param: category,
@@ -84,7 +77,7 @@ export default function handler(req, res) {
   const {
     isValidParam: isValidBy,
     value: byAsString,
-    message: messageOfBy,
+    errorMessage: messageOfBy,
   } = ValidateParam({
     nameParam: "*by query param*",
     param: by,
@@ -97,10 +90,6 @@ export default function handler(req, res) {
       message: messageOfBy,
       success: false,
     });
-
-  // console.log({ fromAsNumber });
-  // console.log({ categoryAsString });
-  // console.log({ byAsString });
 
   const listOfStoreModel = [];
 
@@ -121,7 +110,6 @@ export default function handler(req, res) {
       },
       updateDate: Faker.date.past().toString(),
       urlImage: `https://picsum.photos/400/400?image=${index}`,
-      // urlImage: Faker.random.image(),
     });
 
     listOfStoreModel.push(storeModel);

@@ -16,7 +16,7 @@ export const serviceGetListOfStore = async (props) => {
   if (!currentCategory && !from && !by)
     throw new Error("*currentCategory*, *by* or *from* params were empty");
 
-  const urlBase = process.env.SITE_URL ?? '';
+  const urlBase = process.env.SITE_URL ?? "";
 
   const url = `${urlBase}/api/store?category=${currentCategory}&limit=${20}&from=${from}&by=${by}`;
 
@@ -65,20 +65,6 @@ export const getListOfStore = async (currentCategory) => {
     const resp = await Promise.allSettled(listOfPromise);
 
     return resp;
-
-    resp.forEach((e) => {
-      if (e.status === "rejected") return;
-      const by = e.value.byAsString;
-
-      /**@type {Object<string, StoreModel[]>} */
-      const _ = {};
-
-      _[by] = e.value.listOfStoreModel;
-
-      stateCategoryPage.setAllList(_);
-    });
-
-    stateCategoryPage.setIsLoading(false);
   } catch (error) {
     console.log({ error });
   }

@@ -1,47 +1,19 @@
-export class Sponsor {
-  /**@type {number} */
-  index;
+/**
+ * @typedef {Object} Sponsor
+ * @prop {number} index
+ * @prop {boolean} isSponsor
+ */
 
-  /**@type {boolean} */
-  isSponsor;
-}
-
-export class StoreModel {
-  /** @type {string} */
-  id;
-
-  /**@type {number} */
-  index;
-
-  /** @type {string} */
-  name;
-
-  /** @type {string} */
-  urlImage;
-
-  /**@type {Sponsor} */
-  sponsor;
-
-  /**@type {number} */
-  popular;
-
-  /**@type {string} */
-  creatingDate;
-
-  /**@type {string} */
-  updateDate;
-
-  /**
-   *
-   * @param {StoreModel} data
-   */
-  constructor(data) {
-    this.id = data["id"];
-    this.name = data["name"];
-    this.urlImage = data["urlImage"];
-    this.sponsor = data["sponsor"];
-    this.popular = data["popular"];
-    this.creatingDate = data["creatingDate"];
-    this.updateDate = data["updateDate"];
-  }
-}
+/**
+ * @typedef {Object} StoreModel
+ * @prop {string} id;
+ * @prop {number} index
+ * @prop {string} name;
+ * @prop {string} description
+ * @prop {string} urlImage
+ * @prop {Sponsor} sponsor
+ * @prop {number} popular
+ * @prop {string} creatingDate
+ * @prop {string} updateDate
+ * @prop {any} schedule
+ */

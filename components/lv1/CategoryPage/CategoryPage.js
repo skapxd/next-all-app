@@ -32,10 +32,7 @@ function _CategoryPage(props) {
   useEffect(() => {
     stateCategoryPage.setIsLoading(true);
     debounceGetListOfStore(stateListOfStoreCategory.getCurrentCategory);
-  }, [
-    debounceGetListOfStore,
-    stateListOfStoreCategory.getCurrentCategory,
-  ]);
+  }, [debounceGetListOfStore, stateListOfStoreCategory.getCurrentCategory]);
 
   /**@param {string} currentCategory */
   const getListOfStore = async (currentCategory) => {
@@ -73,6 +70,8 @@ function _CategoryPage(props) {
       const listOfPromise = [patrons, popular, news, update, random];
 
       const resp = await Promise.allSettled(listOfPromise);
+
+      console.log({ resp });
 
       resp.forEach((e) => {
         if (e.status === "rejected") return;

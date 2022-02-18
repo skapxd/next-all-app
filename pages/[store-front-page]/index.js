@@ -1,26 +1,36 @@
 // @ts-check
 import { format } from "date-fns";
-import { StoreModel } from "components/lv0/ListOfStore/StoreModel";
 import Image from "next/image";
-import { AppBar } from "components/components/AppBar/AppBar";
+import { AppBar } from "components/store-front-page/AppBar/AppBar";
 import Style from "./store-front-page.module.scss";
 import { v4 as idV4 } from "uuid";
 import Faker from "faker";
+import { getListPost } from "helpers/getListPost";
+import { useState } from "react";
+import {
+  AxisInfiniteScroll,
+  InfinityScroll,
+} from "components/lv0/InfinityScroll/InfinityScroll";
+import Head from "next/head";
+import { Metadata } from "components/store-front-page/Metadata/Metadata";
 
 /** @type {import("next").GetServerSideProps} */
 export const getServerSideProps = async (context) => {
-  // context.
-  console.log({ params: context.params });
-  // context.id
   if (!context.res) {
     return {
       notFound: true,
     };
   }
 
+  const post = getListPost({
+    from: 0,
+    limit: 20,
+  });
+
   /**@type {StoreModel} */
-  const storeModel = {
+  const store = {
     index: 0,
+    description: Faker.lorem.paragraph(),
     id: idV4(),
     creatingDate: Faker.date.recent().toString(),
     name: Faker.company.companyName(),
@@ -30,15 +40,14 @@ export const getServerSideProps = async (context) => {
       isSponsor: true,
     },
     urlImage: `https://picsum.photos/400/400?image=${0}`,
-    updateDate: format(
-      new Date(1999, 4, 6),
-      "dd/MM/yy"
-    ),
+    updateDate: format(new Date(1999, 4, 6), "dd/MM/yy"),
+    schedule: undefined
   };
 
   return {
     props: {
-      storeModel,
+      post,
+      store,
       message: context.params,
     },
   };
@@ -47,33 +56,46 @@ export const getServerSideProps = async (context) => {
 export default function StoreFrontPage(props) {
   /**
    * @type {{
-   * storeModel: StoreModel,
-   * message: Object
+   * store: StoreModel,
+   * message: Object,
+   * post: import("model/PostModel").PostModel[]
    * }}
    */
-  const { storeModel, message } = props;
+  const { store, message, post } = props;
+
+  console.log({
+    store,
+    message,
+    post,
+  });
+
+  const [initPost, setInitPost] = useState(post);
+
   return (
     <div className={Style.Box}>
+      <Head>
+        <meta name="theme-color" content="#1e2029" />
+      </Head>
       <AppBar />
       <div className={Style.Box_BoxImgAndName}>
         <div className={Style.Box_BoxImgAndName_Img}>
           {/* /placeholder.svg */}
           <Image
             alt={"a"}
-            src={storeModel.urlImage}
+            src={store.urlImage}
             className={Style.Box_BoxImgAndName_Img}
             height={100}
             width={100}
           />
         </div>
 
-        <h3 className={Style.Box_BoxImgAndName_Name}>{storeModel.name}</h3>
+        <h3 className={Style.Box_BoxImgAndName_Name}>{store.name}</h3>
       </div>
 
       <div className={Style.Box_BoxUpdateAndRate}>
         <div className={Style.Box_BoxUpdateAndRate_Box}>
           <h4 className={Style.Box_BoxUpdateAndRate_Box_Value}>
-            {storeModel.updateDate}
+            {store.updateDate}
           </h4>
 
           <h4 className={Style.Box_BoxUpdateAndRate_Box_Name}>Actualización</h4>
@@ -83,7 +105,7 @@ export default function StoreFrontPage(props) {
 
         <div className={Style.Box_BoxUpdateAndRate_Box}>
           <h4 className={Style.Box_BoxUpdateAndRate_Box_Value}>
-            {storeModel.popular}{" "}
+            {store.popular}{" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -106,7 +128,26 @@ export default function StoreFrontPage(props) {
         </div>
       </div>
 
-      <p>{message["store-front-page"]}</p>
+      <InfinityScroll
+        className={Style.Box_BoxPost}
+        axis={AxisInfiniteScroll.horizontal}
+        iterable={initPost}
+        itemBuilder={(i) => {
+          return (
+            <div key={i} className={Style.Box_BoxPost_Box}>
+              <Image
+                alt={initPost[i].id}
+                className={Style.Box_BoxPost_Box}
+                height={180}
+                width={320}
+                src={initPost[i].url}
+              />
+            </div>
+          );
+        }}
+      />
+
+      <Metadata title="Horarios" description={store.description} />
     </div>
   );
 }

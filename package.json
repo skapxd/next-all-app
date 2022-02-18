@@ -13,7 +13,7 @@
         "@mui/material": "^5.4.0",
         "@mui/styled-engine-sc": "^5.3.0",
         "@skapxd/debounce": "^1.0.15",
-        "@skapxd/validate": "^2.0.0",
+        "@skapxd/validate": "^2.0.1",
         "@types/faker": "5.5.3",
         "date-fns": "^2.28.0",
         "faker": "5.5.3",
