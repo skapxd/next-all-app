@@ -1,7 +1,6 @@
 // @ts-check
 import Faker from "faker";
 import { v4 as idV4 } from "uuid";
-import { MediaType } from "model/PostModel";
 import { format } from "date-fns";
 
 /**
@@ -17,6 +16,12 @@ export const getListStore = (props) => {
     /**@type {StoreModel} */
     const storeModel = {
       index,
+      contact: {
+        instagram: "FrankenLuna",
+        whatsApp: "573143750278",
+        telegram: "@franken_luna",
+        email: "Franken@luna.app",
+      },
       description: Faker.lorem.paragraph(),
       id: idV4(),
       creatingDate: Faker.date.recent().toString(),

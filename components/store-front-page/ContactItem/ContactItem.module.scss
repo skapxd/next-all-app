@@ -10,6 +10,7 @@
         flex-direction: column;
         gap: 4px;
         &_Title {
+            text-transform: capitalize;
             color: theme.$white2;
         }
         &_Data {

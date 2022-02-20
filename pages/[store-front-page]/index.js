@@ -1,10 +1,7 @@
 // @ts-check
-import { format } from "date-fns";
 import Image from "next/image";
 import { AppBar } from "components/store-front-page/AppBar/AppBar";
 import Style from "./store-front-page.module.scss";
-import { v4 as idV4 } from "uuid";
-import Faker from "faker";
 import { getListPost } from "helpers/getListPost";
 import { useState } from "react";
 import {
@@ -160,9 +157,9 @@ export default function StoreFrontPage(props) {
       <Metadata
         title="Horarios"
         description={
-          <p>
+          <>
             <b>{getSchedule().day}</b> {getSchedule().hour}{" "}
-          </p>
+          </>
         }
       />
 
@@ -171,7 +168,7 @@ export default function StoreFrontPage(props) {
         description={store.description.substring(0, 170) + "..."}
       />
 
-      <Contact />
+      <Contact contact={store.contact}/>
     </div>
   );
 }

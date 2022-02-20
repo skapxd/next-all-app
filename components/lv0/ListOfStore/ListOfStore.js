@@ -9,7 +9,6 @@ import {
   InfinityScroll,
 } from "../InfinityScroll/InfinityScroll";
 import Style from "./ListOfStore.module.scss";
-import { StoreModel } from "./StoreModel";
 
 /**
  * @param {Object} props
