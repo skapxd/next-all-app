@@ -1,7 +1,5 @@
 // @ts-check
 import { action, computed, makeObservable, observable } from "mobx";
-import { StoreModel } from "components/lv0/ListOfStore/StoreModel";
-import { Debounce } from "@skapxd/debounce";
 
 class StateCategoryPage {
   /**
@@ -53,19 +51,19 @@ class StateCategoryPage {
   /**@param {boolean} value */
   setIsLoading(value) {
     // if (true) {
-    //   this.cleanList()    
+    //   this.cleanList()
     // }
     this.isLoading = value;
   }
 
-  cleanList(){
+  cleanList() {
     this.allList = {
       patrons: [],
       popular: [],
       update: [],
       news: [],
       random: [],
-    }
+    };
   }
 
   get getAllList() {

@@ -4,8 +4,8 @@
 import Faker from "faker";
 import { v4 as idV4 } from "uuid";
 import { response } from "helpers/response";
-import { StoreModel } from "components/lv0/ListOfStore/StoreModel";
 import { TypeDataValidateParam, ValidateParam } from "helpers/validateParam";
+import { getListStore } from "helpers/getListStore";
 
 /**
  * @param {import("next").NextApiRequest} req
@@ -91,29 +91,11 @@ export default function handler(req, res) {
       success: false,
     });
 
-  const listOfStoreModel = [];
+  const listOfStoreModel = getListStore({
+    from: fromAsNumber,
+    limit: limitAsNumber
+  })
 
-  for (
-    let index = fromAsNumber;
-    index < limitAsNumber + fromAsNumber;
-    index++
-  ) {
-    const storeModel = new StoreModel({
-      index,
-      id: idV4(),
-      creatingDate: Faker.date.recent().toString(),
-      name: Faker.company.companyName(),
-      popular: Faker.datatype.number(5),
-      sponsor: {
-        index: 0,
-        isSponsor: true,
-      },
-      updateDate: Faker.date.past().toString(),
-      urlImage: `https://picsum.photos/400/400?image=${index}`,
-    });
-
-    listOfStoreModel.push(storeModel);
-  }
   return res
     .status(200)
     .json({ categoryAsString, byAsString, listOfStoreModel });

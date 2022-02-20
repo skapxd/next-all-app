@@ -1,0 +1,9 @@
+@use 'styles/_theme' as theme;
+.Box {
+    display: flex;
+    padding: 16px 16px;
+    flex-direction: column;
+    &_ContactTitle {
+        color: theme.$white;
+    }
+}

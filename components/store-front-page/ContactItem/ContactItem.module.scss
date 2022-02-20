@@ -1,0 +1,19 @@
+@use 'styles/_theme' as theme;
+.Box {
+    display: flex;
+    padding: 16px 16px;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    &_BoxContactTitleAndData {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        &_Title {
+            color: theme.$white2;
+        }
+        &_Data {
+            color: theme.$white;
+        }
+    }
+}

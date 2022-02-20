@@ -1,73 +1,72 @@
-    @use 'styles/_theme.scss' as theme;
-    .Box {
-        width: 100%;
-        max-width: 430px;
-        min-height: 100vh;
-        background: theme.$dark;
-        &_BoxImgAndName {
-            padding: 14px 30px;
+@use 'styles/_theme.scss' as theme;
+.Box {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    background: theme.$dark;
+    &_BoxImgAndName {
+        padding: 14px 30px;
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        &_Img {
+            aspect-ratio: 1/1;
+            border-radius: 8px;
+            height: 100px;
+            width: 100px;
+            background: theme.$darkGrey;
+            object-fit: contain;
+            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.16);
+        }
+        &_Name {
+            font-size: 24px;
+            color: theme.$white;
+            font-weight: 600;
+        }
+    }
+    &_BoxUpdateAndRate {
+        display: flex;
+        flex-direction: row;
+        gap: 40px;
+        justify-content: center;
+        padding: 6px 0;
+        &_Divider {
+            height: auto;
+            width: 1px;
+            background: theme.$white;
+        }
+        &_Box {
             display: flex;
-            flex-direction: row;
-            gap: 16px;
-            &_Img {
-                aspect-ratio: 1/1;
-                border-radius: 8px;
-                height: 100px;
-                width: 100px;
-                background: theme.$darkGrey;
-                object-fit: contain;
-                box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.16);
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            &_Value {
+                color: theme.$white
             }
             &_Name {
-                font-size: 24px;
-                color: theme.$white;
-                font-weight: 600;
-            }
-        }
-        &_BoxUpdateAndRate {
-            display: flex;
-            flex-direction: row;
-            gap: 40px;
-            justify-content: center;
-            padding: 6px 0;
-            &_Divider {
-                height: auto;
-                width: 1px;
-                background: theme.$white;
-            }
-            &_Box {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 4px;
-                &_Value {
-                    color: theme.$white
-                }
-                &_Name {
-                    color: theme.$white2
-                }
-            }
-        }
-        &_BoxPost {
-            display: flex;
-            overflow-x: auto;
-            overflow-y: hidden;
-            gap: 8px;
-            padding: 14px 0;
-            &_Box {
-                display: flex;
-                height: 160px;
-                aspect-ratio: 9/16;
-                // width: 90px;
-                box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.16);
-                object-fit: contain;
-                border-radius: 8px;
-                &:first-child {
-                    margin-left: 16px;
-                }
-                &:last-child {
-                    margin-right: 16px;
-                }
+                color: theme.$white2
             }
         }
     }
+    &_BoxPost {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 8px;
+        padding: 14px 0;
+        &_Box {
+            display: flex;
+            height: 220px;
+            aspect-ratio: 9/16;
+            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.16);
+            object-fit: contain;
+            border-radius: 8px;
+            &:first-child {
+                margin-left: 16px;
+            }
+            &:last-child {
+                margin-right: 16px;
+            }
+        }
+    }
+}

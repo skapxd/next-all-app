@@ -21,7 +21,7 @@ export const AppBar = () => {
         <a>
           <SearchIcon />
         </a>
-      </Link>{" "}
+      </Link>
       <MenuIcon />
     </div>
   );

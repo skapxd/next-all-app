@@ -11,9 +11,9 @@ import { getListOfStore } from "service/getListOfStore";
 import Style from "./index.module.scss";
 
 // export async function getStaticProps(){
-  
+
 //   const listOfStore = await getListOfStore('Todo')
-  
+
 //   const _ = listOfStore.map(e => {
 //     if (e.status === "rejected") return ;
 //     return e.value
@@ -35,7 +35,7 @@ export default function Home(props) {
   return (
     <div className={Style.Box}>
       <Scaffold>
-      <CurrentPage  listOfStore={props.listOfStore}/>
+        <CurrentPage listOfStore={props.listOfStore} />
       </Scaffold>
     </div>
   );
@@ -44,13 +44,17 @@ export default function Home(props) {
 const CurrentPage = observer(_CurrentPage);
 
 function _CurrentPage(props) {
-  if (stateBottomNavigationBarButton.getCurrentButton === TypeBottomNavigationBarButton.store) {
-    return <CategoryPage listOfStore={props.listOfStore}/>;
+  if (
+    stateBottomNavigationBarButton.getCurrentButton ===
+    TypeBottomNavigationBarButton.store
+  ) {
+    return <CategoryPage listOfStore={props.listOfStore} />;
   } else if (
-    stateBottomNavigationBarButton.getCurrentButton === TypeBottomNavigationBarButton.location
+    stateBottomNavigationBarButton.getCurrentButton ===
+    TypeBottomNavigationBarButton.location
   ) {
     return <GoogleMapPage />;
   }
 
-  return <CategoryPage listOfStore={props.listOfStore}/>;
+  return <CategoryPage listOfStore={props.listOfStore} />;
 }

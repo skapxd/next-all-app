@@ -13,6 +13,9 @@ import {
 } from "components/lv0/InfinityScroll/InfinityScroll";
 import Head from "next/head";
 import { Metadata } from "components/store-front-page/Metadata/Metadata";
+import { convertDayFromNumberToString } from "helpers/convertDayFromNumberToString";
+import { getListStore } from "helpers/getListStore";
+import { Contact } from "components/store-front-page/Contact/Contact";
 
 /** @type {import("next").GetServerSideProps} */
 export const getServerSideProps = async (context) => {
@@ -27,22 +30,13 @@ export const getServerSideProps = async (context) => {
     limit: 20,
   });
 
-  /**@type {StoreModel} */
-  const store = {
-    index: 0,
-    description: Faker.lorem.paragraph(),
-    id: idV4(),
-    creatingDate: Faker.date.recent().toString(),
-    name: Faker.company.companyName(),
-    popular: Faker.datatype.number(5),
-    sponsor: {
-      index: 0,
-      isSponsor: true,
-    },
-    urlImage: `https://picsum.photos/400/400?image=${0}`,
-    updateDate: format(new Date(1999, 4, 6), "dd/MM/yy"),
-    schedule: undefined
-  };
+  /**@type {StoreModel[]} */
+  const listOfStore = getListStore({
+    from: 0,
+    limit: 1,
+  });
+
+  const store = listOfStore[0];
 
   return {
     props: {
@@ -70,6 +64,22 @@ export default function StoreFrontPage(props) {
   });
 
   const [initPost, setInitPost] = useState(post);
+
+  const getSchedule = () => {
+    store.schedule;
+    const schedule = store.schedule.find((e) => e.day === new Date().getDay());
+
+    const dayAsString = convertDayFromNumberToString({
+      day: schedule.day,
+      language: "es",
+    });
+
+    const _ = `${dayAsString} ${schedule.hour}`;
+    return {
+      day: dayAsString,
+      hour: schedule.hour,
+    };
+  };
 
   return (
     <div className={Style.Box}>
@@ -147,7 +157,21 @@ export default function StoreFrontPage(props) {
         }}
       />
 
-      <Metadata title="Horarios" description={store.description} />
+      <Metadata
+        title="Horarios"
+        description={
+          <p>
+            <b>{getSchedule().day}</b> {getSchedule().hour}{" "}
+          </p>
+        }
+      />
+
+      <Metadata
+        title="Descripción"
+        description={store.description.substring(0, 170) + "..."}
+      />
+
+      <Contact />
     </div>
   );
 }
