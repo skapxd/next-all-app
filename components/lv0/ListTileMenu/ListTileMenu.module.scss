@@ -1,0 +1,12 @@
+@use 'styles/_theme' as theme;
+.Box {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 10000;
+    height: 40px;
+    font-size: 18px;
+    // background: red;
+    color: theme.$white;
+}

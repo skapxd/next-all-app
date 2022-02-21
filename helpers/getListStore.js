@@ -36,7 +36,7 @@ export const getListStore = (props) => {
       schedule: [
         {
           day: 0,
-          hour: "close",
+          hour: "cerrado",
         },
         {
           day: 1,

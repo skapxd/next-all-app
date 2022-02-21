@@ -29,7 +29,7 @@ export const ValidateParam = (props) => {
     param,
     typeData = TypeDataValidateParam.string,
     isRequired = true,
-    length = 0,
+    length = null,
     nameParam = "",
   } = props;
 
@@ -59,11 +59,11 @@ export const ValidateParam = (props) => {
     isNumber(+param) &&
     !isNaN(param)
   ) {
-    if (param > length)
+    if (isNumber(length) && param > length)
       return {
         isValidParam: false,
         value: +param,
-        errorMessage: `${nameParam} is greater than 20`,
+        errorMessage: `${nameParam} is greater than ${length}`,
       };
 
     return {

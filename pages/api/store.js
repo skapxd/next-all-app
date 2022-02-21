@@ -1,8 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 // @ts-check
 
-import Faker from "faker";
-import { v4 as idV4 } from "uuid";
 import { response } from "helpers/response";
 import { TypeDataValidateParam, ValidateParam } from "helpers/validateParam";
 import { getListStore } from "helpers/getListStore";
@@ -93,8 +91,8 @@ export default function handler(req, res) {
 
   const listOfStoreModel = getListStore({
     from: fromAsNumber,
-    limit: limitAsNumber
-  })
+    limit: limitAsNumber,
+  });
 
   return res
     .status(200)

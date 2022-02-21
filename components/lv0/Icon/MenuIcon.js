@@ -2,11 +2,13 @@ import Style from "./Icon.module.scss";
 /**
  * @param {Object} props
  * @param {string} [props.className]
+ * @param {() =>  void} [props.onClick]
  */
 export function MenuIcon(props) {
-  const { className = "" } = props;
+  const { className = "", onClick = () => {} } = props;
   return (
     <svg
+      onClick={() => onClick && onClick()}
       className={`${className} ${Style.Icon_Size}`}
       xmlns="http://www.w3.org/2000/svg"
       width="5"

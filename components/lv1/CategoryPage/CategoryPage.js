@@ -2,7 +2,6 @@
 import { LinearProgress } from "@mui/material";
 import { useDebounce, useInverseDebounce } from "@skapxd/debounce";
 import { ListOfStore } from "components/lv0/ListOfStore/ListOfStore";
-import { StoreModel } from "model/StoreModel";
 import { stateListOfStoreCategory } from "components/lv0/ListOfStoreCategory/StateListOfStoreCategory";
 import { response } from "helpers/response";
 import { observer } from "mobx-react-lite";

@@ -42,6 +42,7 @@ class StateCategoryPage {
 
   /**@param {Object<string, StoreModel[]>} props */
   setAllList(props) {
+    console.log({ props });
     this.allList = {
       ...this.allList,
       ...props,
