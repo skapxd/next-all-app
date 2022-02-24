@@ -5,9 +5,8 @@ import { MenuIcon } from "components/lv0/Icon/MenuIcon";
 import { SearchIcon } from "components/lv0/Icon/SearchIcon";
 import Style from "./AppBar.module.scss";
 import Link from "next/link";
-import { PopupMenu } from "components/lv0/PopupMenu/PopupMenu";
-import { ListTileMenu } from "components/lv0/ListTileMenu/ListTileMenu";
 import { useState } from "react";
+import { PopupMenu } from "components/lv1/PopupMenu/PopupMenu";
 
 export const AppBar = () => {
   const router = useRouter();
@@ -16,14 +15,7 @@ export const AppBar = () => {
 
   return (
     <>
-      {popup && (
-        <PopupMenu closePopup={() => showPopup(false)}>
-          <ListTileMenu title="Iniciar sesión" />
-          <ListTileMenu title="Registro" />
-          <ListTileMenu title="Contactame" />
-          <ListTileMenu title="Apoyame" />
-        </PopupMenu>
-      )}
+      <PopupMenu onClose={() => showPopup(false)} show={popup} />
       <div className={Style.Box}>
         <ArrowIcon
           onClick={() => {

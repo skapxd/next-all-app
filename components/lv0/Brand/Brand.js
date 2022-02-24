@@ -1,3 +1,4 @@
+// @ts-check
 import Link from "next/link";
 
 /**

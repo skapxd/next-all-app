@@ -7,7 +7,6 @@ import { CategoryPage } from "components/lv1/CategoryPage/CategoryPage";
 import { GoogleMapPage } from "components/lv1/MapaPage/MapaPage";
 import { Scaffold } from "components/lv2/Scaffold/Scaffold";
 import { observer } from "mobx-react-lite";
-import { getListOfStore } from "service/getListOfStore";
 import Style from "./index.module.scss";
 
 // export async function getStaticProps(){

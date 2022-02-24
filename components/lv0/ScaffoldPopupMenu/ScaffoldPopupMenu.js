@@ -1,12 +1,12 @@
 // @ts-check
-import Style from "./PopupMenu.module.scss";
+import Style from "./ScaffoldPopupMenu.module.scss";
 /**
  * @param {Object} props
  * @param {any} [props.children]
  * @param {string} [props.background]
  * @param {() => void} props.closePopup
  */
-export function PopupMenu(props) {
+export function ScaffoldPopupMenu(props) {
   const { children = [], background = null, closePopup = () => {} } = props;
 
   return (

@@ -18,7 +18,7 @@ export const serviceGetListOfStore = async (props) => {
 
   const urlBase = process.env.SITE_URL ?? "";
 
-  const url = `${urlBase}/api/store?category=${currentCategory}&limit=${20}&from=${from}&by=${by}`;
+  const url = `${urlBase}/api/v1/store?category=${currentCategory}&limit=${20}&from=${from}&by=${by}`;
 
   const response = await fetch(url);
 

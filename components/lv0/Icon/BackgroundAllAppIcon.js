@@ -1,13 +1,9 @@
-import Style from './Icon.module.scss';
-;
-
+import Style from "./Icon.module.scss";
 /**
  * @param {Object} props
  * @param {string} [props.className]
  */
 export function BackgroundAllAppIcon(props) {
-
-
   const { className = "" } = props;
   return (
     <svg

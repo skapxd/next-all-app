@@ -1,0 +1,41 @@
+@use 'styles/_theme.scss' as theme;
+.BoxInput {
+    display: flex;
+    flex-direction: column;
+    height: 30px;
+    &_input {
+        padding-bottom: 4px;
+        padding-left: 4px;
+        color: theme.$white;
+        border-bottom: 1px solid theme.$white2;
+        transition: border-bottom 0.3s ease;
+    }
+    &_inputActivate {
+        border-bottom: 1px solid theme.$subject;
+    }
+    &_inputError {
+        border-bottom: 1px solid theme.$error;
+    }
+    &_input::placeholder {
+        color: transparent;
+        transition: color 0.3s ease;
+    }
+    &_input:focus::placeholder {
+        color: theme.$white2;
+        transition: color 0.3s ease;
+    }
+    &_label {
+        position: relative;
+        color: theme.$white;
+        line-height: 16px;
+        bottom: -15px;
+        margin-left: 8px;
+        font-size: 18px;
+        transition: bottom 0.3s ease, font-size 0.3s ease;
+    }
+    &_labelActivate {
+        font-size: 14px;
+        color: theme.$white2;
+        bottom: 0;
+    }
+}

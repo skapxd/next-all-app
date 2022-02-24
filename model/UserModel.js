@@ -15,4 +15,5 @@
  * @prop {ListOfSocialMedia} userName
  * @prop {string} id
  * @prop {boolean} enable
+ * @prop {boolean} rol
  */

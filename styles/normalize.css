@@ -232,9 +232,9 @@ textarea {
  */
 
 button,
-input,
-input:active,
-input:focus-visible {
+input {
+    /* input:focus-visible  */
+    /* input:active, */
     /* margin: 0;
     padding: 0; */
     outline: 0px solid;
