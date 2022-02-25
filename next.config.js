@@ -2,7 +2,7 @@
 
 const withPWA = require("next-pwa");
 const runtimeCaching = require("next-pwa/cache");
-const prod = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV === "production";
 
 // module.exports = {
 //   reactStrictMode: true,
@@ -14,16 +14,16 @@ module.exports = withPWA({
   },
   onDemandEntries: {
     // period (in ms) where the server will keep pages in the buffer
-    // maxInactiveAge: 60 * 60 * 1000,
+    maxInactiveAge: isProduction ? 60 * 60 * 1000 : 0,
     //
     // number of pages that should be kept simultaneously without being disposed
-    // pagesBufferLength: Infinity,
+    pagesBufferLength: isProduction ? Infinity : 0,
   },
   poweredByHeader: false,
   pwa: {
     dest: "public",
     runtimeCaching,
-    disable: prod ? false : true,
+    disable: isProduction ? false : true,
   },
   i18n: {
     locales: ["en-US", "fr", "nl-NL", "es-ES"],
