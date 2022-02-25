@@ -25,7 +25,7 @@ function _CategoryPage(props) {
   // TODO: add rendering from server
   const { listOfStore } = props;
   const debounceGetListOfStore = useDebounce({
-    // delay: 1000,
+    delay: 300,
     fn: (value) => getListOfStore(value),
   });
 
