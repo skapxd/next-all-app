@@ -20,9 +20,18 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   const [user, setUser] = useState({
-    name: "",
-    pass: "",
-    email: "",
+    name: {
+      value: "",
+      isValid: true,
+    },
+    pass: {
+      value: "",
+      isValid: true,
+    },
+    email: {
+      value: "",
+      isValid: true,
+    },
   });
 
   useEffect(() => {
@@ -32,12 +41,32 @@ export default function LoginPage() {
       .replace("?name=", "")
       .replaceAll(/&.*/gi, "");
 
-    setUser((s) => ({ ...s, name: queryAsString }));
+    setUser((s) => ({
+      ...s,
+      name: {
+        isValid: true,
+        value: queryAsString,
+      },
+    }));
   }, [router.asPath]);
 
   const validateUserName = async () => {
+    if (!user.email.value || !user.email.isValid) {
+      setUser((s) => ({
+        ...s,
+        email: {
+          isValid: false,
+          value: s.email.value,
+        },
+      }));
+
+      setLoading(false);
+      return;
+    }
+
     const body = JSON.stringify({
-      email: user.email,
+      type: "validUser",
+      email: user.email.value,
     });
 
     const options = {
@@ -49,9 +78,25 @@ export default function LoginPage() {
     };
 
     const resp = await fetch("/api/v1/auth/login", options);
+
+    /**
+     * @type {{
+     * success: boolean,
+     * name: string
+     * }}
+     */
     const data = await resp.json();
 
     setLoading(false);
+
+    if (!data.success)
+      return setUser((s) => ({
+        ...s,
+        email: {
+          isValid: false,
+          value: "",
+        },
+      }));
 
     router.push("/login", {
       query: {
@@ -61,9 +106,23 @@ export default function LoginPage() {
   };
 
   const validatePass = async () => {
+    if (!user.pass.value) {
+      setLoading(false);
+
+      setUser((s) => ({
+        ...s,
+        pass: {
+          isValid: false,
+          value: s.pass.value,
+        },
+      }));
+      return;
+    }
+
     const body = JSON.stringify({
-      pass: user.pass,
-      email: user.email,
+      type: "validPass",
+      pass: user.pass.value,
+      email: user.email.value,
     });
 
     const options = {
@@ -75,16 +134,35 @@ export default function LoginPage() {
     };
 
     const resp = await fetch("/api/v1/auth/login", options);
+
+    /**
+     * @type {{
+     * success: boolean,
+     * token: string
+     * }}
+     */
     const data = await resp.json();
 
     setLoading(false);
+
+    if (!data.success) {
+      return setUser((s) => ({
+        ...s,
+        pass: {
+          isValid: false,
+          value: s.pass.value,
+        },
+      }));
+    }
+    localStorage.setItem("loginToken", data.token);
+    router.push("/settings");
   };
 
   const onSubmit = async () => {
     setLoading(true);
     try {
-      !user.name && validateUserName();
-      user.name && validatePass();
+      !user.name.value && validateUserName();
+      user.name.value && validatePass();
     } catch (error) {}
   };
 
@@ -101,11 +179,12 @@ export default function LoginPage() {
 
         <BackgroundAllAppIcon className={Style.Box_BackgroundAllAppIcon} />
 
-        {!user.name && (
+        {!user.name.value && (
           <div className={Style.Box_BoxLogin}>
             <h2>Iniciar sesión</h2>
             <InputText
-              value={user.email}
+              isValid={user.email.isValid}
+              value={user.email.value}
               onSubmit={onSubmit}
               className={Style.Box_InputEmail}
               type={"email"}
@@ -113,23 +192,37 @@ export default function LoginPage() {
               placeholder="franken@luna.app"
               regExp={MapOfValidate.email}
               onChange={(value, isValid) => {
-                setUser((s) => ({ ...s, email: value }));
+                setUser((s) => ({
+                  ...s,
+                  email: {
+                    isValid,
+                    value,
+                  },
+                }));
               }}
             />
           </div>
         )}
 
-        {user.name && (
+        {user.name.value && (
           <div className={Style.Box_BoxLogin}>
             <h2>Iniciar sesión</h2>
-            <NameUser name={user.name} />
+            <NameUser name={user.name.value} />
             <InputText
+              isValid={user.pass.isValid}
+              value={user.pass.value}
               onSubmit={onSubmit}
               className={Style.Box_InputPass}
               type={"password"}
               name="Contraseña"
               onChange={(value, isValid) => {
-                setUser((s) => ({ ...s, pass: value }));
+                setUser((s) => ({
+                  ...s,
+                  pass: {
+                    isValid,
+                    value,
+                  },
+                }));
               }}
             />
           </div>

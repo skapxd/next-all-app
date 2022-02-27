@@ -15,8 +15,10 @@
         height: 20px;
         margin-left: 24px;
         width: 70%;
-        font-weight: 500;
-        font-size: 22px;
+        font-size: 18px;
         color: theme.$white;
+    }
+    &_Input::placeholder {
+        font-size: 18px;
     }
 }

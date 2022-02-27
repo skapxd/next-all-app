@@ -1,39 +1,30 @@
-import { useInverseDebounce } from "@skapxd/debounce";
+// @ts-check
 import { ArrowDirection, ArrowIcon } from "components/lv0/Icon/ArrowIcon";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import Style from "./AppBar.module.scss";
-export function AppBar() {
+
+/**
+ * @param {Object} props
+ * @param {string} props.title
+ * @param {boolean} [props.showArrowBack]
+ * @returns
+ */
+export function AppBar(props) {
   const router = useRouter();
-  const [text, setText] = useState("");
-  const [inverseDebounceText, setInverseDebounceText] = useState("");
 
-  const inverseDebounce = useInverseDebounce({
-    minimumDelay: 1000,
-    // 2-Receive param text (or any argument) of useState
-    fn: (value) => console.log(value)
-  });
-
-  useEffect(() => {
-    if (!text && text === "") return;
-    inverseDebounce(text);
-  }, [text, inverseDebounce]);
+  const { title = "", showArrowBack = false } = props;
 
   return (
     <div className={Style.Box}>
-      <ArrowIcon
-        className={Style.Box_ArrowIcon}
-        direction={ArrowDirection.left}
-        onClick={() => router.back()}
-      />
-      <input
-        className={Style.Box_Input}
-        type="text"
-        name=""
-        id=""
-        placeholder="Buscar..."
-        onChange={(e) => setText(e.currentTarget.value)}
-      />
+      {showArrowBack && (
+        <ArrowIcon
+          className={Style.Box_ArrowIcon}
+          direction={ArrowDirection.left}
+          onClick={() => router.back()}
+        />
+      )}
+
+      <h1 className={Style.Box_Input}>{title} </h1>
     </div>
   );
 }

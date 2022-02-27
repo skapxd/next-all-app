@@ -7,6 +7,7 @@ import { validate } from "@skapxd/validate";
  * @param {Object} props
  * @param {string} props.name
  * @param {string} [props.placeholder]
+ * @param {boolean} [props.isValid]
  * @param {string} [props.className]
  * @param {string} [props.value]
  * @param {"off" | "on"} [props.autoComplete]
@@ -18,20 +19,21 @@ import { validate } from "@skapxd/validate";
  */
 export function InputText(props) {
   const {
+    type,
     value,
     name = "",
-    placeholder = "",
-    className = "",
     regExp = /.+/,
+    className = "",
+    isValid = true,
+    placeholder = "",
     autoComplete = "off",
-    type,
     onChange = () => {},
     onSubmit = () => {},
   } = props;
 
   const [activate, setActivate] = useState(false);
   const [data, setData] = useState("");
-  const [isValid, setIsValid] = useState(true);
+  const [_isValid, setIsValid] = useState(isValid);
 
   const getClassNameInput = () => {
     if (!isValid)
