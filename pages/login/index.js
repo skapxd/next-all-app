@@ -35,6 +35,13 @@ export default function LoginPage() {
   });
 
   useEffect(() => {
+    const loginToken = localStorage.getItem("loginToken");
+    if (loginToken) {
+      router.push("/");
+    }
+  }, []);
+
+  useEffect(() => {
     const url = new URL(`http://localhost:3000${router.asPath}`);
 
     const queryAsString = url.search

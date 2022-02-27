@@ -2,6 +2,7 @@
 import { ListTileMenu } from "components/lv0/ListTileMenu/ListTileMenu";
 import { ScaffoldPopupMenu } from "components/lv0/ScaffoldPopupMenu/ScaffoldPopupMenu";
 import Link from "next/link";
+import { useState } from "react";
 
 /**
  * @param {Object} props
@@ -14,6 +15,14 @@ import Link from "next/link";
 export function PopupMenu(props) {
   const { onClose = () => {}, show = false, background = null } = props;
 
+  const [showLoginListTile, setShowLoginListTile] = useState(true);
+
+  if (typeof localStorage !== "undefined") {
+    var loginToken = localStorage.getItem("loginToken");
+  }
+
+  console.log({ loginToken });
+
   return (
     <>
       {show && (
@@ -21,14 +30,27 @@ export function PopupMenu(props) {
           background={background}
           closePopup={() => onClose && onClose()}
         >
-          <Link href="/login">
-            <a>
-              <ListTileMenu title="Iniciar sesión" />
-            </a>
-          </Link>
+          {!loginToken && (
+            <Link href="/login">
+              <a>
+                <ListTileMenu title="Iniciar sesión" />
+              </a>
+            </Link>
+          )}
           <ListTileMenu title="Registro" />
           <ListTileMenu title="Contactame" />
           <ListTileMenu title="Apoyame" />
+          <ListTileMenu title="Reportar un error" />
+          {loginToken && (
+            <ListTileMenu
+              onClick={() => {
+                console.log("object2");
+                localStorage.setItem("loginToken", "");
+                setShowLoginListTile(false);
+              }}
+              title="Cerrar sesión"
+            />
+          )}
         </ScaffoldPopupMenu>
       )}
     </>
