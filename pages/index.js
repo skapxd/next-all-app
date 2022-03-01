@@ -6,6 +6,8 @@ import {
 import { CategoryPage } from "components/lv1/CategoryPage/CategoryPage";
 import { GoogleMapPage } from "components/lv1/MapaPage/MapaPage";
 import { Scaffold } from "components/lv2/Scaffold/Scaffold";
+import { SettingsPage } from "components/lv2/SettingsPage/SettingsPage";
+import { useSetHeight } from "hooks/useSetHeight";
 import { observer } from "mobx-react-lite";
 import Style from "./index.module.scss";
 
@@ -30,7 +32,10 @@ import Style from "./index.module.scss";
 //   }
 // }
 
-export default function Home(props) {
+export default observer(_Home);
+export function _Home(props) {
+  useSetHeight();
+
   return (
     <div className={Style.Box}>
       <Scaffold>
@@ -48,12 +53,20 @@ function _CurrentPage(props) {
     TypeBottomNavigationBarButton.store
   ) {
     return <CategoryPage listOfStore={props.listOfStore} />;
-  } else if (
+  }
+
+  if (
     stateBottomNavigationBarButton.getCurrentButton ===
     TypeBottomNavigationBarButton.location
   ) {
     return <GoogleMapPage />;
   }
 
-  return <CategoryPage listOfStore={props.listOfStore} />;
+  if (
+    stateBottomNavigationBarButton.getCurrentButton ===
+    TypeBottomNavigationBarButton.settings
+  )
+    return <SettingsPage />;
+
+  return <></>;
 }

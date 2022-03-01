@@ -1,27 +1,19 @@
 // @ts-check
+import { userBloc } from "Bloc/UserBloc";
 import { ListTileMenu } from "components/lv0/ListTileMenu/ListTileMenu";
 import { ScaffoldPopupMenu } from "components/lv0/ScaffoldPopupMenu/ScaffoldPopupMenu";
+import { observer } from "mobx-react-lite";
 import Link from "next/link";
-import { useState } from "react";
 
+export const PopupMenu = observer(_PopupMenu);
 /**
  * @param {Object} props
  * @param {() => void} props.onClose
  * @param {boolean} props.show
  * @param {string} [props.background]
- *
- * @returns
  */
-export function PopupMenu(props) {
+function _PopupMenu(props) {
   const { onClose = () => {}, show = false, background = null } = props;
-
-  const [showLoginListTile, setShowLoginListTile] = useState(true);
-
-  if (typeof localStorage !== "undefined") {
-    var loginToken = localStorage.getItem("loginToken");
-  }
-
-  console.log({ loginToken });
 
   return (
     <>
@@ -30,27 +22,26 @@ export function PopupMenu(props) {
           background={background}
           closePopup={() => onClose && onClose()}
         >
-          {!loginToken && (
+          {!userBloc.getToken && (
             <Link href="/login">
               <a>
                 <ListTileMenu title="Iniciar sesión" />
               </a>
             </Link>
           )}
-          <ListTileMenu title="Registro" />
-          <ListTileMenu title="Contactame" />
-          <ListTileMenu title="Apoyame" />
-          <ListTileMenu title="Reportar un error" />
-          {loginToken && (
+
+          {userBloc.getToken && (
             <ListTileMenu
               onClick={() => {
-                console.log("object2");
-                localStorage.setItem("loginToken", "");
-                setShowLoginListTile(false);
+                userBloc.closeSession();
               }}
               title="Cerrar sesión"
             />
           )}
+          <ListTileMenu title="Registro" />
+          <ListTileMenu title="Contactame" />
+          <ListTileMenu title="Apoyame" />
+          <ListTileMenu title="Reportar un error" />
         </ScaffoldPopupMenu>
       )}
     </>

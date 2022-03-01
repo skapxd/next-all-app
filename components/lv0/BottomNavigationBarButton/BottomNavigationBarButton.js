@@ -7,6 +7,9 @@ import {
   TypeBottomNavigationBarButton,
 } from "./StateBottomNavigationBarButton";
 import { LocationIcon } from "../Icon/LocationIcon";
+import { SettingsIcon } from "../Icon/SettingsIcon";
+
+export const BottomNavigationBarButton = observer(_BottomNavigationBarButton);
 
 /**
  * @param {Object} props
@@ -44,6 +47,15 @@ function _BottomNavigationBarButton(props) {
     );
   }
 
+  if (type === TypeBottomNavigationBarButton.settings) {
+    return (
+      <button onClick={() => onChange(type)} className={Style.Box}>
+        <SettingsIcon className={getStyle().icon} />
+        <p className={getStyle().text}>Ajustes</p>
+      </button>
+    );
+  }
+
   return (
     <button onClick={() => onChange(type)} className={Style.Box}>
       <StoreIcon className={getStyle().icon} />
@@ -52,4 +64,3 @@ function _BottomNavigationBarButton(props) {
   );
 }
 
-export const BottomNavigationBarButton = observer(_BottomNavigationBarButton);

@@ -7,7 +7,7 @@ export class TypeBottomNavigationBarButton {
 }
 
 class StateBottomNavigationBarButton {
-  _currentButton = TypeBottomNavigationBarButton.store
+  _currentButton = TypeBottomNavigationBarButton.store;
 
   get getCurrentButton() {
     return this._currentButton;
@@ -25,6 +25,9 @@ class StateBottomNavigationBarButton {
     });
   }
 
+  /**
+   * @param {TypeBottomNavigationBarButton} currentButton
+   */
   changeCurrentButton(currentButton) {
     if (!currentButton)
       throw new Error("param currentButton of changeCurrentButton is empty");

@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import { Loading } from "components/lv0/Loading/Loading";
 import { useSetHeight } from "hooks/useSetHeight";
 import { useRouter } from "next/router";
+import { userBloc } from "Bloc/UserBloc";
+import { stateBottomNavigationBarButton, TypeBottomNavigationBarButton } from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
 
 export default function LoginPage() {
   useSetHeight();
@@ -71,28 +73,9 @@ export default function LoginPage() {
       return;
     }
 
-    const body = JSON.stringify({
-      type: "validUser",
+    const data = await userBloc.validateUserName({
       email: user.email.value,
     });
-
-    const options = {
-      body,
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const resp = await fetch("/api/v1/auth/login", options);
-
-    /**
-     * @type {{
-     * success: boolean,
-     * name: string
-     * }}
-     */
-    const data = await resp.json();
 
     setLoading(false);
 
@@ -126,29 +109,10 @@ export default function LoginPage() {
       return;
     }
 
-    const body = JSON.stringify({
-      type: "validPass",
-      pass: user.pass.value,
+    const data = await userBloc.validatePass({
       email: user.email.value,
+      pass: user.pass.value,
     });
-
-    const options = {
-      body,
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const resp = await fetch("/api/v1/auth/login", options);
-
-    /**
-     * @type {{
-     * success: boolean,
-     * token: string
-     * }}
-     */
-    const data = await resp.json();
 
     setLoading(false);
 
@@ -162,7 +126,8 @@ export default function LoginPage() {
       }));
     }
     localStorage.setItem("loginToken", data.token);
-    router.push("/settings");
+    router.push("/");
+    stateBottomNavigationBarButton.changeCurrentButton(TypeBottomNavigationBarButton.settings)
   };
 
   const onSubmit = async () => {

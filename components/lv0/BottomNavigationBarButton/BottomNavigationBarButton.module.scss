@@ -14,7 +14,8 @@
         color: theme.$white;
     }
     &_IconActive {
-        & path {
+        & path,
+        & rect {
             fill: theme.$subject;
         }
     }

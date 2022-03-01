@@ -1,0 +1,6 @@
+@use '/styles/_theme.scss' as theme;
+.Box {
+    width: 100%;
+    max-width: 430px;
+    background: theme.$dark;
+}
