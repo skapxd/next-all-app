@@ -15,6 +15,13 @@ export default async function handler(req, res) {
 
   codeWithoutFormat[3] = " ";
 
+  const credentials = {
+    user: process.env.USER_MAIL,
+    pass: process.env.PASS_MAIL,
+  };
+
+  console.log({ credentials, body: req.body });
+
   const cacheCode = codeWithoutFormat.join("");
 
   const saveCache = JSON.stringify({
