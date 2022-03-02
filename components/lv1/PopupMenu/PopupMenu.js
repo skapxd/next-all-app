@@ -38,7 +38,13 @@ function _PopupMenu(props) {
               title="Cerrar sesión"
             />
           )}
-          <ListTileMenu title="Registro" />
+          {!userBloc.getToken && (
+            <Link href="/register">
+              <a>
+                <ListTileMenu title="Registro" />
+              </a>
+            </Link>
+          )}
           <ListTileMenu title="Contactame" />
           <ListTileMenu title="Apoyame" />
           <ListTileMenu title="Reportar un error" />

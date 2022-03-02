@@ -32,8 +32,7 @@ import Style from "./index.module.scss";
 //   }
 // }
 
-export default observer(_Home);
-export function _Home(props) {
+export default function Home(props) {
   useSetHeight();
 
   return (

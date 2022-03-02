@@ -1,6 +1,16 @@
-export const PlaceholderImage = () => {
+// @ts-check
+import Style from "./Icon.module.scss";
+/**
+ * @param {Object} props
+ * @param {string} [props.className]
+ * @param {() =>  void} [props.onClick]
+ */
+export function PlaceholderImage(props) {
+  const { className = "", onClick = () => {} } = props;
   return (
     <svg
+      onClick={() => onClick && onClick()}
+      className={`${className} `}
       xmlns="http://www.w3.org/2000/svg"
       width="46.294"
       height="33.667"
@@ -36,4 +46,4 @@ export const PlaceholderImage = () => {
       </g>
     </svg>
   );
-};
+}

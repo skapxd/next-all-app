@@ -63,4 +63,3 @@ function _BottomNavigationBarButton(props) {
     </button>
   );
 }
-
