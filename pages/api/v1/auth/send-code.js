@@ -7,7 +7,7 @@ import memoryCache from "memory-cache";
  * @param {import("next").NextApiResponse} res
  */
 export default async function handler(req, res) {
-  const { email } = req.body;
+  const { email, name = "" } = req.body;
 
   const numberRandom = (Math.random() * 10000000).toFixed();
 
@@ -24,10 +24,11 @@ export default async function handler(req, res) {
 
   memoryCache.put(`codeNumberWithFormat`, saveCache, 5 * 60 * 1000);
 
-  await sendMail({
+  sendMail({
     email,
-    msjText: `${cacheCode} es su mensaje de verificación`,
+    subject: `Código de verificación de All App`,
+    msjText: `Hola ${name}, ${cacheCode} es su código de verificación`,
   });
 
-  return res.status(400).json({ success: false, code: cacheCode });
+  return res.json({ success: true });
 }

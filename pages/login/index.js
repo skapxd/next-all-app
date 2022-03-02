@@ -11,8 +11,26 @@ import { useEffect, useState } from "react";
 import { Loading } from "components/lv0/Loading/Loading";
 import { useSetHeight } from "hooks/useSetHeight";
 import { useRouter } from "next/router";
-import { userBloc } from "Bloc/UserBloc";
-import { stateBottomNavigationBarButton, TypeBottomNavigationBarButton } from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
+import {
+  stateBottomNavigationBarButton,
+  TypeBottomNavigationBarButton,
+} from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
+import { validateUserName } from "functionsView/login/validateUserName";
+import { validatePass } from "functionsView/login/validatePass";
+import { getQueryParams } from "helpers/getQueryParams";
+
+class CurrentPage {
+  static validateUserName = "validateUserName";
+  static validatePass = "validatePass";
+}
+
+/**
+ *
+ * @param {'validateUserName' | 'validatePass'} step
+ * @returns
+ */
+export const loginPathName = (step = "validateUserName") =>
+  `/login?step=${step}`;
 
 export default function LoginPage() {
   useSetHeight();
@@ -20,6 +38,10 @@ export default function LoginPage() {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
+
+  /**@type {CurrentPage} */
+  const initCurrenPage = CurrentPage.validateUserName;
+  const [currentPage, setCurrentPage] = useState(initCurrenPage);
 
   const [user, setUser] = useState({
     name: {
@@ -37,104 +59,81 @@ export default function LoginPage() {
   });
 
   useEffect(() => {
-    const loginToken = localStorage.getItem("loginToken");
-    if (loginToken) {
-      router.push("/");
-    }
+    setCurrentPage(getQueryParams("step"));
   }, []);
 
   useEffect(() => {
-    const url = new URL(`http://localhost:3000${router.asPath}`);
-
-    const queryAsString = url.search
-      .replace("?name=", "")
-      .replaceAll(/&.*/gi, "");
-
-    setUser((s) => ({
-      ...s,
-      name: {
-        isValid: true,
-        value: queryAsString,
-      },
-    }));
+    const stepQuery = getQueryParams("step");
+    setCurrentPage(stepQuery);
   }, [router.asPath]);
 
-  const validateUserName = async () => {
-    if (!user.email.value || !user.email.isValid) {
-      setUser((s) => ({
-        ...s,
-        email: {
-          isValid: false,
-          value: s.email.value,
-        },
-      }));
+  // useEffect(() => {
+  //   const url = new URL(`http://localhost:3000${router.asPath}`);
 
-      setLoading(false);
-      return;
-    }
+  //   const queryAsString = url.search
+  //     .replace("?name=", "")
+  //     .replaceAll(/&.*/gi, "");
 
-    const data = await userBloc.validateUserName({
-      email: user.email.value,
-    });
-
-    setLoading(false);
-
-    if (!data.success)
-      return setUser((s) => ({
-        ...s,
-        email: {
-          isValid: false,
-          value: "",
-        },
-      }));
-
-    router.push("/login", {
-      query: {
-        name: data.name,
-      },
-    });
-  };
-
-  const validatePass = async () => {
-    if (!user.pass.value) {
-      setLoading(false);
-
-      setUser((s) => ({
-        ...s,
-        pass: {
-          isValid: false,
-          value: s.pass.value,
-        },
-      }));
-      return;
-    }
-
-    const data = await userBloc.validatePass({
-      email: user.email.value,
-      pass: user.pass.value,
-    });
-
-    setLoading(false);
-
-    if (!data.success) {
-      return setUser((s) => ({
-        ...s,
-        pass: {
-          isValid: false,
-          value: s.pass.value,
-        },
-      }));
-    }
-    localStorage.setItem("loginToken", data.token);
-    router.push("/");
-    stateBottomNavigationBarButton.changeCurrentButton(TypeBottomNavigationBarButton.settings)
-  };
+  //   setUser((s) => ({
+  //     ...s,
+  //     name: {
+  //       isValid: true,
+  //       value: queryAsString,
+  //     },
+  //   }));
+  // }, [router.asPath]);
 
   const onSubmit = async () => {
     setLoading(true);
     try {
-      !user.name.value && validateUserName();
-      user.name.value && validatePass();
+      currentPage === CurrentPage.validateUserName &&
+        validateUserName({
+          email: user.email,
+          onFailed: () => {
+            setLoading(false);
+            setUser((s) => ({
+              ...s,
+              email: {
+                value: s.email.value,
+                isValid: false,
+              },
+            }));
+          },
+          onSuccess: (data) => {
+            setLoading(false);
+            setUser((s) => ({
+              ...s,
+              name: {
+                value: data.name,
+                isValid: true,
+              },
+            }));
+            router.push(loginPathName("validatePass"));
+          },
+        });
+
+      currentPage === CurrentPage.validatePass &&
+        validatePass({
+          email: user.email,
+          pass: user.pass,
+          onFailed: () => {
+            setLoading(false);
+            setUser((s) => ({
+              ...s,
+              pass: {
+                isValid: false,
+                value: s.pass.value,
+              },
+            }));
+          },
+          onSuccess: () => {
+            setLoading(false);
+            stateBottomNavigationBarButton.changeCurrentButton(
+              TypeBottomNavigationBarButton.settings
+            );
+            router.push("/");
+          },
+        });
     } catch (error) {}
   };
 
@@ -151,7 +150,8 @@ export default function LoginPage() {
 
         <BackgroundAllAppIcon className={Style.Box_BackgroundAllAppIcon} />
 
-        {!user.name.value && (
+        {/* {!user.name.value && ( */}
+        {currentPage === CurrentPage.validateUserName && (
           <div className={Style.Box_BoxLogin}>
             <h2>Iniciar sesión</h2>
             <InputText
@@ -176,7 +176,8 @@ export default function LoginPage() {
           </div>
         )}
 
-        {user.name.value && (
+        {/* {user.name.value && ( */}
+        {currentPage === CurrentPage.validatePass && (
           <div className={Style.Box_BoxLogin}>
             <h2>Iniciar sesión</h2>
             <NameUser name={user.name.value} />

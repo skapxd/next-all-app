@@ -128,6 +128,73 @@ class UserBloc {
     return data;
   }
 
+  /**
+   * @param {Object} param0
+   * @param {string} [param0.email]
+   * @param {string} [param0.name]
+   * @returns
+   */
+  async registerEmail({ email, name }) {
+    email ??= "";
+    name ??= "";
+
+    const body = JSON.stringify({
+      email,
+      name,
+    });
+
+    const options = {
+      body,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const resp = await fetch("/api/v1/auth/send-code", options);
+
+    /** @type {{ success: boolean }} */
+    const data = await resp.json();
+
+    return data;
+  }
+
+  /**
+   * @param {Object} param0
+   * @param {string} [param0.code]
+   * @param {string} [param0.email]
+   * @returns
+   */
+  async verifyCode({ code, email }) {
+    code ??= "";
+    email ??= "";
+
+    const body = JSON.stringify({
+      code,
+      email,
+    });
+
+    const options = {
+      body,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const resp = await fetch("/api/v1/auth/verify-code", options);
+
+    /** @type {{ success: boolean, token: string }} */
+    const data = await resp.json();
+
+    if (typeof localStorage === "undefined") return;
+
+    this.token = data.token;
+    localStorage.setItem(this.#keyToken, this.token);
+
+    return data;
+  }
+
   closeSession() {
     if (typeof localStorage === "undefined") return;
 

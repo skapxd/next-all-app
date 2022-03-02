@@ -12,8 +12,8 @@ import { serviceGetListOfStore } from "service/getListOfStore";
 import Style from "./CategoryPage.module.scss";
 import { stateCategoryPage } from "./StateCategoryPage";
 
+export const CategoryPage = observer(_CategoryPage);
 /**
- *
  * @param {Object} props
  * @param {Object[]} props.listOfStore
  * @param {string} props.listOfStore.byAsString
@@ -91,10 +91,6 @@ function _CategoryPage(props) {
     }
   };
 
-  if (stateCategoryPage.getIsLoading) {
-    return <Loading />;
-  }
-
   const onNext = async ({ by }) => {
     let length = stateCategoryPage.getAllList[by].length;
 
@@ -112,6 +108,12 @@ function _CategoryPage(props) {
 
     stateCategoryPage.setAllList(_);
   };
+
+  if (stateCategoryPage.getIsLoading) {
+    return <Loading />;
+  }
+
+  // return <p>a</p>;
 
   return (
     <div className={" "}>
@@ -143,5 +145,3 @@ function _CategoryPage(props) {
     </div>
   );
 }
-
-export const CategoryPage = observer(_CategoryPage);

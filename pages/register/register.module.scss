@@ -10,9 +10,15 @@
         position: absolute;
         top: 50px;
     }
+    &_BoxRegister {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+    }
     &_BoxLogin {
         z-index: 1;
         margin: 100px auto;
+        // margin-bottom: 38px;
         width: 100%;
         max-width: 230px;
         flex-direction: column;
@@ -30,12 +36,13 @@
             justify-content: flex-end;
         }
     }
-    &_InputEmail {
-        margin-top: 80px;
-    }
-    &_InputPass {
+    &_InputName,
+    &_InputCode {
         margin-top: 40px;
     }
+    // &_InputEmail {
+    //     // margin-top: 80px;
+    // }
     &_BtnNext {
         border-radius: 1000px;
         font-weight: 500;

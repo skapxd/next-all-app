@@ -32,7 +32,9 @@ import Style from "./index.module.scss";
 //   }
 // }
 
-export default function Home(props) {
+export const rootPathName = "/";
+
+export default function Root(props) {
   useSetHeight();
 
   return (

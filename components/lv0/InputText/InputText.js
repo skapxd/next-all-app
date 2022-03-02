@@ -12,7 +12,7 @@ import { validate } from "@skapxd/validate";
  * @param {string} [props.value]
  * @param {"off" | "on"} [props.autoComplete]
  * @param {RegExp} [props.regExp]
- * @param {(value: string, isValid: boolean) => void} [props.onChange]
+ * @param {(value: string, isValid: boolean, keyDown: string) => void} [props.onChange]
  * @param {() => void} [props.onSubmit]
  * @param {import("react").InputHTMLAttributes<HTMLInputElement>['type']} [props.type]
  * @returns
@@ -90,7 +90,7 @@ export function InputText(props) {
           setIsValid(tempIsValid);
           setData(value);
 
-          onChange && onChange(value, tempIsValid);
+          onChange && onChange(value, tempIsValid, e.nativeEvent["data"]);
         }}
       />
     </form>

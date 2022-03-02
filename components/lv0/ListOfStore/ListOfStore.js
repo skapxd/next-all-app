@@ -46,7 +46,8 @@ export function ListOfStore(props) {
             <Link key={i} href={e.id}>
               <a className={Style.Box_BoxListStore_Box}>
                 <div className={Style.Box_BoxListStore_Box_Image}>
-                  <Image
+                  <img
+                    loading="lazy"
                     alt={e.name}
                     className={Style.Box_BoxListStore_Box_Image}
                     height={100}

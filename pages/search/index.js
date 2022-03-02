@@ -4,6 +4,9 @@ import { BackgroundAllAppIcon } from "components/lv0/Icon/BackgroundAllAppIcon";
 import { AppBarSearch } from "components/search/AppBarSearch/AppBarSearch";
 import { useSetHeight } from "hooks/useSetHeight";
 import Style from "./search.module.scss";
+
+export const searchPathName = "/search";
+
 export default function Search() {
   useSetHeight();
   return (

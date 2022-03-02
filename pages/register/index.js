@@ -16,8 +16,24 @@ import {
   stateBottomNavigationBarButton,
   TypeBottomNavigationBarButton,
 } from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
+import { registerEmail } from "functionsView/register/registerEmail";
+import { getQueryParams } from "helpers/getQueryParams";
+import { verifyCode } from "functionsView/register/verifyCode";
+import { rootPathName } from "pages";
 
-export default function LoginPage() {
+class CurrentPage {
+  static registerEmail = "registerEmail";
+  static verifyCode = "verifyCode";
+}
+
+/**
+ * @param {'registerEmail' | 'verifyCode'} step
+ * @returns
+ */
+export const registerPathName = (step = "registerEmail") =>
+  `/register?step=${step}`;
+
+export default function Register() {
   useSetHeight();
 
   const router = useRouter();
@@ -29,7 +45,7 @@ export default function LoginPage() {
       value: "",
       isValid: true,
     },
-    pass: {
+    code: {
       value: "",
       isValid: true,
     },
@@ -39,107 +55,70 @@ export default function LoginPage() {
     },
   });
 
+  /**@type {CurrentPage} */
+  const initCurrenPage = CurrentPage.registerEmail;
+  const [currentPage, setCurrentPage] = useState(initCurrenPage);
+
   useEffect(() => {
-    const loginToken = localStorage.getItem("loginToken");
-    if (loginToken) {
-      router.push("/");
-    }
+    setCurrentPage(getQueryParams("step"));
   }, []);
 
   useEffect(() => {
-    const url = new URL(`http://localhost:3000${router.asPath}`);
-
-    const queryAsString = url.search
-      .replace("?name=", "")
-      .replaceAll(/&.*/gi, "");
-
-    setUser((s) => ({
-      ...s,
-      name: {
-        isValid: true,
-        value: queryAsString,
-      },
-    }));
+    const stepQuery = getQueryParams("step");
+    setCurrentPage(stepQuery);
   }, [router.asPath]);
-
-  const validateUserName = async () => {
-    if (!user.email.value || !user.email.isValid) {
-      setUser((s) => ({
-        ...s,
-        email: {
-          isValid: false,
-          value: s.email.value,
-        },
-      }));
-
-      setLoading(false);
-      return;
-    }
-
-    const data = await userBloc.validateUserName({
-      email: user.email.value,
-    });
-
-    setLoading(false);
-
-    if (!data.success)
-      return setUser((s) => ({
-        ...s,
-        email: {
-          isValid: false,
-          value: "",
-        },
-      }));
-
-    router.push("/login", {
-      query: {
-        name: data.name,
-      },
-    });
-  };
-
-  const validatePass = async () => {
-    if (!user.pass.value) {
-      setLoading(false);
-
-      setUser((s) => ({
-        ...s,
-        pass: {
-          isValid: false,
-          value: s.pass.value,
-        },
-      }));
-      return;
-    }
-
-    const data = await userBloc.validatePass({
-      email: user.email.value,
-      pass: user.pass.value,
-    });
-
-    setLoading(false);
-
-    if (!data.success) {
-      return setUser((s) => ({
-        ...s,
-        pass: {
-          isValid: false,
-          value: s.pass.value,
-        },
-      }));
-    }
-    localStorage.setItem("loginToken", data.token);
-    router.push("/");
-    stateBottomNavigationBarButton.changeCurrentButton(
-      TypeBottomNavigationBarButton.settings
-    );
-  };
 
   const onSubmit = async () => {
     setLoading(true);
+
     try {
-      !user.name.value && validateUserName();
-      user.name.value && validatePass();
+      currentPage === CurrentPage.registerEmail &&
+        registerEmail({
+          email: user.email,
+          name: user.name,
+
+          onFailed: () => {
+            setLoading(false);
+            setUser((s) => ({
+              ...s,
+              email: {
+                isValid: false,
+                value: s.email.value,
+              },
+              name: {
+                isValid: false,
+                value: s.name.value,
+              },
+            }));
+          },
+          onSuccess: () => {
+            setLoading(false);
+            router.push(registerPathName("verifyCode"));
+          },
+        });
+
+      currentPage === CurrentPage.verifyCode &&
+        verifyCode({
+          email: user.email,
+          code: user.code,
+          onFailed: () => {
+            setLoading(false);
+            setUser((s) => ({
+              ...s,
+              code: {
+                value: s.code.value,
+                isValid: false,
+              },
+            }));
+          },
+          onSuccess: () => {
+            setLoading(false);
+            stateBottomNavigationBarButton.changeCurrentButton(
+              TypeBottomNavigationBarButton.settings
+            );
+            router.push(rootPathName);
+          },
+        });
     } catch (error) {}
   };
 
@@ -156,46 +135,83 @@ export default function LoginPage() {
 
         <BackgroundAllAppIcon className={Style.Box_BackgroundAllAppIcon} />
 
-        {!user.name.value && (
+        {currentPage === CurrentPage.registerEmail && (
           <div className={Style.Box_BoxLogin}>
-            <h2>Iniciar sesión</h2>
-            <InputText
-              isValid={user.email.isValid}
-              value={user.email.value}
-              onSubmit={onSubmit}
-              className={Style.Box_InputEmail}
-              type={"email"}
-              name="Email"
-              placeholder="franken@luna.app"
-              regExp={MapOfValidate.email}
-              onChange={(value, isValid) => {
-                setUser((s) => ({
-                  ...s,
-                  email: {
-                    isValid,
-                    value,
-                  },
-                }));
-              }}
-            />
+            <h2>Registrarse</h2>
+
+            <div className={Style.Box_BoxRegister}>
+              <InputText
+                isValid={user.name.isValid}
+                value={user.name.value}
+                onSubmit={onSubmit}
+                className={Style.Box_InputName}
+                type={"text"}
+                name="Nombre"
+                placeholder="Franken luna"
+                regExp={
+                  /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u
+                }
+                onChange={(value, isValid) => {
+                  setUser((s) => ({
+                    ...s,
+                    name: {
+                      isValid,
+                      value,
+                    },
+                  }));
+                }}
+              />
+
+              <InputText
+                isValid={user.email.isValid}
+                value={user.email.value}
+                onSubmit={onSubmit}
+                className={Style.Box_InputEmail}
+                type={"email"}
+                name="Email"
+                placeholder="franken@luna.app"
+                regExp={MapOfValidate.email}
+                onChange={(value, isValid) => {
+                  setUser((s) => ({
+                    ...s,
+                    email: {
+                      isValid,
+                      value,
+                    },
+                  }));
+                }}
+              />
+            </div>
           </div>
         )}
 
-        {user.name.value && (
+        {currentPage === CurrentPage.verifyCode && (
           <div className={Style.Box_BoxLogin}>
-            <h2>Iniciar sesión</h2>
+            <h2>Registro</h2>
             <NameUser name={user.name.value} />
             <InputText
-              isValid={user.pass.isValid}
-              value={user.pass.value}
+              isValid={user.code.isValid}
+              value={user.code.value}
               onSubmit={onSubmit}
-              className={Style.Box_InputPass}
-              type={"password"}
-              name="Contraseña"
-              onChange={(value, isValid) => {
+              className={Style.Box_InputCode}
+              type={"text"}
+              placeholder={"000 000"}
+              name="Introduce el código"
+              onChange={(value, isValid, keyDown) => {
+                console.log({ value, length: value.length, keyDown });
+
+                if (value.length === 3 && keyDown) {
+                  return setUser((s) => ({
+                    ...s,
+                    code: {
+                      isValid,
+                      value: `${value} `,
+                    },
+                  }));
+                }
                 setUser((s) => ({
                   ...s,
-                  pass: {
+                  code: {
                     isValid,
                     value,
                   },

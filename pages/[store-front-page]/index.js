@@ -14,6 +14,8 @@ import { convertDayFromNumberToString } from "helpers/convertDayFromNumberToStri
 import { getListStore } from "helpers/getListStore";
 import { Contact } from "components/store-front-page/Contact/Contact";
 
+export const storeFrontPagePathName = (id = "") => `/${id}`;
+
 /** @type {import("next").GetServerSideProps} */
 export const getServerSideProps = async (context) => {
   if (!context.res) {
@@ -168,7 +170,7 @@ export default function StoreFrontPage(props) {
         description={store.description.substring(0, 170) + "..."}
       />
 
-      <Contact contact={store.contact}/>
+      <Contact contact={store.contact} />
     </div>
   );
 }
