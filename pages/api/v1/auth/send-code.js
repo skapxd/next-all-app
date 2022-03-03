@@ -31,11 +31,15 @@ export default async function handler(req, res) {
 
   memoryCache.put(`codeNumberWithFormat`, saveCache, 5 * 60 * 1000);
 
-  sendMail({
-    email,
-    subject: `Código de verificación de All App`,
-    msjText: `Hola ${name}, ${cacheCode} es su código de verificación`,
-  });
+  try {
+    await sendMail({
+      email,
+      subject: `Código de verificación de All App`,
+      msjText: `Hola ${name}, ${cacheCode} es su código de verificación`,
+    });
 
-  return res.json({ success: true });
+    return res.json({ success: true });
+  } catch (error) {
+    return res.json({ success: false, error });
+  }
 }
