@@ -16,8 +16,8 @@ export default async function handler(req, res) {
   codeWithoutFormat[3] = " ";
 
   const credentials = {
-    user: process.env.USER_MAIL,
-    pass: process.env.PASS_MAIL,
+    user: "automail.noresponder@gmail.com" ?? process.env.USER_MAIL,
+    pass: "xnkgnbhpibdjxjlu" ?? process.env.PASS_MAIL,
   };
 
   console.log({ credentials, body: req.body });
