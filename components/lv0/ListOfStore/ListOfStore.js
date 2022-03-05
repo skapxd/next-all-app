@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowDirection, ArrowIcon } from "../Icon/ArrowIcon";
-import { PlaceholderImage } from "../Icon/PlaceholderImage";
+import { PlaceholderImageIcon } from "../Icon/PlaceholderImageIcon";
 import {
   AxisInfiniteScroll,
   InfinityScroll,

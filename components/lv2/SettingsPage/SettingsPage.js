@@ -1,8 +1,11 @@
 // @ts-check
 
-import { PlaceholderImage } from "components/lv0/Icon/PlaceholderImage";
+import {
+  BorderRadius,
+  PlaceholderImage,
+} from "components/lv0/PlaceholderImage/PlaceholderImage";
 import { AppBar } from "components/lv1/AppBar/AppBar";
-
+import Style from "./SettingsPage.module.scss";
 export function SettingsPage() {
   return (
     <>
@@ -12,10 +15,11 @@ export function SettingsPage() {
   );
 }
 
-function _Profile() {
+function _Profile(props) {
   return (
-    <div>
-      <PlaceholderImage />
+    <div className={Style.BoxProfile}>
+      <PlaceholderImage borderRadius={BorderRadius.circular} />
+      
     </div>
   );
 }

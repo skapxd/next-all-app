@@ -5,7 +5,7 @@ import Style from "./Icon.module.scss";
  * @param {string} [props.className]
  * @param {() =>  void} [props.onClick]
  */
-export function PlaceholderImage(props) {
+export function PlaceholderImageIcon(props) {
   const { className = "", onClick = () => {} } = props;
   return (
     <svg

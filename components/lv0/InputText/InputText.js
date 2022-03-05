@@ -7,6 +7,8 @@ import { validate } from "@skapxd/validate";
  * @param {Object} props
  * @param {string} props.name
  * @param {string} [props.placeholder]
+ * @param {number} [props.maxLength]
+ * @param {number} [props.minLength]
  * @param {boolean} [props.isValid]
  * @param {string} [props.className]
  * @param {string} [props.value]
@@ -19,6 +21,8 @@ import { validate } from "@skapxd/validate";
  */
 export function InputText(props) {
   const {
+    maxLength,
+    minLength,
     type,
     value,
     name = "",
@@ -70,6 +74,8 @@ export function InputText(props) {
         {name}
       </label>
       <input
+        maxLength={maxLength}
+        minLength={minLength}
         value={value}
         autoComplete={autoComplete}
         onFocus={() => setActivate(true)}

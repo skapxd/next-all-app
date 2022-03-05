@@ -4,3 +4,9 @@
     max-width: 430px;
     background: theme.$dark;
 }
+
+.BoxProfile {
+    display: flex;
+    flex-direction: row;
+    padding: 24px 16px;
+}

@@ -1,0 +1,18 @@
+@use 'styles/_theme' as theme;
+.Box {
+    height: 75px;
+    width: 75px;
+    padding: 25px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    background: theme.$darkGrey2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &_BorderRadius4px {
+        border-radius: 4px;
+    }
+    &_BorderRadiusCircular {
+        border-radius: 1000px;
+    }
+}

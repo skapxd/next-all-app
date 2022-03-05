@@ -78,8 +78,16 @@ export default function LoginPage() {
               },
             }));
           },
-          onSuccess: () => {
+          onSuccess: (data) => {
             setLoading(false);
+            setUser((s) => ({
+              ...s,
+              name: {
+                isValid: true,
+                value: data.name ?? s.name.value,
+              },
+            }));
+            console.log({ data });
             router.push(loginPathName("validateCode"));
           },
         });
@@ -157,14 +165,16 @@ export default function LoginPage() {
             <h2>Iniciar sesión</h2>
             <NameUser name={user.name.value} />
             <InputText
+              maxLength={7}
               isValid={user.code.isValid}
               value={user.code.value}
               onSubmit={onSubmit}
               className={Style.Box_InputCode}
-              type={"text"}
+              type={"tel"}
               placeholder="000 000"
               name="Código de verificación"
               onChange={(value, isValid, keyDown) => {
+                console.log({ value, isValid, keyDown });
                 if (value.length === 3 && keyDown) {
                   return setUser((s) => ({
                     ...s,

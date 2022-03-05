@@ -52,24 +52,24 @@ export class UserRepository {
    * @param {Object} param0
    * @param {string} param0.sendVerifyCodeTo
    * @return {Promise<{
-   * success: boolean,
+   * exist: boolean,
    * resp: import("@supabase/supabase-js").PostgrestResponse<UserDTO>,
    * }>}
    */
   async existUser({ sendVerifyCodeTo }) {
     const existUser = await supabase
       .from(this.#users)
-      .select("sendVerifyCodeTo")
+      .select("sendVerifyCodeTo, name")
       .match({ sendVerifyCodeTo });
 
     if (!existUser)
       return {
-        success: false,
+        exist: false,
         resp: existUser,
       };
 
     return {
-      success: true,
+      exist: true,
       resp: existUser,
     };
   }

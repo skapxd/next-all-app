@@ -155,7 +155,7 @@ class UserBloc {
 
     const resp = await fetch("/api/v1/auth/get-code", options);
 
-    /** @type {{ success: boolean }} */
+    /** @type {{ success: boolean, name: string }} */
     const data = await resp.json();
 
     return data;
