@@ -15,22 +15,20 @@ import {
   stateBottomNavigationBarButton,
   TypeBottomNavigationBarButton,
 } from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
-import { validateUserName } from "functionsView/login/validateUserName";
-import { validatePass } from "functionsView/login/validatePass";
+import { getCode } from "functionsView/login/validateUserName";
+import { verifyCode } from "functionsView/login/validatePass";
 import { getQueryParams } from "helpers/getQueryParams";
 
 class CurrentPage {
-  static validateUserName = "validateUserName";
-  static validatePass = "validatePass";
+  static getCode = "getCode";
+  static validateCode = "validateCode";
 }
 
 /**
- *
- * @param {'validateUserName' | 'validatePass'} step
+ * @param {'getCode' | 'validateCode'} step
  * @returns
  */
-export const loginPathName = (step = "validateUserName") =>
-  `/login?step=${step}`;
+export const loginPathName = (step = "getCode") => `/login?step=${step}`;
 
 export default function LoginPage() {
   useSetHeight();
@@ -40,7 +38,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   /**@type {CurrentPage} */
-  const initCurrenPage = CurrentPage.validateUserName;
+  const initCurrenPage = CurrentPage.getCode;
   const [currentPage, setCurrentPage] = useState(initCurrenPage);
 
   const [user, setUser] = useState({
@@ -48,7 +46,7 @@ export default function LoginPage() {
       value: "",
       isValid: true,
     },
-    pass: {
+    code: {
       value: "",
       isValid: true,
     },
@@ -59,36 +57,17 @@ export default function LoginPage() {
   });
 
   useEffect(() => {
-    setCurrentPage(getQueryParams("step"));
-  }, []);
-
-  useEffect(() => {
     const stepQuery = getQueryParams("step");
     setCurrentPage(stepQuery);
   }, [router.asPath]);
 
-  // useEffect(() => {
-  //   const url = new URL(`http://localhost:3000${router.asPath}`);
-
-  //   const queryAsString = url.search
-  //     .replace("?name=", "")
-  //     .replaceAll(/&.*/gi, "");
-
-  //   setUser((s) => ({
-  //     ...s,
-  //     name: {
-  //       isValid: true,
-  //       value: queryAsString,
-  //     },
-  //   }));
-  // }, [router.asPath]);
-
   const onSubmit = async () => {
     setLoading(true);
     try {
-      currentPage === CurrentPage.validateUserName &&
-        validateUserName({
-          email: user.email,
+      currentPage === CurrentPage.getCode &&
+        getCode({
+          to: user.email,
+          name: user.name,
           onFailed: () => {
             setLoading(false);
             setUser((s) => ({
@@ -99,30 +78,24 @@ export default function LoginPage() {
               },
             }));
           },
-          onSuccess: (data) => {
+          onSuccess: () => {
             setLoading(false);
-            setUser((s) => ({
-              ...s,
-              name: {
-                value: data.name,
-                isValid: true,
-              },
-            }));
-            router.push(loginPathName("validatePass"));
+            router.push(loginPathName("validateCode"));
           },
         });
 
-      currentPage === CurrentPage.validatePass &&
-        validatePass({
-          email: user.email,
-          pass: user.pass,
+      currentPage === CurrentPage.validateCode &&
+        verifyCode({
+          to: user.email,
+          name: user.name,
+          code: user.code,
           onFailed: () => {
             setLoading(false);
             setUser((s) => ({
               ...s,
-              pass: {
+              code: {
                 isValid: false,
-                value: s.pass.value,
+                value: s.code.value,
               },
             }));
           },
@@ -150,8 +123,7 @@ export default function LoginPage() {
 
         <BackgroundAllAppIcon className={Style.Box_BackgroundAllAppIcon} />
 
-        {/* {!user.name.value && ( */}
-        {currentPage === CurrentPage.validateUserName && (
+        {currentPage === CurrentPage.getCode && (
           <div className={Style.Box_BoxLogin}>
             <h2>Iniciar sesión</h2>
             <InputText
@@ -166,6 +138,10 @@ export default function LoginPage() {
               onChange={(value, isValid) => {
                 setUser((s) => ({
                   ...s,
+                  name: {
+                    isValid: true,
+                    value: value.substring(0, value.lastIndexOf("@")),
+                  },
                   email: {
                     isValid,
                     value,
@@ -176,22 +152,32 @@ export default function LoginPage() {
           </div>
         )}
 
-        {/* {user.name.value && ( */}
-        {currentPage === CurrentPage.validatePass && (
+        {currentPage === CurrentPage.validateCode && (
           <div className={Style.Box_BoxLogin}>
             <h2>Iniciar sesión</h2>
             <NameUser name={user.name.value} />
             <InputText
-              isValid={user.pass.isValid}
-              value={user.pass.value}
+              isValid={user.code.isValid}
+              value={user.code.value}
               onSubmit={onSubmit}
-              className={Style.Box_InputPass}
-              type={"password"}
-              name="Contraseña"
-              onChange={(value, isValid) => {
+              className={Style.Box_InputCode}
+              type={"text"}
+              placeholder="000 000"
+              name="Código de verificación"
+              onChange={(value, isValid, keyDown) => {
+                if (value.length === 3 && keyDown) {
+                  return setUser((s) => ({
+                    ...s,
+                    code: {
+                      isValid,
+                      value: `${value} `,
+                    },
+                  }));
+                }
+
                 setUser((s) => ({
                   ...s,
-                  pass: {
+                  code: {
                     isValid,
                     value,
                   },

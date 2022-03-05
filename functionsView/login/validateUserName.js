@@ -6,20 +6,27 @@ import { userBloc } from "Bloc/UserBloc";
  * @typedef {{value: string, isValid: boolean}} Field
  *
  * @param {Object} props
- * @param {Field} [props.email]
+ * @param {Field} [props.to]
+ * @param {Field} [props.name]
  * @param {() => void} [props.onFailed ]
- * @param {(data : {success: boolean, name: string}) => void} [props.onSuccess ]
+ * @param {(data : {success: boolean}) => void} [props.onSuccess ]
  */
-export const validateUserName = async (props) => {
-  const { email, onFailed, onSuccess } = props;
+export const getCode = async (props) => {
+  let { to, name, onFailed, onSuccess } = props;
 
-  if (!email.value || !email.isValid) return onFailed && onFailed();
+  onFailed ??= () => {};
+  onSuccess ??= () => {};
 
-  const data = await userBloc.validateUserName({
-    email: email.value,
+  if (!to.value || !to.isValid || !name.isValid || !name.value)
+    return onFailed();
+
+  const data = await userBloc.getCode({
+    to: to.value,
+    method: "email",
+    name: name.value,
   });
 
-  if (!data.success) return onFailed && onFailed();
+  if (!data.success) return onFailed();
 
-  onSuccess && onSuccess(data);
+  onSuccess(data);
 };

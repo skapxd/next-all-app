@@ -56,12 +56,6 @@ export default function StoreFrontPage(props) {
    */
   const { store, message, post } = props;
 
-  console.log({
-    store,
-    message,
-    post,
-  });
-
   const [initPost, setInitPost] = useState(post);
 
   const getSchedule = () => {

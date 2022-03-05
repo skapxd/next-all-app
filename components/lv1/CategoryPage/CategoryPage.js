@@ -71,7 +71,6 @@ function _CategoryPage(props) {
 
       const resp = await Promise.allSettled(listOfPromise);
 
-      console.log({ resp });
 
       resp.forEach((e) => {
         if (e.status === "rejected") return;

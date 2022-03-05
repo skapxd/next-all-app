@@ -19,7 +19,7 @@ export const verifyCode = async (props) => {
 
   const data = await userBloc.verifyCode({
     code: code.value,
-    email: email.value,
+    to: email.value,
   });
 
   if (!data.success) return onFailed && onFailed();

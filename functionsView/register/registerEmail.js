@@ -19,8 +19,8 @@ export const registerEmail = async (props) => {
 
   if (!email.value || !email.isValid) return onFailed && onFailed();
 
-  const data = await userBloc.registerEmail({
-    email: email.value,
+  const data = await userBloc.getCode({
+    to: email.value,
     name: name.value,
   });
 

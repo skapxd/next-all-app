@@ -15,8 +15,6 @@ export const sendMail = async (props) => {
     pass: process.env.PASS_MAIL,
   };
 
-  console.log({ credentials });
-
   let transporter = createTransport({
     host: "smtp.gmail.com",
     port: 465,

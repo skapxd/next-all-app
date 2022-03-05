@@ -6,7 +6,6 @@ import { ScaffoldPopupMenu } from "components/lv0/ScaffoldPopupMenu/ScaffoldPopu
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
 import { loginPathName } from "pages/login";
-import { registerPathName } from "pages/register";
 import { useEffect, useState } from "react";
 
 export const PopupMenu = observer(_PopupMenu);
@@ -46,7 +45,7 @@ function _PopupMenu(props) {
             }}
           >
             {!userBloc.getToken && (
-              <Link href={loginPathName("validateUserName")}>
+              <Link href={loginPathName("getCode")}>
                 <a>
                   <ListTileMenu title="Iniciar sesión" />
                 </a>
@@ -61,15 +60,16 @@ function _PopupMenu(props) {
                 title="Cerrar sesión"
               />
             )}
-            {!userBloc.getToken && (
+
+            {/* {!userBloc.getToken && (
               <Link href={registerPathName("registerEmail")}>
                 <a>
-                  <ListTileMenu title="Registro" />
+                  <ListTileMenu title="Iniciar sesión" />
                 </a>
               </Link>
-            )}
+            )} */}
             <ListTileMenu title="Contactame" />
-            <ListTileMenu title="Apoyame" />
+            <ListTileMenu title="Favoritos" />
             <ListTileMenu title="Reportar un error" />
           </ScaffoldPopupMenu>
         )}

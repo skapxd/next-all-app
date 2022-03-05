@@ -3,24 +3,37 @@
 import { sendMail } from "providers/Mail";
 import memoryCache from "memory-cache";
 import { generateJWT } from "helpers/generateJWT";
+import { UserRepository } from "db/supabase/UserRepository";
 /**
  * @param {import("next").NextApiRequest} req
  * @param {import("next").NextApiResponse} res
  */
 export default async function handler(req, res) {
-  const { email = "", code = "" } = req.body;
+  try {
+    const { to, name, code } = req.body;
 
-  const { cacheCode, cacheEmail } =
-    JSON.parse(memoryCache.get(`codeNumberWithFormat`)) ?? {};
+    const userDTO = new UserRepository();
 
-  console.log({ cacheCode, cacheEmail });
+    const { cacheCode, cacheEmail } =
+      JSON.parse(memoryCache.get(`codeNumberWithFormat`)) ?? {};
 
-  console.log({ code, email });
+    if (cacheCode !== code || cacheEmail !== to) {
+      return res.status(400).json({ success: false });
+    }
 
-  if (cacheCode === code && cacheEmail === email) {
-    const token = await generateJWT(email);
-    return res.json({ success: true, cacheCode, token });
+    const token = await generateJWT(to);
+
+    console.log({
+      body: req.body,
+    });
+
+    await userDTO.create({
+      sendVerifyCodeTo: to,
+      name,
+    });
+
+    return res.json({ success: true, token });
+  } catch (error) {
+    return res.status(400).json({ success: false, error: error.message });
   }
-
-  return res.status(400).json({ success: false, cacheCode });
 }

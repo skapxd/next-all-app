@@ -130,17 +130,19 @@ class UserBloc {
 
   /**
    * @param {Object} param0
-   * @param {string} [param0.email]
+   * @param {string} [param0.to]
    * @param {string} [param0.name]
+   * @param {'email'} [param0.method]
    * @returns
    */
-  async registerEmail({ email, name }) {
-    email ??= "";
+  async getCode({ to, name, method }) {
+    to ??= "";
     name ??= "";
 
     const body = JSON.stringify({
-      email,
+      to,
       name,
+      method,
     });
 
     const options = {
@@ -151,7 +153,7 @@ class UserBloc {
       },
     };
 
-    const resp = await fetch("/api/v1/auth/send-code", options);
+    const resp = await fetch("/api/v1/auth/get-code", options);
 
     /** @type {{ success: boolean }} */
     const data = await resp.json();
@@ -162,16 +164,19 @@ class UserBloc {
   /**
    * @param {Object} param0
    * @param {string} [param0.code]
-   * @param {string} [param0.email]
+   * @param {string} [param0.to]
+   * @param {string} [param0.name]
    * @returns
    */
-  async verifyCode({ code, email }) {
+  async verifyCode({ code, to, name }) {
     code ??= "";
-    email ??= "";
+    to ??= "";
+    name ??= "";
 
     const body = JSON.stringify({
       code,
-      email,
+      to,
+      name,
     });
 
     const options = {
