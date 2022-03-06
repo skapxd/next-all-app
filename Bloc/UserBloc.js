@@ -31,7 +31,8 @@ class UserBloc {
   countryMetaInfo;
 
   /**@type {string} */
-  token;
+  token =
+    typeof localStorage !== "undefined" && localStorage.getItem(this.#keyToken);
 
   constructor() {
     makeObservable(this, {
@@ -39,8 +40,6 @@ class UserBloc {
       token: observable,
       name: observable,
       //
-      validateUserName: action,
-      validatePass: action,
       closeSession: action,
       setToken: action,
       //
@@ -58,81 +57,6 @@ class UserBloc {
 
   static get Instance() {
     return this._instance || (this._instance = new this());
-  }
-
-  /**
-   * @param {Object} param0
-   * @param {string} param0.email
-   */
-  async validateUserName({ email }) {
-    email ??= "";
-
-    const body = JSON.stringify({
-      type: "validUser",
-      email: email,
-    });
-
-    const options = {
-      body,
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const resp = await fetch("/api/v1/auth/login", options);
-
-    /**
-     * @type {{
-     * success: boolean,
-     * name: string
-     * }}
-     */
-    const data = await resp.json();
-
-    return data;
-  }
-
-  /**
-   * @param {Object} param0
-   * @param {string} [param0.email]
-   * @param {string} [param0.pass]
-   */
-  async validatePass({ email, pass }) {
-    email ??= "";
-    pass ??= "";
-
-    const body = JSON.stringify({
-      type: "validPass",
-      pass: pass,
-      email: email,
-    });
-
-    const options = {
-      body,
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const resp = await fetch("/api/v1/auth/login", options);
-
-    /**
-     * @type {{
-     * success: boolean,
-     * token: string
-     * }}
-     */
-    const data = await resp.json();
-
-    if (typeof localStorage === "undefined") return;
-
-    this.token = data.token;
-    localStorage.setItem(this.#keyToken, this.token);
-    // localStorage.setItem(keyToken, this.token);
-
-    return data;
   }
 
   /**

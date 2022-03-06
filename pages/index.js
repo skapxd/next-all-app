@@ -40,7 +40,7 @@ export default function Root(props) {
   useSetHeight();
 
   useEffect(() => {
-    userBloc.setToken();
+    // userBloc.setToken();
   }, []);
 
   return (
