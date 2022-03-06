@@ -40,6 +40,8 @@ export default async function handler(req, res) {
       email: to,
       subject: `Código de verificación de All App`,
       msjText: `Hola ${_name}, ${cacheCode} es su código de verificación`,
+    }).catch((error) => {
+      console.log({ error });
     });
 
     return res.json({ success: true, name: _name });
