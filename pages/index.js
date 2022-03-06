@@ -1,4 +1,5 @@
 // @ts-check
+import { userBloc } from "Bloc/UserBloc";
 import {
   stateBottomNavigationBarButton,
   TypeBottomNavigationBarButton,
@@ -9,6 +10,7 @@ import { Scaffold } from "components/lv2/Scaffold/Scaffold";
 import { SettingsPage } from "components/lv2/SettingsPage/SettingsPage";
 import { useSetHeight } from "hooks/useSetHeight";
 import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
 import Style from "./index.module.scss";
 
 // export async function getStaticProps(){
@@ -36,6 +38,10 @@ export const rootPathName = "/";
 
 export default function Root(props) {
   useSetHeight();
+
+  useEffect(() => {
+    userBloc.setToken();
+  }, []);
 
   return (
     <div className={Style.Box}>

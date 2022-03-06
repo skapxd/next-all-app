@@ -4,15 +4,13 @@ import {
   TypeBottomNavigationBarButton,
 } from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
 import { action, computed, makeObservable, observable } from "mobx";
+
 class UserBloc {
   /**@type {string} */
   email;
 
   /**@type {string} */
   name;
-
-  /**@type {string} */
-  #keyToken = "loginToken";
 
   /**
    * @type {{
@@ -21,6 +19,8 @@ class UserBloc {
    * }}
    */
   geolocation;
+
+  #keyToken = "loginToken";
 
   /**
    * @type {{
@@ -31,8 +31,7 @@ class UserBloc {
   countryMetaInfo;
 
   /**@type {string} */
-  token =
-    typeof localStorage !== "undefined" && localStorage.getItem(this.#keyToken);
+  token;
 
   constructor() {
     makeObservable(this, {
@@ -43,11 +42,18 @@ class UserBloc {
       validateUserName: action,
       validatePass: action,
       closeSession: action,
+      setToken: action,
       //
       getToken: computed,
       getEmail: computed,
       getName: computed,
     });
+  }
+
+  setToken() {
+    if (typeof localStorage !== "undefined") {
+      this.token = localStorage.getItem(this.#keyToken);
+    }
   }
 
   static get Instance() {
@@ -124,6 +130,7 @@ class UserBloc {
 
     this.token = data.token;
     localStorage.setItem(this.#keyToken, this.token);
+    // localStorage.setItem(keyToken, this.token);
 
     return data;
   }
@@ -196,6 +203,7 @@ class UserBloc {
 
     this.token = data.token;
     localStorage.setItem(this.#keyToken, this.token);
+    // localStorage.setItem(keyToken, this.token);
 
     return data;
   }
@@ -205,6 +213,7 @@ class UserBloc {
 
     this.token = "";
     localStorage.setItem(this.#keyToken, this.token);
+    // localStorage.setItem(keyToken, this.token);
     stateBottomNavigationBarButton.changeCurrentButton(
       TypeBottomNavigationBarButton.store
     );

@@ -19,7 +19,6 @@ function _Profile(props) {
   return (
     <div className={Style.BoxProfile}>
       <PlaceholderImage borderRadius={BorderRadius.circular} />
-      
     </div>
   );
 }

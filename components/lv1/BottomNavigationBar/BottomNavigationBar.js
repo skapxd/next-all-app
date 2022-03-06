@@ -4,6 +4,8 @@ import { TypeBottomNavigationBarButton } from "components/lv0/BottomNavigationBa
 import { observer } from "mobx-react-lite";
 import Style from "./BottomNavigationBar.module.scss";
 
+export const BottomNavigationBar = observer(_BottomNavigationBar);
+
 function _BottomNavigationBar() {
   return (
     <div className={Style.Box}>
@@ -20,5 +22,3 @@ function _BottomNavigationBar() {
     </div>
   );
 }
-
-export const BottomNavigationBar = observer(_BottomNavigationBar);
