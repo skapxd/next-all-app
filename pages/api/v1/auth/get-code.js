@@ -29,15 +29,12 @@ export default async function handler(req, res) {
     5 /**5 min*/ * 60 /**1 min*/ * 1000 /**1 seg*/
   );
 
-  return res.json({ success: true, name });
-
   try {
-    // const user = await new UserRepository().existUser({
-    //   sendVerifyCodeTo: to,
-    // });
+    const user = await new UserRepository().existUser({
+      sendVerifyCodeTo: to,
+    });
 
-    // const _name = user.resp.data[0]?.name ?? name;
-    const _name = "name";
+    const _name = user.resp.data[0]?.name ?? name;
 
     sendMail({
       email: to,
