@@ -1,12 +1,9 @@
 // @ts-check
-import {
-  stateBottomNavigationBarButton,
-  TypeBottomNavigationBarButton,
-} from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
 import { BottomNavigationBar } from "components/lv1/BottomNavigationBar/BottomNavigationBar";
 import { BrandAppBar } from "components/lv1/BrandAppBar/BrandAppBar";
 import { useChangeUrl } from "hooks/useChangeUrl";
 import { observer } from "mobx-react-lite";
+import { CurrentPageRoot } from "pages";
 
 export const Scaffold = observer(_Scaffold);
 /**
@@ -21,9 +18,7 @@ export function _Scaffold(props) {
   });
   return (
     <div>
-      {currentPage !== TypeBottomNavigationBarButton.settings && (
-        <BrandAppBar />
-      )}
+      {currentPage !== CurrentPageRoot.settings && <BrandAppBar />}
 
       {children}
       <BottomNavigationBar />

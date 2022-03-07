@@ -10,7 +10,7 @@ export function PlaceholderImageIcon(props) {
   return (
     <svg
       onClick={() => onClick && onClick()}
-      className={`${className} `}
+      className={`${Style.Icon_Size} ${className} `}
       xmlns="http://www.w3.org/2000/svg"
       width="46.294"
       height="33.667"

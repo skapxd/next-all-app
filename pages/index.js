@@ -1,9 +1,5 @@
 // @ts-check
 import { userBloc } from "Bloc/UserBloc";
-import {
-  stateBottomNavigationBarButton,
-  TypeBottomNavigationBarButton,
-} from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
 import { CategoryPage } from "components/lv1/CategoryPage/CategoryPage";
 import { GoogleMapPage } from "components/lv1/MapaPage/MapaPage";
 import { Scaffold } from "components/lv2/Scaffold/Scaffold";
@@ -13,6 +9,12 @@ import { useSetHeight } from "hooks/useSetHeight";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import Style from "./index.module.scss";
+
+export class CurrentPageRoot {
+  static store = "";
+  static location = "location";
+  static settings = "settings";
+}
 
 // export async function getStaticProps(){
 
@@ -35,7 +37,7 @@ import Style from "./index.module.scss";
 //   }
 // }
 
-/** @param {TypeBottomNavigationBarButton} page */
+/** @param {CurrentPageRoot} page */
 export const rootPathName = (page) => `/?page=${page}`;
 
 export default function Root(props) {
@@ -63,15 +65,15 @@ function _CurrentPage(props) {
 
   return (
     <>
-      {currentPage === TypeBottomNavigationBarButton.store && (
+      {currentPage === CurrentPageRoot.store && (
         <CategoryPage listOfStore={props.listOfStore} />
       )}
 
-      {currentPage === TypeBottomNavigationBarButton.location && (
+      {currentPage === CurrentPageRoot.location && (
         <GoogleMapPage />
       )}
 
-      {currentPage === TypeBottomNavigationBarButton.settings && (
+      {currentPage === CurrentPageRoot.settings && (
         <SettingsPage />
       )}
     </>

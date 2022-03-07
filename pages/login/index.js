@@ -11,14 +11,11 @@ import { useEffect, useState } from "react";
 import { Loading } from "components/lv0/Loading/Loading";
 import { useSetHeight } from "hooks/useSetHeight";
 import { useRouter } from "next/router";
-import {
-  stateBottomNavigationBarButton,
-  TypeBottomNavigationBarButton,
-} from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
 import { getCode } from "functionsView/login/validateUserName";
 import { verifyCode } from "functionsView/login/validatePass";
 import { getQueryParams } from "helpers/getQueryParams";
-import { rootPathName } from "pages";
+import { CurrentPageRoot, rootPathName } from "pages";
+import { userBloc } from "Bloc/UserBloc";
 
 class CurrentPage {
   static getCode = "getCode";
@@ -109,8 +106,8 @@ export default function LoginPage() {
           },
           onSuccess: () => {
             setLoading(false);
-
-            router.push(rootPathName(TypeBottomNavigationBarButton.settings));
+            userBloc.setName(user.name.value);
+            router.push(rootPathName(CurrentPageRoot.settings));
           },
         });
     } catch (error) {
@@ -174,7 +171,6 @@ export default function LoginPage() {
               placeholder="000 000"
               name="Código de verificación"
               onChange={(value, isValid, keyDown) => {
-                console.log({ value, isValid, keyDown });
                 if (value.length === 3 && keyDown) {
                   return setUser((s) => ({
                     ...s,

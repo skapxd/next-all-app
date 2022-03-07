@@ -9,4 +9,49 @@
     display: flex;
     flex-direction: row;
     padding: 24px 16px;
+    &_BoxDescription {
+        display: flex;
+        flex-direction: column;
+        margin-left: 16px;
+        justify-content: center;
+        gap: 8px;
+        &_Name {
+            color: theme.$white
+        }
+        &_Description {
+            color: theme.$white3
+        }
+    }
+}
+
+.Divider {
+    width: 100%;
+    height: 1px;
+    background-color: theme.$darkGrey2;
+}
+
+.BoxListTile {
+    display: flex;
+    flex-direction: row;
+    padding: 34px;
+    padding-bottom: 0;
+    gap: 28px;
+    align-items: center;
+    &_Icon {
+        & path,
+        & rect {
+            fill: theme.$white
+        }
+    }
+    &_BoxDescription {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        & h4 {
+            color: theme.$white;
+        }
+        & p {
+            color: theme.$white3;
+        }
+    }
 }

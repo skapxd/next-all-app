@@ -1,7 +1,8 @@
+// @ts-check
 import { userBloc } from "Bloc/UserBloc";
 import { BottomNavigationBarButton } from "components/lv0/BottomNavigationBarButton/BottomNavigationBarButton";
-import { TypeBottomNavigationBarButton } from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
 import { observer } from "mobx-react-lite";
+import { CurrentPageRoot } from "pages";
 import Style from "./BottomNavigationBar.module.scss";
 
 export const BottomNavigationBar = observer(_BottomNavigationBar);
@@ -9,15 +10,11 @@ export const BottomNavigationBar = observer(_BottomNavigationBar);
 function _BottomNavigationBar() {
   return (
     <div className={Style.Box}>
-      <BottomNavigationBarButton type={TypeBottomNavigationBarButton.store} />
-      <BottomNavigationBarButton
-        type={TypeBottomNavigationBarButton.location}
-      />
+      <BottomNavigationBarButton type={CurrentPageRoot.store} />
+      <BottomNavigationBarButton type={CurrentPageRoot.location} />
 
       {userBloc.token && (
-        <BottomNavigationBarButton
-          type={TypeBottomNavigationBarButton.settings}
-        />
+        <BottomNavigationBarButton type={CurrentPageRoot.settings} />
       )}
     </div>
   );

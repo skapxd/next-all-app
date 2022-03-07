@@ -2,21 +2,21 @@
 import Style from "./BottomNavigationBarButton.module.scss";
 import { StoreIcon } from "components/lv0/Icon/StoreIcon";
 import { observer } from "mobx-react-lite";
-import { TypeBottomNavigationBarButton } from "./StateBottomNavigationBarButton";
 import { LocationIcon } from "../Icon/LocationIcon";
 import { SettingsIcon } from "../Icon/SettingsIcon";
 import { useChangeUrl } from "hooks/useChangeUrl";
+import { CurrentPageRoot } from "pages";
 
 export const BottomNavigationBarButton = observer(_BottomNavigationBarButton);
 
 /**
  * @param {Object} props
- * @param {TypeBottomNavigationBarButton} props.type
+ * @param {CurrentPageRoot} props.type
  */
 function _BottomNavigationBarButton(props) {
-  const { type = TypeBottomNavigationBarButton.store } = props;
+  const { type = CurrentPageRoot.store } = props;
 
-  /**@type {TypeBottomNavigationBarButton} */
+  /**@type {CurrentPageRoot} */
   const typeCurrentPage = null;
   const { currentPage, router } = useChangeUrl({
     typeCurrentPage,
@@ -37,28 +37,28 @@ function _BottomNavigationBarButton(props) {
     };
   };
 
-  /** @param {TypeBottomNavigationBarButton} currentButton   */
+  /** @param {CurrentPageRoot} currentButton   */
   const onChange = (currentButton) => {
     router.push(`/?page=${currentButton}`);
   };
 
   return (
     <>
-      {type === TypeBottomNavigationBarButton.location && (
+      {type === CurrentPageRoot.location && (
         <button onClick={() => onChange(type)} className={Style.Box}>
           <LocationIcon className={getStyle().icon} />
           <p className={getStyle().text}>Ubicación</p>
         </button>
       )}
 
-      {type === TypeBottomNavigationBarButton.settings && (
+      {type === CurrentPageRoot.settings && (
         <button onClick={() => onChange(type)} className={Style.Box}>
           <SettingsIcon className={getStyle().icon} />
           <p className={getStyle().text}>Ajustes</p>
         </button>
       )}
 
-      {type === TypeBottomNavigationBarButton.store && (
+      {type === CurrentPageRoot.store && (
         <button onClick={() => onChange(type)} className={Style.Box}>
           <StoreIcon className={getStyle().icon} />
           <p className={getStyle().text}>Tiendas</p>
@@ -67,7 +67,7 @@ function _BottomNavigationBarButton(props) {
     </>
   );
 
-  if (type === TypeBottomNavigationBarButton.location) {
+  if (type === CurrentPageRoot.location) {
     return (
       <button onClick={() => onChange(type)} className={Style.Box}>
         <LocationIcon className={getStyle().icon} />
@@ -76,7 +76,7 @@ function _BottomNavigationBarButton(props) {
     );
   }
 
-  if (type === TypeBottomNavigationBarButton.settings) {
+  if (type === CurrentPageRoot.settings) {
     return (
       <button onClick={() => onChange(type)} className={Style.Box}>
         <SettingsIcon className={getStyle().icon} />

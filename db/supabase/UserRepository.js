@@ -1,6 +1,10 @@
 // @ts-check
 import { supabase } from "./connection";
 
+export class UserRolDTO {
+  static Admin = "Admin";
+}
+
 /**
  * @typedef {'whatsApp'| 'email'} VerifyMethod
  */
@@ -10,6 +14,7 @@ import { supabase } from "./connection";
  * @prop {string} [uuid]
  * @prop {string} name
  * @prop {string} sendVerifyCodeTo
+ * @prop {UserRolDTO} [rol]
  * @prop {VerifyMethod} verifyMethod
  */
 

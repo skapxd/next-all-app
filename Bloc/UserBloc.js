@@ -1,17 +1,17 @@
 // @ts-check
-import {
-  stateBottomNavigationBarButton,
-  TypeBottomNavigationBarButton,
-} from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
 import { action, computed, makeObservable, observable } from "mobx";
-import { useRouter } from "next/router";
-
+import { getLocalStorage, setLocalStorage } from "helpers/customLocalStorage";
 class UserBloc {
-  /**@type {string} */
-  email;
+  #keyEmail = "UserBlocEmail";
+
+  #keyName = "UserBlocName";
+
+  #keyDescription = "UserBlocDescription";
+
+  #keyToken = "UserBlocToken";
 
   /**@type {string} */
-  name;
+  token;
 
   /**
    * @type {{
@@ -21,8 +21,6 @@ class UserBloc {
    */
   geolocation;
 
-  #keyToken = "loginToken";
-
   /**
    * @type {{
    * countryName: string,
@@ -31,28 +29,19 @@ class UserBloc {
    */
   countryMetaInfo;
 
-  /**@type {string} */
-  token;
-
   constructor() {
     makeObservable(this, {
-      email: observable,
       token: observable,
-      name: observable,
       //
-      closeSession: action,
+      setName: action,
       setToken: action,
+      closeSession: action,
+      setDescription: action,
       //
-      getToken: computed,
       getEmail: computed,
       getName: computed,
+      getToken: computed,
     });
-  }
-
-  setToken() {
-    if (typeof localStorage !== "undefined") {
-      this.token = localStorage.getItem(this.#keyToken);
-    }
   }
 
   static get Instance() {
@@ -123,33 +112,66 @@ class UserBloc {
     /** @type {{ success: boolean, token: string }} */
     const data = await resp.json();
 
-    if (typeof localStorage === "undefined") return;
-
-    this.token = data.token;
-    localStorage.setItem(this.#keyToken, this.token);
-    // localStorage.setItem(keyToken, this.token);
+    setLocalStorage({
+      key: this.#keyToken,
+      value: data.token,
+    });
 
     return data;
   }
 
   closeSession() {
-    if (typeof localStorage === "undefined") return;
-
     this.token = "";
-    localStorage.setItem(this.#keyToken, this.token);
+    setLocalStorage({
+      key: this.#keyToken,
+      value: "",
+    });
   }
 
   get getToken() {
-    if (typeof localStorage === "undefined") return;
+    this.token = getLocalStorage({
+      key: this.#keyToken,
+    });
     return this.token;
   }
 
   get getEmail() {
-    return this.email;
+    return getLocalStorage({ key: this.#keyEmail });
   }
 
+  /**@return {string}  */
   get getName() {
-    return this.name;
+    return getLocalStorage({
+      key: this.#keyName,
+    });
+  }
+
+  /**@return {string}  */
+  get getDescription() {
+    return getLocalStorage({
+      key: this.#keyDescription,
+    });
+  }
+
+  /////////////////////////////////
+  setName(name) {
+    setLocalStorage({
+      key: this.#keyName,
+      value: name,
+    });
+  }
+
+  setDescription(name) {
+    setLocalStorage({
+      key: this.#keyDescription,
+      value: name,
+    });
+  }
+
+  setToken() {
+    this.token = getLocalStorage({
+      key: this.#keyToken,
+    });
   }
 }
 

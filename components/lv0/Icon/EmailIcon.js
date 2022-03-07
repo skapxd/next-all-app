@@ -9,7 +9,7 @@ export function EmailIcon(props) {
   const { className = "" } = props;
   return (
     <svg
-      className={`${className} ${Style.Icon_Size}`}
+      className={`${Style.Icon_Size} ${className}`}
       xmlns="http://www.w3.org/2000/svg"
       width="29"
       height="24.135"
