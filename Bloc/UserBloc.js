@@ -4,6 +4,7 @@ import {
   TypeBottomNavigationBarButton,
 } from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
 import { action, computed, makeObservable, observable } from "mobx";
+import { useRouter } from "next/router";
 
 class UserBloc {
   /**@type {string} */
@@ -136,10 +137,6 @@ class UserBloc {
 
     this.token = "";
     localStorage.setItem(this.#keyToken, this.token);
-    // localStorage.setItem(keyToken, this.token);
-    stateBottomNavigationBarButton.changeCurrentButton(
-      TypeBottomNavigationBarButton.store
-    );
   }
 
   get getToken() {

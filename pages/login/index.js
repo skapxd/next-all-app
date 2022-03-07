@@ -18,6 +18,7 @@ import {
 import { getCode } from "functionsView/login/validateUserName";
 import { verifyCode } from "functionsView/login/validatePass";
 import { getQueryParams } from "helpers/getQueryParams";
+import { rootPathName } from "pages";
 
 class CurrentPage {
   static getCode = "getCode";
@@ -87,7 +88,6 @@ export default function LoginPage() {
                 value: data.name ?? s.name.value,
               },
             }));
-            console.log({ data });
             router.push(loginPathName("validateCode"));
           },
         });
@@ -109,13 +109,13 @@ export default function LoginPage() {
           },
           onSuccess: () => {
             setLoading(false);
-            stateBottomNavigationBarButton.changeCurrentButton(
-              TypeBottomNavigationBarButton.settings
-            );
-            router.push("/");
+
+            router.push(rootPathName(TypeBottomNavigationBarButton.settings));
           },
         });
-    } catch (error) {}
+    } catch (error) {
+      console.error({ error: error.message });
+    }
   };
 
   return (

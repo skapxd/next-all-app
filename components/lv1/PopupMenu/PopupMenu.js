@@ -61,13 +61,6 @@ function _PopupMenu(props) {
               />
             )}
 
-            {/* {!userBloc.getToken && (
-              <Link href={registerPathName("registerEmail")}>
-                <a>
-                  <ListTileMenu title="Iniciar sesión" />
-                </a>
-              </Link>
-            )} */}
             <ListTileMenu title="Contactame" />
             <ListTileMenu title="Favoritos" />
             <ListTileMenu title="Reportar un error" />

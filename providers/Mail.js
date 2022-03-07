@@ -1,4 +1,5 @@
 // @ts-check
+import { env } from "env";
 import { createTransport } from "nodemailer";
 
 /**
@@ -10,18 +11,13 @@ import { createTransport } from "nodemailer";
 export const sendMail = async (props) => {
   const { email, msjText, subject = "No responder a este email" } = props;
 
-  const credentials = {
-    user: process.env.USER_MAIL,
-    pass: process.env.PASS_MAIL,
-  };
-
   let transporter = createTransport({
     host: "smtp.gmail.com",
     port: 465,
     secure: true,
     auth: {
-      user: credentials.user,
-      pass: credentials.pass,
+      user: env.user_mail,
+      pass: env.pass_mail,
     },
   });
 

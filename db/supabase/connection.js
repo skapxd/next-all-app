@@ -1,8 +1,5 @@
 // @ts-check
 import { createClient } from "@supabase/supabase-js";
+import { env } from "env";
 
-// Create a single supabase client for interacting with your database
-const supabase_url = process.env.SUPABASE_URL;
-const supabase_key = process.env.SUPABASE_KEY;
-
-export const supabase = createClient(supabase_url, supabase_key);
+export const supabase = createClient(env.supabase_url, env.supabase_key);

@@ -35,7 +35,8 @@ import Style from "./index.module.scss";
 //   }
 // }
 
-export const rootPathName = "/";
+/** @param {TypeBottomNavigationBarButton} page */
+export const rootPathName = (page) => `/?page=${page}`;
 
 export default function Root(props) {
   useSetHeight();
