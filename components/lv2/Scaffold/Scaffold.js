@@ -5,6 +5,7 @@ import {
 } from "components/lv0/BottomNavigationBarButton/StateBottomNavigationBarButton";
 import { BottomNavigationBar } from "components/lv1/BottomNavigationBar/BottomNavigationBar";
 import { BrandAppBar } from "components/lv1/BrandAppBar/BrandAppBar";
+import { useChangeUrl } from "hooks/useChangeUrl";
 import { observer } from "mobx-react-lite";
 
 export const Scaffold = observer(_Scaffold);
@@ -15,11 +16,14 @@ export const Scaffold = observer(_Scaffold);
  */
 export function _Scaffold(props) {
   const { children } = props;
-
+  const { currentPage } = useChangeUrl({
+    queryParam: "page",
+  });
   return (
     <div>
-      {stateBottomNavigationBarButton.getCurrentButton !==
-        TypeBottomNavigationBarButton.settings && <BrandAppBar />}
+      {currentPage !== TypeBottomNavigationBarButton.settings && (
+        <BrandAppBar />
+      )}
 
       {children}
       <BottomNavigationBar />

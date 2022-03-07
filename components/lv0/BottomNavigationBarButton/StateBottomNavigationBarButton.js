@@ -1,7 +1,7 @@
 import { action, computed, makeObservable, observable } from "mobx";
 
 export class TypeBottomNavigationBarButton {
-  static store = "store";
+  static store = "";
   static location = "location";
   static settings = "settings";
 }

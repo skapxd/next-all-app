@@ -31,8 +31,7 @@ class UserBloc {
   countryMetaInfo;
 
   /**@type {string} */
-  token =
-    typeof localStorage !== "undefined" && localStorage.getItem(this.#keyToken);
+  token;
 
   constructor() {
     makeObservable(this, {

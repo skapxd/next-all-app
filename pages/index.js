@@ -8,6 +8,7 @@ import { CategoryPage } from "components/lv1/CategoryPage/CategoryPage";
 import { GoogleMapPage } from "components/lv1/MapaPage/MapaPage";
 import { Scaffold } from "components/lv2/Scaffold/Scaffold";
 import { SettingsPage } from "components/lv2/SettingsPage/SettingsPage";
+import { useChangeUrl } from "hooks/useChangeUrl";
 import { useSetHeight } from "hooks/useSetHeight";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
@@ -40,7 +41,7 @@ export default function Root(props) {
   useSetHeight();
 
   useEffect(() => {
-    // userBloc.setToken();
+    userBloc.setToken();
   }, []);
 
   return (
@@ -55,25 +56,23 @@ export default function Root(props) {
 const CurrentPage = observer(_CurrentPage);
 
 function _CurrentPage(props) {
-  if (
-    stateBottomNavigationBarButton.getCurrentButton ===
-    TypeBottomNavigationBarButton.store
-  ) {
-    return <CategoryPage listOfStore={props.listOfStore} />;
-  }
+  const { currentPage } = useChangeUrl({
+    queryParam: "page",
+  });
 
-  if (
-    stateBottomNavigationBarButton.getCurrentButton ===
-    TypeBottomNavigationBarButton.location
-  ) {
-    return <GoogleMapPage />;
-  }
+  return (
+    <>
+      {currentPage === TypeBottomNavigationBarButton.store && (
+        <CategoryPage listOfStore={props.listOfStore} />
+      )}
 
-  if (
-    stateBottomNavigationBarButton.getCurrentButton ===
-    TypeBottomNavigationBarButton.settings
-  )
-    return <SettingsPage />;
+      {currentPage === TypeBottomNavigationBarButton.location && (
+        <GoogleMapPage />
+      )}
 
-  return <></>;
+      {currentPage === TypeBottomNavigationBarButton.settings && (
+        <SettingsPage />
+      )}
+    </>
+  );
 }
