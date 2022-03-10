@@ -65,8 +65,8 @@ const options = {
   },
 };
 
-// if (!isProduction) {
-//   options["header"] = async () => [cors, feat, feat2];
-// }
+if (!isProduction) {
+  options["header"] = async () => [cors, feat, feat2];
+}
 
 module.exports = withPWA(options);
