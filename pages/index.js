@@ -62,6 +62,23 @@ function _CurrentPage(props) {
   const { currentPage } = useChangeUrl({
     queryParam: "page",
   });
+  useEffect(() => {
+    // typeof window !== "undefined" && window.alert("hola");
+    if (typeof document !== "undefined") {
+      // document.featurePolicy.allowedFeatures();
+      console.log({
+        navigator: window?.navigator,
+        share: window?.navigator?.share,
+      });
+      if (typeof window?.navigator?.share !== "undefined") {
+        /**@type {ShareData} */
+        const data = {
+          text: "hola",
+        };
+        window?.navigator?.share(data);
+      }
+    }
+  }, []);
 
   return (
     <>
