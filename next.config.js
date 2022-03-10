@@ -42,8 +42,7 @@ const feat2 = {
   ],
 };
 
-module.exports = withPWA({
-  headers: async () => [cors, feat, feat2],
+const options = {
   images: {
     domains: ["picsum.photos"],
   },
@@ -64,4 +63,10 @@ module.exports = withPWA({
     defaultLocale: "es-ES",
     localeDetection: true,
   },
-});
+};
+
+if (isProduction) {
+  options["header"] = async () => [cors, feat, feat2];
+}
+
+module.exports = withPWA(options);
