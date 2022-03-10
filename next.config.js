@@ -43,7 +43,7 @@ const feat2 = {
 };
 
 module.exports = withPWA({
-  headers: async () => [!isProduction && cors, feat, feat2],
+  headers: async () => [cors, feat, feat2],
   images: {
     domains: ["picsum.photos"],
   },
