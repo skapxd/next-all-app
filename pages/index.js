@@ -69,13 +69,9 @@ function _CurrentPage(props) {
         <CategoryPage listOfStore={props.listOfStore} />
       )}
 
-      {currentPage === CurrentPageRoot.location && (
-        <GoogleMapPage />
-      )}
+      {currentPage === CurrentPageRoot.location && <GoogleMapPage />}
 
-      {currentPage === CurrentPageRoot.settings && (
-        <SettingsPage />
-      )}
+      {currentPage === CurrentPageRoot.settings && <SettingsPage />}
     </>
   );
 }

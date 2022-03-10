@@ -5,12 +5,15 @@ import { DollarIcon } from "components/lv0/Icon/DollarIcon";
 import { InfoIcon } from "components/lv0/Icon/InfoIcon";
 import { LocationIcon } from "components/lv0/Icon/LocationIcon";
 import { PlaceholderImageIcon } from "components/lv0/Icon/PlaceholderImageIcon";
+import { PlaceholderPeopleIcon } from "components/lv0/Icon/PlaceholderPeopleIcon";
 import { StoreIcon } from "components/lv0/Icon/StoreIcon";
 import {
   BorderRadius,
   PlaceholderImage,
 } from "components/lv0/PlaceholderImage/PlaceholderImage";
 import { AppBar } from "components/lv1/AppBar/AppBar";
+import Link from "next/link";
+import { userProfilePathName } from "pages/user-profile";
 import Style from "./SettingsPage.module.scss";
 export function SettingsPage() {
   return (
@@ -75,16 +78,21 @@ function ListTile(props) {
 
 function Profile(props) {
   return (
-    <div className={Style.BoxProfile}>
-      <PlaceholderImage borderRadius={BorderRadius.circular} />
-      <div className={Style.BoxProfile_BoxDescription}>
-        <h3 className={Style.BoxProfile_BoxDescription_Name}>
-          {userBloc.getName}
-        </h3>
-        <p className={Style.BoxProfile_BoxDescription_Description}>
-          Hola! estoy usando All App
-        </p>
-      </div>
-    </div>
+    <Link href={userProfilePathName()}>
+      <a>
+        <div className={Style.BoxProfile}>
+          {/* <PlaceholderImage borderRadius={BorderRadius.circular} /> */}
+          <PlaceholderPeopleIcon className={Style.BoxProfile_BoxPlaceholderPeople}/>
+          <div className={Style.BoxProfile_BoxDescription}>
+            <h3 className={Style.BoxProfile_BoxDescription_Name}>
+              {userBloc.getName}
+            </h3>
+            <p className={Style.BoxProfile_BoxDescription_Description}>
+              Hola! estoy usando All App
+            </p>
+          </div>
+        </div>
+      </a>
+    </Link>
   );
 }

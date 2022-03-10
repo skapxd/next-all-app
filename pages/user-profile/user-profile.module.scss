@@ -1,0 +1,28 @@
+@use 'styles/_theme' as theme;
+.Box {
+    @include theme.ScaffoldBox;
+    &_ImageProfile {
+        justify-content: center;
+        align-items: center;
+        height: 150px;
+        width: 150px;
+        background-color: theme.$darkGrey2;
+        border-radius: 1000px;
+        margin: 26px auto;
+        display: flex;
+        position: relative;
+    }
+    &_CameraProfileIcon {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 45px;
+        width: 45px;
+        background: theme.$subject;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100px;
+        padding: 10px;
+    }
+}

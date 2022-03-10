@@ -6,10 +6,8 @@ import { stateListOfStoreCategory } from "components/lv0/ListOfStoreCategory/Sta
 import { Loading } from "components/lv0/Loading/Loading";
 import { response } from "helpers/response";
 import { observer } from "mobx-react-lite";
-import { listOfNameStoreCategory } from "model/ListOfStore";
 import { useEffect, useState } from "react";
 import { serviceGetListOfStore } from "service/getListOfStore";
-import Style from "./CategoryPage.module.scss";
 import { stateCategoryPage } from "./StateCategoryPage";
 
 export const CategoryPage = observer(_CategoryPage);
@@ -71,7 +69,6 @@ function _CategoryPage(props) {
 
       const resp = await Promise.allSettled(listOfPromise);
 
-
       resp.forEach((e) => {
         if (e.status === "rejected") return;
         const by = e.value.byAsString;
@@ -111,8 +108,6 @@ function _CategoryPage(props) {
   if (stateCategoryPage.getIsLoading) {
     return <Loading />;
   }
-
-  // return <p>a</p>;
 
   return (
     <div className={" "}>

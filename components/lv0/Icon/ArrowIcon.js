@@ -1,3 +1,4 @@
+// @ts-check
 import Style from "./Icon.module.scss";
 
 export class ArrowDirection {
@@ -11,7 +12,7 @@ export class ArrowDirection {
  *
  * @param {Object} props
  * @param {ArrowDirection} props.direction
- * @param {onClick} [props.onClick]
+ * @param {() => void} [props.onClick]
  * @param {string} [props.className]
  * @returns
  */

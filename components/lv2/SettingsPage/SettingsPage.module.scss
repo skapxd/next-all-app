@@ -22,6 +22,13 @@
             color: theme.$white3
         }
     }
+    &_BoxPlaceholderPeople {
+        height: 75px;
+        width: 75px;
+        background-color: theme.$darkGrey2;
+        padding: 20px;
+        border-radius: 1000px;
+    }
 }
 
 .Divider {

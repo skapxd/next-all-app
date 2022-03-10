@@ -1,16 +1,20 @@
 // @ts-check
 import { ArrowDirection, ArrowIcon } from "components/lv0/Icon/ArrowIcon";
 import Style from "./Metadata.module.scss";
+import Markdown from "markdown-to-jsx";
+
+class MarkdownString extends String {}
+
 /**
  * @param {Object} props
  * @param {string} props.title
- * @param {JSX.Element | string} props.description
+ * @param {MarkdownString} props.description
  * @param {() => void} [props.onClick]
  * @returns
  */
 export function Metadata(props) {
   const {
-    description = "default description",
+    description,
     onClick = () => console.log("default onClick"),
     title = "default title",
   } = props;
@@ -23,7 +27,9 @@ export function Metadata(props) {
         <ArrowIcon direction={ArrowDirection.right} />
       </div>
 
-      <p className={Style.Box_Description}>{description}</p>
+      <p className={Style.Box_Description}>
+        <Markdown>{`${description}`}</Markdown>
+      </p>
     </div>
   );
 }
