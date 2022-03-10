@@ -5,7 +5,7 @@ import { validate } from "@skapxd/validate";
 
 /**
  * @param {Object} props
- * @param {string} props.name
+ * @param {string} [props.name]
  * @param {string} [props.placeholder]
  * @param {number} [props.maxLength]
  * @param {number} [props.minLength]

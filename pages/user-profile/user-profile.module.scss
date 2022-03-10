@@ -26,3 +26,10 @@
         padding: 10px;
     }
 }
+
+.Icon {
+    & path,
+    & rect {
+        fill: theme.$white
+    }
+}

@@ -23,14 +23,16 @@ export default async function handler(req, res) {
 
     const token = await generateJWT(to);
 
-    console.log({
-      body: req.body,
+    const user = await new UserRepository().existUser({
+      sendVerifyCodeTo: to,
     });
 
-    await userDTO.create({
-      sendVerifyCodeTo: to,
-      name,
-    });
+    if (!user) {
+      await userDTO.create({
+        sendVerifyCodeTo: to,
+        name,
+      });
+    }
 
     return res.json({ success: true, token });
   } catch (error) {
