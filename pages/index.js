@@ -65,23 +65,6 @@ function _CurrentPage(props) {
 
   return (
     <>
-      <button
-        onClick={() => {
-          console.log({
-            navigator: window?.navigator,
-            share: window?.navigator?.share,
-          });
-          if (typeof window?.navigator?.share !== "undefined") {
-            /**@type {ShareData} */
-            const data = {
-              text: "hola",
-            };
-            window?.navigator?.share(data);
-          }
-        }}
-      >
-        shared
-      </button>
       {currentPage === CurrentPageRoot.store && (
         <CategoryPage listOfStore={props.listOfStore} />
       )}
