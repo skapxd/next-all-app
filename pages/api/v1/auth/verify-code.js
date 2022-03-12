@@ -21,20 +21,22 @@ export default async function handler(req, res) {
       return res.status(400).json({ success: false });
     }
 
-    const token = await generateJWT(to);
-
-    const user = await new UserRepository().existUser({
+    const userRepository = await new UserRepository().existUser({
       sendVerifyCodeTo: to,
     });
 
-    if (!user) {
-      await userDTO.create({
-        sendVerifyCodeTo: to,
-        name,
-      });
-    }
+    const token = await generateJWT(userRepository.data[0].uuid);
+    if (userRepository.data.length !== 0)
+      return res.json({ success: true, token });
 
-    return res.json({ success: true, token });
+    const newUser = await userDTO.create({
+      sendVerifyCodeTo: to,
+      name,
+    });
+
+    const token2 = await generateJWT(newUser.data[0].uuid);
+
+    return res.json({ success: true, token: token2 });
   } catch (error) {
     return res.status(400).json({ success: false, error: error.message });
   }

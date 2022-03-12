@@ -28,6 +28,8 @@
 }
 
 .Icon {
+    height: 28px;
+    width: 28px;
     & path,
     & rect {
         fill: theme.$white

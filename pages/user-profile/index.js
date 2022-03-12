@@ -1,11 +1,10 @@
 // @ts-check
 import { CameraIcon } from "components/lv0/Icon/CameraIcon";
 import { PlaceholderPeopleIcon } from "components/lv0/Icon/PlaceholderPeopleIcon";
-import { StoreIcon } from "components/lv0/Icon/StoreIcon";
 import { AppBar } from "components/lv1/AppBar/AppBar";
-import { useEffect } from "react";
 import { ProfileListTile } from "components/user-profile/ProfileListTile/ProfileListTile";
 import Style from "./user-profile.module.scss";
+import { userBloc } from "Bloc/UserBloc";
 
 export const userProfilePathName = () => `/user-profile`;
 
@@ -14,7 +13,17 @@ export default function UserProfile() {
     <div className={`${Style.Box}`}>
       <AppBar title="Perfil" showArrowBack={true} />
 
-      <div className={Style.Box_ImageProfile}>
+      <div
+        className={Style.Box_ImageProfile}
+        onClick={async () => {
+          if (typeof window === "undefined") return;
+          try {
+            await window.showOpenFilePicker();
+          } catch (error) {
+            console.log({ error: error.message });
+          }
+        }}
+      >
         <PlaceholderPeopleIcon />
         <div className={Style.Box_CameraProfileIcon}>
           <CameraIcon />
@@ -22,9 +31,13 @@ export default function UserProfile() {
       </div>
 
       <ProfileListTile
-        Icon={() => <StoreIcon className={Style.Icon} />}
+        Icon={() => <PlaceholderPeopleIcon className={Style.Icon} />}
         title={"Nombre"}
-        description="Nombre de la tienda"
+        description={userBloc.getName}
+        onSave={(value) => {
+          userBloc;
+          console.log({ value });
+        }}
       />
     </div>
   );

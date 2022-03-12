@@ -6,28 +6,29 @@ import Style from "./ProfileListTile.module.scss";
  * @param {Object} props
  * @param {string} props.title
  * @param {Object} props.description
- * @param {() => void} [props.onClick]
+ * @param {(value: string) => void} [props.onSave]
  * @param {() => JSX.Element} props.Icon
  * @returns
  */
 export function ProfileListTile(props) {
-  let { Icon = () => <></>, description, title, onClick } = props;
+  let { Icon = () => <></>, description, title, onSave } = props;
 
-  onClick ??= () => {};
+  onSave ??= () => {};
 
   return (
-    <div className={Style.BoxListTile} onClick={onClick}>
+    <div className={Style.BoxListTile}>
       <Icon />
 
       <div className={Style.BoxListTile_BoxDescription}>
-        <h4>{title}</h4>
-        <p>{description}</p>
+        <p>{title}</p>
+        <h3>{description}</h3>
       </div>
 
       <EditPencilWithPopup
         title={title}
+        initValue={description}
         onSave={(value) => {
-          console.log({ value });
+          onSave(value);
         }}
         className={Style.BoxListTile_IconEdit}
       />

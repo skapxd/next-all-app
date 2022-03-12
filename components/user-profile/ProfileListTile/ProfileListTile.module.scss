@@ -16,10 +16,10 @@
         display: flex;
         flex-direction: column;
         gap: 4px;
-        & h4 {
+        & p {
             color: theme.$white3;
         }
-        & p {
+        & h3 {
             color: theme.$white;
         }
     }
