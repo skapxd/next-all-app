@@ -6,7 +6,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 const cors = {
   // matching all API routes
-  source: "/api/:path*",
+  source: "/api/auth/:path*", // "/api/:path*"
   headers: [
     { key: "Access-Control-Allow-Credentials", value: "true" },
     { key: "Access-Control-Allow-Origin", value: "*" },
@@ -65,8 +65,8 @@ const options = {
   },
 };
 
-if (!isProduction) {
-  options["header"] = async () => [cors, feat, feat2];
-}
+// if (!isProduction) {
+//   options["header"] = async () => [cors, feat, feat2];
+// }
 
 module.exports = withPWA(options);

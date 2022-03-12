@@ -5,6 +5,7 @@ import { AppBar } from "components/global/lv1/AppBar/AppBar";
 import { ProfileListTile } from "components/user-profile/ProfileListTile/ProfileListTile";
 import Style from "./user-profile.module.scss";
 import { userBloc } from "Bloc/UserBloc";
+import { ImagePicker } from "components/global/lv0/ImagePicker/ImagePicker";
 
 export const userProfilePathName = () => `/user-profile`;
 
@@ -13,7 +14,36 @@ export default function UserProfile() {
     <div className={`${Style.Box}`}>
       <AppBar title="Perfil" showArrowBack={true} />
 
-      <ImageProfile />
+      <ImagePicker
+        imageBuilder={(props) => {
+          const { url } = props;
+          if (!url)
+            return (
+              <div className={Style.Box_ImageProfile}>
+                <PlaceholderPeopleIcon />
+                <div className={Style.Box_CameraProfileIcon}>
+                  <CameraIcon />
+                </div>
+              </div>
+            );
+
+          return (
+            <div className={Style.Box_ImageProfile}>
+              <img
+                src={url}
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  borderRadius: "1000px",
+                }}
+              />
+              <div className={Style.Box_CameraProfileIcon}>
+                <CameraIcon />
+              </div>
+            </div>
+          );
+        }}
+      />
 
       <ProfileListTile
         Icon={() => <PlaceholderPeopleIcon className={Style.Icon} />}
@@ -28,19 +58,19 @@ export default function UserProfile() {
   );
 }
 
-export function ImageProfile() {
-  return (
-    <>
-      <label htmlFor="file-upload">
-        <div className={Style.Box_ImageProfile}>
-          <PlaceholderPeopleIcon />
-          <div className={Style.Box_CameraProfileIcon}>
-            <CameraIcon />
-          </div>
-        </div>
-      </label>
+// export function ImageProfile() {
+//   return (
+//     <>
+//       <label htmlFor="file-upload">
+//         <div className={Style.Box_ImageProfile}>
+//           <PlaceholderPeopleIcon />
+//           <div className={Style.Box_CameraProfileIcon}>
+//             <CameraIcon />
+//           </div>
+//         </div>
+//       </label>
 
-      <input type="file" id="file-upload" accept="image/png, image/jpeg" />
-    </>
-  );
-}
+//       <input type="file" id="file-upload" accept="image/png, image/jpeg" />
+//     </>
+//   );
+// }

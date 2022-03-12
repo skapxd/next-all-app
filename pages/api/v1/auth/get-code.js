@@ -34,7 +34,7 @@ export default async function handler(req, res) {
       sendVerifyCodeTo: to,
     });
 
-    const _name = user.resp.data[0]?.name ?? name;
+    const _name = user.data[0]?.name ?? name;
 
     await sendMail({
       email: to,
