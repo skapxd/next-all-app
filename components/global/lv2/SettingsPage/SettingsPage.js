@@ -1,13 +1,13 @@
 // @ts-check
 
 import { userBloc } from "Bloc/UserBloc";
-import { DollarIcon } from "components/lv0/Icon/DollarIcon";
-import { InfoIcon } from "components/lv0/Icon/InfoIcon";
-import { LocationIcon } from "components/lv0/Icon/LocationIcon";
-import { PlaceholderPeopleIcon } from "components/lv0/Icon/PlaceholderPeopleIcon";
-import { StoreIcon } from "components/lv0/Icon/StoreIcon";
-import { ListTileSettingsPage } from "components/lv0/ListTileSettingsPage/ListTileSettingsPage";
-import { AppBar } from "components/lv1/AppBar/AppBar";
+import { DollarIcon } from "components/global/lv0/Icon/DollarIcon";
+import { InfoIcon } from "components/global/lv0/Icon/InfoIcon";
+import { LocationIcon } from "components/global/lv0/Icon/LocationIcon";
+import { PlaceholderPeopleIcon } from "components/global/lv0/Icon/PlaceholderPeopleIcon";
+import { StoreIcon } from "components/global/lv0/Icon/StoreIcon";
+import { ListTileSettingsPage } from "components/global/lv0/ListTileSettingsPage/ListTileSettingsPage";
+import { AppBar } from "components/global/lv1/AppBar/AppBar";
 import Link from "next/link";
 import { userProfilePathName } from "pages/user-profile";
 import Style from "./SettingsPage.module.scss";

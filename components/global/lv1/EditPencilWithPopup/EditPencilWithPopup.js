@@ -1,6 +1,6 @@
 // @ts-check
-import { EditPencilIcon } from "components/lv0/Icon/EditPencilIcon";
-import { InputText } from "components/lv0/InputText/InputText";
+import { EditPencilIcon } from "components/global/lv0/Icon/EditPencilIcon";
+import { InputText } from "components/global/lv0/InputText/InputText";
 import { useEffect, useState } from "react";
 import Style from "./EditPencilWithPopup.module.scss";
 /**

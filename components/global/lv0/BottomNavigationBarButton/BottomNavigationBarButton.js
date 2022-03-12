@@ -1,6 +1,6 @@
 // @ts-check
 import Style from "./BottomNavigationBarButton.module.scss";
-import { StoreIcon } from "components/lv0/Icon/StoreIcon";
+import { StoreIcon } from "components/global/lv0/Icon/StoreIcon";
 import { observer } from "mobx-react-lite";
 import { LocationIcon } from "../Icon/LocationIcon";
 import { SettingsIcon } from "../Icon/SettingsIcon";

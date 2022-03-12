@@ -1,5 +1,5 @@
 // @ts-check
-import { EditPencilWithPopup } from "components/lv1/EditPencilWithPopup/EditPencilWithPopup";
+import { EditPencilWithPopup } from "components/global/lv1/EditPencilWithPopup/EditPencilWithPopup";
 import Style from "./ProfileListTile.module.scss";
 
 /**

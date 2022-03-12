@@ -1,6 +1,6 @@
 // @ts-check
-import { BottomNavigationBar } from "components/lv1/BottomNavigationBar/BottomNavigationBar";
-import { BrandAppBar } from "components/lv1/BrandAppBar/BrandAppBar";
+import { BottomNavigationBar } from "components/global/lv1/BottomNavigationBar/BottomNavigationBar";
+import { BrandAppBar } from "components/global/lv1/BrandAppBar/BrandAppBar";
 import { useChangeUrl } from "hooks/useChangeUrl";
 import { observer } from "mobx-react-lite";
 import { CurrentPageRoot } from "pages";

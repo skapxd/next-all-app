@@ -1,10 +1,10 @@
 // @ts-check
-import { EmailIcon } from "components/lv0/Icon/EmailIcon";
-import { InstagramIcon } from "components/lv0/Icon/InstagramIcon";
-import { LocationIcon } from "components/lv0/Icon/LocationIcon";
-import { TelegramIcon } from "components/lv0/Icon/TelegramIcon";
-import { WebIcon } from "components/lv0/Icon/WebIcon";
-import { WhatsAppIcon } from "components/lv0/Icon/WhatsAppIcon";
+import { EmailIcon } from "components/global/lv0/Icon/EmailIcon";
+import { InstagramIcon } from "components/global/lv0/Icon/InstagramIcon";
+import { LocationIcon } from "components/global/lv0/Icon/LocationIcon";
+import { TelegramIcon } from "components/global/lv0/Icon/TelegramIcon";
+import { WebIcon } from "components/global/lv0/Icon/WebIcon";
+import { WhatsAppIcon } from "components/global/lv0/Icon/WhatsAppIcon";
 import Style from "./ContactItem.module.scss";
 
 export class TypeContact {

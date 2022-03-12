@@ -1,6 +1,6 @@
 // @ts-check
 
-import { ArrowDirection, ArrowIcon } from "components/lv0/Icon/ArrowIcon";
+import { ArrowDirection, ArrowIcon } from "components/global/lv0/Icon/ArrowIcon";
 import { useRouter } from "next/router";
 import Style from "./AppBarLogin.module.scss";
 

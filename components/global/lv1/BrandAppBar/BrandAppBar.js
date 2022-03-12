@@ -1,7 +1,7 @@
 // @ts-check
-import { Brand } from "components/lv0/Brand/Brand";
-import { SearchIcon } from "components/lv0/Icon/SearchIcon";
-import { ListOfStoreCategory } from "components/lv0/ListOfStoreCategory/ListOfStoreCategory";
+import { Brand } from "components/global/lv0/Brand/Brand";
+import { SearchIcon } from "components/global/lv0/Icon/SearchIcon";
+import { ListOfStoreCategory } from "components/global/lv0/ListOfStoreCategory/ListOfStoreCategory";
 import Link from "next/link";
 import { PopupMenu } from "../PopupMenu/PopupMenu";
 import Style from "./BrandAppBar.module.scss";

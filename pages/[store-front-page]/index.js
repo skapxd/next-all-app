@@ -7,14 +7,14 @@ import { useEffect, useState } from "react";
 import {
   AxisInfiniteScroll,
   InfinityScroll,
-} from "components/lv0/InfinityScroll/InfinityScroll";
+} from "components/global/lv0/InfinityScroll/InfinityScroll";
 import Head from "next/head";
 import { Metadata } from "components/store-front-page/Metadata/Metadata";
 import { convertDayFromNumberToString } from "helpers/convertDayFromNumberToString";
 import { getListStore } from "helpers/getListStore";
 import { Contact } from "components/store-front-page/Contact/Contact";
 import { useRouter } from "next/router";
-import { Loading } from "components/lv0/Loading/Loading";
+import { Loading } from "components/global/lv0/Loading/Loading";
 
 export const storeFrontPagePathName = (id = "") => `/${id}`;
 

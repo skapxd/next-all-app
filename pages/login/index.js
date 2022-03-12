@@ -2,13 +2,13 @@
 
 import Head from "next/head";
 import { AppBarLogin } from "components/login/Brand/AppBarLogin";
-import { BackgroundAllAppIcon } from "components/lv0/Icon/BackgroundAllAppIcon";
+import { BackgroundAllAppIcon } from "components/global/lv0/Icon/BackgroundAllAppIcon";
 import { MapOfValidate } from "@skapxd/validate";
-import { InputText } from "components/lv0/InputText/InputText";
+import { InputText } from "components/global/lv0/InputText/InputText";
 
 import Style from "./login.module.scss";
 import { useEffect, useState } from "react";
-import { Loading } from "components/lv0/Loading/Loading";
+import { Loading } from "components/global/lv0/Loading/Loading";
 import { useSetHeight } from "hooks/useSetHeight";
 import { useRouter } from "next/router";
 import { getCode } from "functionsView/login/validateUserName";

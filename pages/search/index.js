@@ -1,6 +1,6 @@
 // @ts-check
 
-import { BackgroundAllAppIcon } from "components/lv0/Icon/BackgroundAllAppIcon";
+import { BackgroundAllAppIcon } from "components/global/lv0/Icon/BackgroundAllAppIcon";
 import { AppBarSearch } from "components/search/AppBarSearch/AppBarSearch";
 import { useSetHeight } from "hooks/useSetHeight";
 import Style from "./search.module.scss";

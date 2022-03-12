@@ -1,5 +1,5 @@
 // @ts-check
-import { ArrowDirection, ArrowIcon } from "components/lv0/Icon/ArrowIcon";
+import { ArrowDirection, ArrowIcon } from "components/global/lv0/Icon/ArrowIcon";
 import Style from "./Metadata.module.scss";
 import Markdown from "markdown-to-jsx";
 

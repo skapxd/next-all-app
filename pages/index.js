@@ -1,9 +1,9 @@
 // @ts-check
 import { userBloc } from "Bloc/UserBloc";
-import { CategoryPage } from "components/lv1/CategoryPage/CategoryPage";
-import { GoogleMapPage } from "components/lv1/MapaPage/MapaPage";
-import { Scaffold } from "components/lv2/Scaffold/Scaffold";
-import { SettingsPage } from "components/lv2/SettingsPage/SettingsPage";
+import { CategoryPage } from "components/global/lv1/CategoryPage/CategoryPage";
+import { GoogleMapPage } from "components/global/lv1/MapaPage/MapaPage";
+import { Scaffold } from "components/global/lv2/Scaffold/Scaffold";
+import { SettingsPage } from "components/global/lv2/SettingsPage/SettingsPage";
 import { useChangeUrl } from "hooks/useChangeUrl";
 import { useSetHeight } from "hooks/useSetHeight";
 import { observer } from "mobx-react-lite";

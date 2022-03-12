@@ -1,9 +1,9 @@
 // @ts-check
 import { LinearProgress } from "@mui/material";
 import { useDebounce, useInverseDebounce } from "@skapxd/debounce";
-import { ListOfStore } from "components/lv0/ListOfStore/ListOfStore";
-import { stateListOfStoreCategory } from "components/lv0/ListOfStoreCategory/StateListOfStoreCategory";
-import { Loading } from "components/lv0/Loading/Loading";
+import { ListOfStore } from "components/global/lv0/ListOfStore/ListOfStore";
+import { stateListOfStoreCategory } from "components/global/lv0/ListOfStoreCategory/StateListOfStoreCategory";
+import { Loading } from "components/global/lv0/Loading/Loading";
 import { response } from "helpers/response";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
