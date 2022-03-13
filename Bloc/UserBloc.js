@@ -61,10 +61,11 @@ class UserBloc {
   }
 
   init() {
-    if (typeof localStorage === "undefined") return;
-    this.imageProfile = localStorage.getItem(this.#keyImageProfile);
-    this.token = localStorage.getItem(this.#keyToken);
+    if (typeof localStorage === "undefined") return false;
     this.name = localStorage.getItem(this.#keyName);
+    this.token = localStorage.getItem(this.#keyToken);
+    this.imageProfile = localStorage.getItem(this.#keyImageProfile);
+    return false;
   }
 
   // TODO: save image into db

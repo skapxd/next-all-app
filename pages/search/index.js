@@ -8,6 +8,7 @@ import Style from "./search.module.scss";
 export const searchPathName = "/search";
 
 export default function Search() {
+  // TODO: create search logic
   useSetHeight();
   return (
     <div className={Style.Box}>

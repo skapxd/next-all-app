@@ -33,7 +33,7 @@
         height: 75px;
         width: 75px;
         background-color: theme.$darkGrey2;
-        // padding: 20px;
+        object-fit: cover;
         border-radius: 1000px;
     }
     &_BoxPlaceholderPeople {
