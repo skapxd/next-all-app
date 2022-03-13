@@ -18,36 +18,6 @@ import { Loading } from "components/global/lv0/Loading/Loading";
 
 export const storeFrontPagePathName = (id = "") => `/${id}`;
 
-// /** @type {import("next").GetServerSideProps} */
-// export const getServerSideProps = async (context) => {
-//   if (!context.res) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-
-//   const post = getListPost({
-//     from: 0,
-//     limit: 20,
-//   });
-
-//   /**@type {StoreModel[]} */
-//   const listOfStore = getListStore({
-//     from: 0,
-//     limit: 1,
-//   });
-
-//   const store = listOfStore[0];
-
-//   return {
-//     props: {
-//       post,
-//       store,
-//       message: context.params,
-//     },
-//   };
-// };
-
 export default function StoreFrontPage(props) {
   /**
    * @type {{

@@ -9,12 +9,19 @@ import { ImagePicker } from "components/global/lv0/ImagePicker/ImagePicker";
 
 export const userProfilePathName = () => `/user-profile`;
 
-export default function UserProfile() {
+export default function _UserProfile() {
   return (
     <div className={`${Style.Box}`}>
       <AppBar title="Perfil" showArrowBack={true} />
 
       <ImagePicker
+        initialImage={userBloc.getImageProfile}
+        className={Style.Box_ImagePicker}
+        accept="image/png, image/jpeg, image/jpg"
+        onChange={(props) => {
+          console.log({ props });
+          userBloc.setImageProfile(props.url);
+        }}
         imageBuilder={(props) => {
           const { url } = props;
           if (!url)
@@ -32,6 +39,7 @@ export default function UserProfile() {
               <img
                 src={url}
                 style={{
+                  objectFit: "cover",
                   height: "100%",
                   width: "100%",
                   borderRadius: "1000px",
@@ -50,27 +58,9 @@ export default function UserProfile() {
         title={"Nombre"}
         description={userBloc.getName}
         onSave={(value) => {
-          userBloc;
           console.log({ value });
         }}
       />
     </div>
   );
 }
-
-// export function ImageProfile() {
-//   return (
-//     <>
-//       <label htmlFor="file-upload">
-//         <div className={Style.Box_ImageProfile}>
-//           <PlaceholderPeopleIcon />
-//           <div className={Style.Box_CameraProfileIcon}>
-//             <CameraIcon />
-//           </div>
-//         </div>
-//       </label>
-
-//       <input type="file" id="file-upload" accept="image/png, image/jpeg" />
-//     </>
-//   );
-// }

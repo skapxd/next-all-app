@@ -52,9 +52,18 @@ function Profile(props) {
     <Link href={userProfilePathName()}>
       <a>
         <div className={Style.BoxProfile}>
-          <PlaceholderPeopleIcon
-            className={Style.BoxProfile_BoxPlaceholderPeople}
-          />
+          {!userBloc.getImageProfile ? (
+            <PlaceholderPeopleIcon
+              className={Style.BoxProfile_BoxPlaceholderPeople}
+            />
+          ) : (
+            <img
+              src={userBloc.getImageProfile}
+              className={Style.BoxProfile_BoxPeople}
+              alt="image profile"
+            />
+          )}
+
           <div className={Style.BoxProfile_BoxDescription}>
             <h3 className={Style.BoxProfile_BoxDescription_Name}>
               {userBloc.getName}

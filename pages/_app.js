@@ -1,10 +1,17 @@
+// @ts-check
 import Head from "next/head";
 
 import "styles/normalize.css";
 import "styles/globals.css";
 import Style from "./_app.module.scss";
+import { useEffect } from "react";
+import { userBloc } from "Bloc/UserBloc";
 
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    userBloc.init();
+  }, []);
+
   return (
     <>
       <Head>

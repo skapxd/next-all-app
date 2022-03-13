@@ -1,6 +1,10 @@
 @use 'styles/_theme' as theme;
 .Box {
     @include theme.ScaffoldBox;
+    &_ImagePicker {
+        width: max-content;
+        align-self: center,
+    }
     &_ImageProfile {
         justify-content: center;
         align-items: center;

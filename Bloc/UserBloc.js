@@ -9,6 +9,9 @@ class UserBloc {
   /**@type {string} */
   name;
 
+  /**@type {string} */
+  imageProfile;
+
   /**
    * @type {{
    * lat: string,
@@ -17,7 +20,6 @@ class UserBloc {
    */
   geolocation;
 
-  // #keyToken = "loginToken";
   #keyEmail = "UserBlocEmail";
 
   #keyName = "UserBlocName";
@@ -25,6 +27,8 @@ class UserBloc {
   #keyDescription = "UserBlocDescription";
 
   #keyToken = "UserBlocToken";
+
+  #keyImageProfile = "UserBlocImageProfile";
 
   /**
    * @type {{
@@ -42,42 +46,41 @@ class UserBloc {
       email: observable,
       token: observable,
       name: observable,
+      imageProfile: observable,
       //
-      closeSession: action,
-      setToken: action,
       setName: action,
-
+      closeSession: action,
+      setImageProfile: action,
+      init: action,
       //
-      getToken: computed,
-      getEmail: computed,
       getName: computed,
-      //       token: observable,
-      //       //
-      //       setName: action,
-      //       setToken: action,
-      //       closeSession: action,
-      //       setDescription: action,
-      //       //
-      //       getEmail: computed,
-      //       getName: computed,
-      //       getToken: computed,
-      //     });
+      getEmail: computed,
+      getToken: computed,
+      getImageProfile: computed,
     });
   }
 
+  init() {
+    if (typeof localStorage === "undefined") return;
+    this.imageProfile = localStorage.getItem(this.#keyImageProfile);
+    this.token = localStorage.getItem(this.#keyToken);
+    this.name = localStorage.getItem(this.#keyName);
+  }
+
+  // TODO: save image into db
+  /**@param {string} value */
+  setImageProfile(value) {
+    this.imageProfile = value;
+    if (typeof localStorage === "undefined") return;
+    localStorage.setItem(this.#keyImageProfile, value);
+  }
+
+  // TODO: save name into db
+  /**@param {string} name */
   setName(name) {
     if (typeof localStorage === "undefined") return;
 
     localStorage.setItem(this.#keyName, name);
-    // setLocalStorage({
-    //   key: this.#keyName,
-    //   value: name,
-    // });
-  }
-  setToken() {
-    if (typeof localStorage !== "undefined") {
-      this.token = localStorage.getItem(this.#keyToken);
-    }
   }
 
   static get Instance() {
@@ -152,7 +155,6 @@ class UserBloc {
 
     this.token = data.token;
     localStorage.setItem(this.#keyToken, this.token);
-    // localStorage.setItem(keyToken, this.token);
 
     return data;
   }
@@ -176,7 +178,14 @@ class UserBloc {
   /**@return {string}  */
   get getName() {
     if (typeof localStorage === "undefined") return;
-    return localStorage.getItem(this.#keyName);
+    return this.name;
+  }
+
+  /**@return {string} */
+  get getImageProfile() {
+    if (typeof localStorage === "undefined") return;
+
+    return this.imageProfile;
   }
 }
 

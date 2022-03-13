@@ -7,7 +7,6 @@ import { SettingsPage } from "components/global/lv2/SettingsPage/SettingsPage";
 import { useChangeUrl } from "hooks/useChangeUrl";
 import { useSetHeight } from "hooks/useSetHeight";
 import { observer } from "mobx-react-lite";
-import { useEffect } from "react";
 import Style from "./index.module.scss";
 
 export class CurrentPageRoot {
@@ -43,9 +42,7 @@ export const rootPathName = (page) => `/?page=${page}`;
 export default function Root(props) {
   useSetHeight();
 
-  useEffect(() => {
-    userBloc.setToken();
-  }, []);
+
 
   return (
     <div className={Style.Box}>
