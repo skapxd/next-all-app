@@ -6,10 +6,15 @@ import { ProfileListTile } from "components/user-profile/ProfileListTile/Profile
 import Style from "./user-profile.module.scss";
 import { userBloc } from "Bloc/UserBloc";
 import { ImagePicker } from "components/global/lv0/ImagePicker/ImagePicker";
+import { observer } from "mobx-react-lite";
+import { InfoIcon } from "components/global/lv0/Icon/InfoIcon";
+import { PhoneIcon } from "components/global/lv0/Icon/PhoneIcon";
 
 export const userProfilePathName = () => `/user-profile`;
 
-export default function _UserProfile() {
+export default observer(UserProfile);
+
+function UserProfile() {
   return (
     <div className={`${Style.Box}`}>
       <AppBar title="Perfil" showArrowBack={true} />
@@ -56,9 +61,27 @@ export default function _UserProfile() {
       <ProfileListTile
         Icon={() => <PlaceholderPeopleIcon className={Style.Icon} />}
         title={"Nombre"}
-        description={userBloc.getName}
+        value={userBloc.getName}
         onSave={(value) => {
-          console.log({ value });
+          userBloc.setName(value);
+        }}
+      />
+
+      <ProfileListTile
+        Icon={() => <InfoIcon className={Style.Icon} />}
+        title={"Info"}
+        value={userBloc.getInfo}
+        onSave={(value) => {
+          userBloc.setInfo(value);
+        }}
+      />
+
+      <ProfileListTile
+        Icon={() => <PhoneIcon className={Style.Icon} />}
+        title={"Teléfono"}
+        value={userBloc.getPhone}
+        onSave={(value) => {
+          userBloc.setPhone(value);
         }}
       />
     </div>

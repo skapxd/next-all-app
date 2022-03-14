@@ -9,8 +9,7 @@ import { v4 } from "uuid";
  * @typedef {Object} onChange
  * @prop {string} url
  * @prop {string} size
- * @prop {string} type
- * @prop {string} name
+ * @prop {File} file
  */
 
 /**
@@ -67,10 +66,9 @@ export function ImagePicker(props) {
 
           onChange &&
             onChange({
+              file,
               size: size,
               url: base64,
-              type: file.type,
-              name: file.name,
             });
           setUrl(reducedBase64);
         } catch (error) {

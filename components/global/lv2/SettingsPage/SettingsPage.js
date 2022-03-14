@@ -69,7 +69,7 @@ function Profile(props) {
               {userBloc.getName}
             </h3>
             <p className={Style.BoxProfile_BoxDescription_Description}>
-              Hola! estoy usando All App
+              {userBloc.getInfo + (userBloc.getInfo.length > 26 ? "..." : "")}
             </p>
           </div>
         </div>

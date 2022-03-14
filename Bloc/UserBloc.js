@@ -1,6 +1,5 @@
 // @ts-check
 import { action, computed, makeObservable, observable } from "mobx";
-import { useRouter } from "next/router";
 
 class UserBloc {
   /**@type {string} */
@@ -11,6 +10,9 @@ class UserBloc {
 
   /**@type {string} */
   imageProfile;
+
+  /**@type {string} */
+  phone;
 
   /**
    * @type {{
@@ -30,6 +32,10 @@ class UserBloc {
 
   #keyImageProfile = "UserBlocImageProfile";
 
+  #keyInfo = "UserBlocInfo";
+
+  #keyPhone = "UserBlocPhone";
+
   /**
    * @type {{
    * countryName: string,
@@ -41,19 +47,29 @@ class UserBloc {
   /**@type {string} */
   token;
 
+  /**@type {string} */
+  info;
+
   constructor() {
+    // makeAutoObservable(this);
     makeObservable(this, {
       email: observable,
       token: observable,
       name: observable,
+      info: observable,
+      phone: observable,
       imageProfile: observable,
       //
+      init: action,
       setName: action,
+      setInfo: action,
+      setPhone: action,
       closeSession: action,
       setImageProfile: action,
-      init: action,
       //
       getName: computed,
+      getInfo: computed,
+      getPhone: computed,
       getEmail: computed,
       getToken: computed,
       getImageProfile: computed,
@@ -62,10 +78,29 @@ class UserBloc {
 
   init() {
     if (typeof localStorage === "undefined") return false;
-    this.name = localStorage.getItem(this.#keyName);
+    this.name = localStorage.getItem(this.#keyName) || "";
     this.token = localStorage.getItem(this.#keyToken);
+    this.phone = localStorage.getItem(this.#keyPhone) || "+57 300 00 00";
+    this.info =
+      localStorage.getItem(this.#keyInfo) || "Hola! estoy usando All App";
     this.imageProfile = localStorage.getItem(this.#keyImageProfile);
     return false;
+  }
+
+  // TODO: save phone into db
+  /**@param {string} value  */
+  setPhone(value) {
+    if (typeof localStorage === "undefined") return false;
+    this.phone = value;
+    localStorage.setItem(this.#keyPhone, value);
+  }
+
+  // TODO: save info into db
+  /**@param {string} value */
+  setInfo(value) {
+    if (typeof localStorage === "undefined") return false;
+    this.info = value;
+    localStorage.setItem(this.#keyInfo, value);
   }
 
   // TODO: save image into db
@@ -79,8 +114,9 @@ class UserBloc {
   // TODO: save name into db
   /**@param {string} name */
   setName(name) {
-    if (typeof localStorage === "undefined") return;
-
+    this.name = name;
+    console.log({ name, thisName: this.name, this: this });
+    // if (typeof localStorage === "undefined") return;
     localStorage.setItem(this.#keyName, name);
   }
 
@@ -93,7 +129,6 @@ class UserBloc {
    * @param {string} [param0.to]
    * @param {string} [param0.name]
    * @param {'email'} [param0.method]
-   * @returns
    */
   async getCode({ to, name, method }) {
     to ??= "";
@@ -180,13 +215,22 @@ class UserBloc {
   get getName() {
     if (typeof localStorage === "undefined") return;
     return this.name;
+    return this.name;
   }
 
   /**@return {string} */
   get getImageProfile() {
-    if (typeof localStorage === "undefined") return;
+    // if (typeof localStorage === "undefined") return;
 
     return this.imageProfile;
+  }
+
+  get getInfo() {
+    return this.info;
+  }
+
+  get getPhone() {
+    return this.phone;
   }
 }
 

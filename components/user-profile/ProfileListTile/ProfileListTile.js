@@ -5,15 +5,13 @@ import Style from "./ProfileListTile.module.scss";
 /**
  * @param {Object} props
  * @param {string} props.title
- * @param {Object} props.description
+ * @param {string} props.value
  * @param {(value: string) => void} [props.onSave]
  * @param {() => JSX.Element} props.Icon
  * @returns
  */
 export function ProfileListTile(props) {
-  let { Icon = () => <></>, description, title, onSave } = props;
-
-  onSave ??= () => {};
+  let { Icon = () => <></>, value, title, onSave } = props;
 
   return (
     <div className={Style.BoxListTile}>
@@ -21,14 +19,14 @@ export function ProfileListTile(props) {
 
       <div className={Style.BoxListTile_BoxDescription}>
         <p>{title}</p>
-        <h3>{description}</h3>
+        <h4>{value.substring(0, 26) + (value.length > 26 ? "..." : "")}</h4>
       </div>
 
       <EditPencilWithPopup
         title={title}
-        initValue={description}
+        initValue={value}
         onSave={(value) => {
-          onSave(value);
+          onSave && onSave(value);
         }}
         className={Style.BoxListTile_IconEdit}
       />
