@@ -97,48 +97,55 @@ export class StoreBloc {
     return false;
   }
 
+  // TODO: Sabe name in db
   /**@param {string} value */
   setName(value) {
     setName(value, this);
   }
 
+  // TODO: Sabe description in db
   /**@param {string} value */
   setDescription(value) {
     setDescription(value, this);
   }
 
+  // TODO: Sabe contact in db
   /** @param {{ [x: string]: Contact; }} value */
   setContact(value) {
     setContact(value, this);
   }
 
+  // TODO: Sabe category in db
   /**@param {string} value */
   setCategory(value) {
     setCategory(value, this);
   }
 
+  // TODO: Sabe image profile in db
   /**@param {string} value */
   setImageProfile(value) {
     setImageProfile(value, this);
   }
 
+  // TODO: Sabe schedule in db
   /**@param {Schedule[]} value */
   setSchedule(value) {
     setSchedule(value, this);
   }
 
+  // TODO: Sabe location in db
   /**@param {{[x: string]: LatLng}} value */
   setLocation(value) {
     setLocation(value, this);
   }
 
+  // TODO: Sabe posts in db
   /**@param { { [x : string] : import("model/PostModel").PostModel} } value */
   setPost(value) {
     setPost(value, this);
   }
 
   //
-
   get getName() {
     return this.name;
   }

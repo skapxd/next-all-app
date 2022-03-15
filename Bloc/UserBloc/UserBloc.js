@@ -1,6 +1,7 @@
 // @ts-check
 import { action, computed, makeObservable, observable } from "mobx";
 
+// TODO: refactor this class as storeBloc
 class UserBloc {
   /**@type {string} */
   email;
