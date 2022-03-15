@@ -9,7 +9,7 @@ export function PlaceholderPeopleIcon(props) {
   return (
     <svg
       onClick={() => onClick && onClick()}
-      className={`${className} `}
+      className={`${Style.Icon_Size} ${className} `}
       xmlns="http://www.w3.org/2000/svg"
       width="67.8"
       height="78.128"

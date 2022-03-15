@@ -15,7 +15,7 @@ import { getCode } from "functionsView/login/validateUserName";
 import { verifyCode } from "functionsView/login/validatePass";
 import { getQueryParams } from "helpers/getQueryParams";
 import { CurrentPageRoot, rootPathName } from "pages";
-import { userBloc } from "Bloc/UserBloc";
+import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
 
 class CurrentPage {
   static getCode = "getCode";
@@ -106,8 +106,8 @@ export default function LoginPage() {
           },
           onSuccess: () => {
             setLoading(false);
-            userBloc.setName(user.name.value);
-            router.push(rootPathName(CurrentPageRoot.settings));
+            userBlocInstance.setName(user.name.value);
+            router.push(rootPathName(CurrentPageRoot.cuenta));
           },
         });
     } catch (error) {

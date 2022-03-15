@@ -59,7 +59,7 @@ const options = {
     disable: isProduction ? false : true,
   },
   i18n: {
-    locales: ["en-US", "fr", "nl-NL", "es-ES"],
+    locales: ["en-US", "es-ES"],
     defaultLocale: "es-ES",
     localeDetection: true,
   },

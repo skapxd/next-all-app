@@ -1,40 +1,38 @@
 // @ts-check
+import { storeBlocInstance } from "Bloc/storeBloc/storeBloc";
 import { CameraIcon } from "components/global/lv0/Icon/CameraIcon";
-import { PlaceholderPeopleIcon } from "components/global/lv0/Icon/PlaceholderPeopleIcon";
+import { InfoIcon } from "components/global/lv0/Icon/InfoIcon";
+import { PlaceholderImageIcon } from "components/global/lv0/Icon/PlaceholderImageIcon";
+import { StoreIcon } from "components/global/lv0/Icon/StoreIcon";
+import { ImagePicker } from "components/global/lv0/ImagePicker/ImagePicker";
 import { AppBar } from "components/global/lv1/AppBar/AppBar";
 import { ProfileListTile } from "components/user-profile/ProfileListTile/ProfileListTile";
-import Style from "./user-profile.module.scss";
-import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
-import { ImagePicker } from "components/global/lv0/ImagePicker/ImagePicker";
 import { observer } from "mobx-react-lite";
-import { InfoIcon } from "components/global/lv0/Icon/InfoIcon";
-import { PhoneIcon } from "components/global/lv0/Icon/PhoneIcon";
+import Style from "./store-profile.module.scss";
 
-export const userProfilePathName = () => `/user-profile`;
+export const storeProfilePathName = () => `/store-profile`;
 
-export default observer(UserProfile);
+export default observer(storeProfile);
 
-function UserProfile() {
+function storeProfile() {
   return (
     <div className={`${Style.Box}`}>
-      <AppBar title="Perfil" showArrowBack={true} />
+      <AppBar title="Tienda" showArrowBack={true} />
 
       <ImagePicker
-        initialImage={userBlocInstance.getImageProfile}
+        initialImage={storeBlocInstance.getImageProfile}
         className={Style.Box_ImagePicker}
         accept="image/png, image/jpeg, image/jpg"
         onChange={(props) => {
           console.log({ props });
-          userBlocInstance.setImageProfile(props.url);
+          storeBlocInstance.setImageProfile(props.url);
         }}
         imageBuilder={(props) => {
           const { url } = props;
           if (!url)
             return (
               <div className={Style.Box_ImageProfile}>
-                <PlaceholderPeopleIcon
-                  className={Style.Box_ImageProfile_Icon}
-                />
+                <PlaceholderImageIcon className={Style.Box_ImageProfile_Icon} />
                 <div className={Style.Box_CameraProfileIcon}>
                   <CameraIcon />
                 </div>
@@ -61,29 +59,20 @@ function UserProfile() {
       />
 
       <ProfileListTile
-        Icon={() => <PlaceholderPeopleIcon className={Style.Icon} />}
+        Icon={() => <StoreIcon className={Style.Icon} />}
         title={"Nombre"}
-        value={userBlocInstance.getName}
+        value={storeBlocInstance.getName}
         onSave={(value) => {
-          userBlocInstance.setName(value);
+          storeBlocInstance.setName(value);
         }}
       />
 
       <ProfileListTile
         Icon={() => <InfoIcon className={Style.Icon} />}
         title={"Info"}
-        value={userBlocInstance.getInfo}
+        value={storeBlocInstance.getDescription}
         onSave={(value) => {
-          userBlocInstance.setInfo(value);
-        }}
-      />
-
-      <ProfileListTile
-        Icon={() => <PhoneIcon className={Style.Icon} />}
-        title={"Teléfono"}
-        value={userBlocInstance.getPhone}
-        onSave={(value) => {
-          userBlocInstance.setPhone(value);
+          storeBlocInstance.setDescription(value);
         }}
       />
     </div>

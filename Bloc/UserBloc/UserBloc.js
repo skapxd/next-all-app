@@ -4,15 +4,19 @@ import { action, computed, makeObservable, observable } from "mobx";
 class UserBloc {
   /**@type {string} */
   email;
+  #keyEmail = "UserBlocEmail";
 
   /**@type {string} */
   name;
+  #keyName = "UserBlocName";
 
   /**@type {string} */
   imageProfile;
+  #keyImageProfile = "UserBlocImageProfile";
 
   /**@type {string} */
   phone;
+  #keyPhone = "UserBlocPhone";
 
   /**
    * @type {{
@@ -21,20 +25,6 @@ class UserBloc {
    * }}
    */
   geolocation;
-
-  #keyEmail = "UserBlocEmail";
-
-  #keyName = "UserBlocName";
-
-  #keyDescription = "UserBlocDescription";
-
-  #keyToken = "UserBlocToken";
-
-  #keyImageProfile = "UserBlocImageProfile";
-
-  #keyInfo = "UserBlocInfo";
-
-  #keyPhone = "UserBlocPhone";
 
   /**
    * @type {{
@@ -46,9 +36,11 @@ class UserBloc {
 
   /**@type {string} */
   token;
+  #keyToken = "UserBlocToken";
 
   /**@type {string} */
   info;
+  #keyInfo = "UserBlocInfo";
 
   constructor() {
     // makeAutoObservable(this);
@@ -83,7 +75,8 @@ class UserBloc {
     this.phone = localStorage.getItem(this.#keyPhone) || "+57 300 00 00";
     this.info =
       localStorage.getItem(this.#keyInfo) || "Hola! estoy usando All App";
-    this.imageProfile = localStorage.getItem(this.#keyImageProfile);
+    this.imageUserProfile = localStorage.getItem(this.#keyImageProfile);
+
     return false;
   }
 
@@ -106,7 +99,7 @@ class UserBloc {
   // TODO: save image into db
   /**@param {string} value */
   setImageProfile(value) {
-    this.imageProfile = value;
+    this.imageUserProfile = value;
     if (typeof localStorage === "undefined") return;
     localStorage.setItem(this.#keyImageProfile, value);
   }
@@ -202,8 +195,8 @@ class UserBloc {
     localStorage.setItem(this.#keyToken, this.token);
   }
 
+  //
   get getToken() {
-    if (typeof localStorage === "undefined") return;
     return this.token;
   }
 
@@ -213,16 +206,12 @@ class UserBloc {
 
   /**@return {string}  */
   get getName() {
-    if (typeof localStorage === "undefined") return;
-    return this.name;
     return this.name;
   }
 
   /**@return {string} */
   get getImageProfile() {
-    // if (typeof localStorage === "undefined") return;
-
-    return this.imageProfile;
+    return this.imageUserProfile;
   }
 
   get getInfo() {
@@ -234,4 +223,4 @@ class UserBloc {
   }
 }
 
-export const userBloc = UserBloc.Instance;
+export const userBlocInstance = UserBloc.Instance;

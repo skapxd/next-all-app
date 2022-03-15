@@ -18,7 +18,7 @@ export function _Scaffold(props) {
   });
   return (
     <div>
-      {currentPage !== CurrentPageRoot.settings && <BrandAppBar />}
+      {currentPage !== CurrentPageRoot.cuenta && <BrandAppBar />}
 
       {children}
       <BottomNavigationBar />

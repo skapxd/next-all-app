@@ -1,5 +1,5 @@
 // @ts-check
-import { userBloc } from "Bloc/UserBloc";
+import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
 import { MenuIcon } from "components/global/lv0/Icon/MenuIcon";
 import { ListTileMenu } from "components/global/lv0/ListTileMenu/ListTileMenu";
 import { ScaffoldPopupMenu } from "components/global/lv0/ScaffoldPopupMenu/ScaffoldPopupMenu";
@@ -20,9 +20,9 @@ function _PopupMenu(props) {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (userBloc.getToken) return;
+    if (userBlocInstance.getToken) return;
     setShow(false);
-  }, [userBloc.getToken]);
+  }, [userBlocInstance.getToken]);
 
   return (
     <>
@@ -44,7 +44,7 @@ function _PopupMenu(props) {
               setShow(false);
             }}
           >
-            {!userBloc.getToken && (
+            {!userBlocInstance.getToken && (
               <Link href={loginPathName("getCode")}>
                 <a>
                   <ListTileMenu title="Iniciar sesión" />
@@ -52,10 +52,10 @@ function _PopupMenu(props) {
               </Link>
             )}
 
-            {userBloc.getToken && (
+            {userBlocInstance.getToken && (
               <ListTileMenu
                 onClick={() => {
-                  userBloc.closeSession();
+                  userBlocInstance.closeSession();
                 }}
                 title="Cerrar sesión"
               />

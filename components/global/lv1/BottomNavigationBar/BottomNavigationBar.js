@@ -1,5 +1,5 @@
 // @ts-check
-import { userBloc } from "Bloc/UserBloc";
+import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
 import { BottomNavigationBarButton } from "components/global/lv0/BottomNavigationBarButton/BottomNavigationBarButton";
 import { observer } from "mobx-react-lite";
 import { CurrentPageRoot } from "pages";
@@ -13,8 +13,8 @@ function _BottomNavigationBar() {
       <BottomNavigationBarButton type={CurrentPageRoot.store} />
       <BottomNavigationBarButton type={CurrentPageRoot.location} />
 
-      {userBloc.token && (
-        <BottomNavigationBarButton type={CurrentPageRoot.settings} />
+      {userBlocInstance.token && (
+        <BottomNavigationBarButton type={CurrentPageRoot.cuenta} />
       )}
     </div>
   );

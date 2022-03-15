@@ -1,9 +1,9 @@
 // @ts-check
-import { userBloc } from "Bloc/UserBloc";
+import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
 import { CategoryPage } from "components/global/lv1/CategoryPage/CategoryPage";
 import { GoogleMapPage } from "components/global/lv1/MapaPage/MapaPage";
 import { Scaffold } from "components/global/lv2/Scaffold/Scaffold";
-import { SettingsPage } from "components/global/lv2/SettingsPage/SettingsPage";
+import { SettingsPage } from "components/global/lv2/Account/AccountPage";
 import { useChangeUrl } from "hooks/useChangeUrl";
 import { useSetHeight } from "hooks/useSetHeight";
 import { observer } from "mobx-react-lite";
@@ -12,7 +12,7 @@ import Style from "./index.module.scss";
 export class CurrentPageRoot {
   static store = "";
   static location = "location";
-  static settings = "settings";
+  static cuenta = "account";
 }
 
 // export async function getStaticProps(){
@@ -42,8 +42,6 @@ export const rootPathName = (page) => `/?page=${page}`;
 export default function Root(props) {
   useSetHeight();
 
-
-
   return (
     <div className={Style.Box}>
       <Scaffold>
@@ -68,7 +66,7 @@ function _CurrentPage(props) {
 
       {currentPage === CurrentPageRoot.location && <GoogleMapPage />}
 
-      {currentPage === CurrentPageRoot.settings && <SettingsPage />}
+      {currentPage === CurrentPageRoot.cuenta && <SettingsPage />}
     </>
   );
 }

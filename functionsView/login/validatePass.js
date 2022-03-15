@@ -1,6 +1,6 @@
 // @ts-check
 
-import { userBloc } from "Bloc/UserBloc";
+import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
 
 /**
  * @typedef {{value: string, isValid: boolean}} Field
@@ -17,7 +17,7 @@ export const verifyCode = async (props) => {
 
   if (!code.value || !code.isValid) return onFailed && onFailed();
 
-  const data = await userBloc.verifyCode({
+  const data = await userBlocInstance.verifyCode({
     to: to.value,
     code: code.value,
     name: name.value,

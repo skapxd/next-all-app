@@ -1,6 +1,6 @@
 // @ts-check
 
-import { userBloc } from "Bloc/UserBloc";
+import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
 
 /**
  * @typedef {{value: string, isValid: boolean}} Field
@@ -23,7 +23,7 @@ export const getCode = async (props) => {
   if (!to.value || !to.isValid || !name.isValid || !name.value)
     return onFailed();
 
-  const data = await userBloc.getCode({ 
+  const data = await userBlocInstance.getCode({ 
     to: to.value,
     method: "email",
     name: name.value,

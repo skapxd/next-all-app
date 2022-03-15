@@ -1,6 +1,6 @@
 // @ts-check
 
-import { userBloc } from "Bloc/UserBloc";
+import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
 import { DollarIcon } from "components/global/lv0/Icon/DollarIcon";
 import { InfoIcon } from "components/global/lv0/Icon/InfoIcon";
 import { LocationIcon } from "components/global/lv0/Icon/LocationIcon";
@@ -9,15 +9,17 @@ import { StoreIcon } from "components/global/lv0/Icon/StoreIcon";
 import { ListTileSettingsPage } from "components/global/lv0/ListTileSettingsPage/ListTileSettingsPage";
 import { AppBar } from "components/global/lv1/AppBar/AppBar";
 import Link from "next/link";
+import { storeProfilePathName } from "pages/store-profile";
 import { userProfilePathName } from "pages/user-profile";
-import Style from "./SettingsPage.module.scss";
+import Style from "./AccountPage.module.scss";
 export function SettingsPage() {
   return (
     <>
-      <AppBar title="Ajustes" />
+      <AppBar title="Cuenta" />
       <Profile />
       <Divider />
       <ListTileSettingsPage
+        href={storeProfilePathName()}
         Icon={() => <StoreIcon className={Style.Icon} />}
         title="Herramientas para tu empresa"
         description="Perfil, horarios, descripción, contactos"
@@ -52,13 +54,13 @@ function Profile(props) {
     <Link href={userProfilePathName()}>
       <a>
         <div className={Style.BoxProfile}>
-          {!userBloc.getImageProfile ? (
+          {!userBlocInstance.getImageProfile ? (
             <PlaceholderPeopleIcon
               className={Style.BoxProfile_BoxPlaceholderPeople}
             />
           ) : (
             <img
-              src={userBloc.getImageProfile}
+              src={userBlocInstance.getImageProfile}
               className={Style.BoxProfile_BoxPeople}
               alt="image profile"
             />
@@ -66,10 +68,10 @@ function Profile(props) {
 
           <div className={Style.BoxProfile_BoxDescription}>
             <h3 className={Style.BoxProfile_BoxDescription_Name}>
-              {userBloc.getName}
+              {userBlocInstance.getName}
             </h3>
             <p className={Style.BoxProfile_BoxDescription_Description}>
-              {userBloc.getInfo + (userBloc.getInfo.length > 26 ? "..." : "")}
+              {userBlocInstance.getInfo + (userBlocInstance.getInfo.length > 26 ? "..." : "")}
             </p>
           </div>
         </div>

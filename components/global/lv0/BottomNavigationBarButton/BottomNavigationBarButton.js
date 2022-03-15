@@ -6,6 +6,7 @@ import { LocationIcon } from "../Icon/LocationIcon";
 import { SettingsIcon } from "../Icon/SettingsIcon";
 import { useChangeUrl } from "hooks/useChangeUrl";
 import { CurrentPageRoot } from "pages";
+import { PlaceholderPeopleIcon } from "../Icon/PlaceholderPeopleIcon";
 
 export const BottomNavigationBarButton = observer(_BottomNavigationBarButton);
 
@@ -51,10 +52,10 @@ function _BottomNavigationBarButton(props) {
         </button>
       )}
 
-      {type === CurrentPageRoot.settings && (
+      {type === CurrentPageRoot.cuenta && (
         <button onClick={() => onChange(type)} className={Style.Box}>
-          <SettingsIcon className={getStyle().icon} />
-          <p className={getStyle().text}>Ajustes</p>
+          <PlaceholderPeopleIcon className={getStyle().icon} />
+          <p className={getStyle().text}>Cuenta</p>
         </button>
       )}
 
@@ -65,30 +66,5 @@ function _BottomNavigationBarButton(props) {
         </button>
       )}
     </>
-  );
-
-  if (type === CurrentPageRoot.location) {
-    return (
-      <button onClick={() => onChange(type)} className={Style.Box}>
-        <LocationIcon className={getStyle().icon} />
-        <p className={getStyle().text}>Ubicación</p>
-      </button>
-    );
-  }
-
-  if (type === CurrentPageRoot.settings) {
-    return (
-      <button onClick={() => onChange(type)} className={Style.Box}>
-        <SettingsIcon className={getStyle().icon} />
-        <p className={getStyle().text}>Ajustes</p>
-      </button>
-    );
-  }
-
-  return (
-    <button onClick={() => onChange(type)} className={Style.Box}>
-      <StoreIcon className={getStyle().icon} />
-      <p className={getStyle().text}>Tiendas</p>
-    </button>
   );
 }

@@ -5,14 +5,16 @@ import "styles/normalize.css";
 import "styles/globals.css";
 import Style from "./_app.module.scss";
 import { useEffect, useState } from "react";
-import { userBloc } from "Bloc/UserBloc";
+import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
+import { storeBlocInstance } from "Bloc/storeBloc/storeBloc";
 
 function MyApp({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const _isLoading = userBloc.init();
-    setIsLoading(_isLoading);
+    const _isUserLoading = userBlocInstance.init();
+    const _isStoreLoading = storeBlocInstance.init();
+    setIsLoading(_isStoreLoading);
   }, []);
 
   if (isLoading)
