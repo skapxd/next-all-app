@@ -6,7 +6,7 @@ import "styles/globals.css";
 import Style from "./_app.module.scss";
 import { useEffect, useState } from "react";
 import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
-import { storeBlocInstance } from "Bloc/storeBloc/storeBloc";
+import { storeBlocInstance } from "Bloc/StoreBloc/StoreBloc";
 
 function MyApp({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(true);

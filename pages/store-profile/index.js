@@ -1,5 +1,5 @@
 // @ts-check
-import { storeBlocInstance } from "Bloc/storeBloc/storeBloc";
+import { storeBlocInstance } from "Bloc/StoreBloc/StoreBloc";
 import { CameraIcon } from "components/global/lv0/Icon/CameraIcon";
 import { InfoIcon } from "components/global/lv0/Icon/InfoIcon";
 import { PlaceholderImageIcon } from "components/global/lv0/Icon/PlaceholderImageIcon";
