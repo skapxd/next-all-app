@@ -15,6 +15,9 @@ function MyApp({ Component, pageProps }) {
     const _isUserLoading = userBlocInstance.init();
     const _isStoreLoading = storeBlocInstance.init();
     setIsLoading(_isStoreLoading);
+    if (userBlocInstance.isAuthenticate) {
+      userBlocInstance.updateLastLogin();
+    }
   }, []);
 
   if (isLoading)

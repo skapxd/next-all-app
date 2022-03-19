@@ -4,22 +4,22 @@ import jwt from "jsonwebtoken";
 
 /**
  * @param {import("next").NextApiRequest} req
- * @param {import("next").NextApiResponse} res
+ * @return {import("helpers/generateJWT").InterfaceJWT}
  */
-export default function validateJWT(req, res) {
-  const token = req.headers["x-token"];
+export function validateJWT(req) {
+  const token = req.headers["x-token"]?.toString();
 
-  if (!token) {
-    return false;
-  }
+  if (!token) throw new Error("header x-token don't exist");
 
   const sign = process.env.JWT_SIGN;
 
   const isValid = jwt.verify(token, sign);
 
-  // if (condition) {
+  if (!isValid) throw new Error("header x-token is not valid");
 
-  // }
+  const data = jwt.decode(token);
 
-  return true;
+  return {
+    uuid: data["uuid"],
+  };
 }

@@ -8,6 +8,7 @@ import { setInfo } from "./functions/setInfo";
 import { setIsAuthenticate } from "./functions/setIsAuthenticate";
 import { setName } from "./functions/setName";
 import { setPhone } from "./functions/setPhone";
+import { updateLastLogin } from "./functions/updateLastLogin";
 import { verifyCode } from "./functions/verifyCode";
 
 export class UserBloc {
@@ -70,7 +71,6 @@ export class UserBloc {
       setPhone: action,
       closeSession: action,
       setImageProfile: action,
-      setIsAuthenticate: action,
       //
       getName: computed,
       getInfo: computed,
@@ -142,6 +142,10 @@ export class UserBloc {
 
   closeSession() {
     closeSession(this);
+  }
+
+  updateLastLogin() {
+    updateLastLogin(this);
   }
 
   //

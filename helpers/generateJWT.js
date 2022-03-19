@@ -1,27 +1,28 @@
 // @ts-check
+import { env } from "env";
 import jwt from "jsonwebtoken";
 
 /**
- * @param {string} uid
+ * @typedef {Object} InterfaceJWT
+ * @prop {string} uuid
  */
-export const generateJWT = (uid) => {
-  return new Promise((res, rej) => {
-    const payload = { uid };
-    const sign = process.env.JWT_SIGN;
 
+/**
+ * @param {InterfaceJWT} payload
+ * @return {Promise<string>}
+ */
+export const generateJWT = (payload) => {
+  return new Promise((res, rej) => {
     jwt.sign(
       payload,
-      sign,
+      env.sign,
       {
-        expiresIn: "4h",
+        expiresIn: "100y",
       },
       (err, token) => {
-        if (err) {
-          console.log({ err });
-          rej("No se pudo generar el token ");
-        }
+        if (err) return rej(err.message);
 
-        res(token);
+        return res(token);
       }
     );
   });

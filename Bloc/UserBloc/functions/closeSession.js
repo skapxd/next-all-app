@@ -10,4 +10,5 @@ export const closeSession = (it) => {
 
   it.token = "";
   localStorage.setItem(it.keyToken, it.token);
+  it.isAuthenticate = false;
 };

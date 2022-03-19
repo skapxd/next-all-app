@@ -63,7 +63,7 @@ export class UserRepository {
   async existUser({ sendVerifyCodeTo }) {
     const user = await supabase
       .from(this.#users)
-      .select("sendVerifyCodeTo, name")
+      .select("sendVerifyCodeTo, name, uuid")
       .match({ sendVerifyCodeTo });
 
     return user;
@@ -71,14 +71,14 @@ export class UserRepository {
 
   /**
    * @param {Object} param0
-   * @param {string} param0.sendVerifyCodeTo
+   * @param {string} param0.uuid
    * @return {Promise<import("@supabase/supabase-js").PostgrestResponse<UserDTO>>}
    */
-  async updateLastLogin({ sendVerifyCodeTo }) {
+  async updateLastLogin({ uuid }) {
     const user = await supabase
       .from(this.#users)
       .update({ lastLogin: new Date() })
-      .match({ sendVerifyCodeTo });
+      .match({ uuid });
 
     return user;
   }
