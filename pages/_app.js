@@ -17,6 +17,8 @@ function MyApp({ Component, pageProps }) {
     setIsLoading(_isStoreLoading);
     if (userBlocInstance.isAuthenticate) {
       userBlocInstance.updateLastLogin();
+    } else {
+      userBlocInstance.setBrowserFingerPrint();
     }
   }, []);
 

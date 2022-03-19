@@ -3,6 +3,7 @@ import { action, computed, makeObservable, observable } from "mobx";
 import { closeSession } from "./functions/closeSession";
 import { getCode } from "./functions/getCode";
 import { init } from "./functions/init";
+import { setBrowserFingerPrint as setBrowserFingerPrint } from "./functions/setBrowserFingerPrint";
 import { setImageProfile } from "./functions/setImageProfile";
 import { setInfo } from "./functions/setInfo";
 import { setIsAuthenticate } from "./functions/setIsAuthenticate";
@@ -28,6 +29,18 @@ export class UserBloc {
   phone;
   keyPhone = "UserBlocPhone";
 
+  /**@type {string} */
+  token;
+  keyToken = "UserBlocToken";
+
+  /**@type {string} */
+  info;
+  keyInfo = "UserBlocInfo";
+
+  /**@type {string} */
+  browserFingerPrint;
+  keyBrowserFingerPrint = "UserBlocBrowserFingerPrint";
+
   /**@type {boolean} */
   isAuthenticate;
 
@@ -47,14 +60,6 @@ export class UserBloc {
    */
   countryMetaInfo;
 
-  /**@type {string} */
-  token;
-  keyToken = "UserBlocToken";
-
-  /**@type {string} */
-  info;
-  keyInfo = "UserBlocInfo";
-
   constructor() {
     makeObservable(this, {
       email: observable,
@@ -64,6 +69,7 @@ export class UserBloc {
       phone: observable,
       imageProfile: observable,
       isAuthenticate: observable,
+      browserFingerPrint: observable,
       //
       init: action,
       setName: action,
@@ -71,6 +77,7 @@ export class UserBloc {
       setPhone: action,
       closeSession: action,
       setImageProfile: action,
+      setBrowserFingerPrint: action,
       //
       getName: computed,
       getInfo: computed,
@@ -79,7 +86,12 @@ export class UserBloc {
       getToken: computed,
       getImageProfile: computed,
       getIsAuthenticate: computed,
+      getBrowserFingerPrint: computed,
     });
+  }
+
+  static get Instance() {
+    return this._instance || (this._instance = new this());
   }
 
   init() {
@@ -115,8 +127,8 @@ export class UserBloc {
     setIsAuthenticate(this);
   }
 
-  static get Instance() {
-    return this._instance || (this._instance = new this());
+  setBrowserFingerPrint() {
+    setBrowserFingerPrint(this);
   }
 
   /**
@@ -177,6 +189,10 @@ export class UserBloc {
 
   get getIsAuthenticate() {
     return this.isAuthenticate;
+  }
+
+  get getBrowserFingerPrint() {
+    return this.browserFingerPrint;
   }
 }
 
