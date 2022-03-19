@@ -1,9 +1,9 @@
 // @ts-check
 
-import { StoreBloc } from "../storeBloc";
+import { StoreBloc } from "../StoreBloc";
 
 /**
- * @param {Object<string, import("../storeBloc").Contact>} value
+ * @param {Object<string, import("../StoreBloc").Contact>} value
  * @param {StoreBloc} it
  * */
 export const setContact = (value, it) => {

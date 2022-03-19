@@ -1,6 +1,6 @@
 // @ts-check
 
-import { StoreBloc } from "../storeBloc";
+import { StoreBloc } from "../StoreBloc";
 
 /**
  * @param {Schedule[]} value

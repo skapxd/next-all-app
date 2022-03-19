@@ -1,9 +1,9 @@
 // @ts-check
 
-import { StoreBloc } from "../storeBloc";
+import { StoreBloc } from "../StoreBloc";
 
 /**
- * @param {{[x: string]: import("../storeBloc").LatLng}} value
+ * @param {{[x: string]: import("../StoreBloc").LatLng}} value
  * @param {StoreBloc} it
  * */
 export const setLocation = (value, it) => {
