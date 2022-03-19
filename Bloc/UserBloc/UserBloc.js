@@ -1,23 +1,34 @@
 // @ts-check
 import { action, computed, makeObservable, observable } from "mobx";
+import { closeSession } from "./functions/closeSession";
+import { getCode } from "./functions/getCode";
+import { init } from "./functions/init";
+import { setImageProfile } from "./functions/setImageProfile";
+import { setInfo } from "./functions/setInfo";
+import { setIsAuthenticate } from "./functions/setIsAuthenticate";
+import { setName } from "./functions/setName";
+import { setPhone } from "./functions/setPhone";
+import { verifyCode } from "./functions/verifyCode";
 
-// TODO: refactor this class as storeBloc
-class UserBloc {
+export class UserBloc {
   /**@type {string} */
   email;
-  #keyEmail = "UserBlocEmail";
+  keyEmail = "UserBlocEmail";
 
   /**@type {string} */
   name;
-  #keyName = "UserBlocName";
+  keyName = "UserBlocName";
 
   /**@type {string} */
   imageProfile;
-  #keyImageProfile = "UserBlocImageProfile";
+  keyImageProfile = "UserBlocImageProfile";
 
   /**@type {string} */
   phone;
-  #keyPhone = "UserBlocPhone";
+  keyPhone = "UserBlocPhone";
+
+  /**@type {boolean} */
+  isAuthenticate;
 
   /**
    * @type {{
@@ -37,14 +48,13 @@ class UserBloc {
 
   /**@type {string} */
   token;
-  #keyToken = "UserBlocToken";
+  keyToken = "UserBlocToken";
 
   /**@type {string} */
   info;
-  #keyInfo = "UserBlocInfo";
+  keyInfo = "UserBlocInfo";
 
   constructor() {
-    // makeAutoObservable(this);
     makeObservable(this, {
       email: observable,
       token: observable,
@@ -52,6 +62,7 @@ class UserBloc {
       info: observable,
       phone: observable,
       imageProfile: observable,
+      isAuthenticate: observable,
       //
       init: action,
       setName: action,
@@ -59,6 +70,7 @@ class UserBloc {
       setPhone: action,
       closeSession: action,
       setImageProfile: action,
+      setIsAuthenticate: action,
       //
       getName: computed,
       getInfo: computed,
@@ -66,52 +78,41 @@ class UserBloc {
       getEmail: computed,
       getToken: computed,
       getImageProfile: computed,
+      getIsAuthenticate: computed,
     });
   }
 
   init() {
-    if (typeof localStorage === "undefined") return false;
-    this.name = localStorage.getItem(this.#keyName) || "";
-    this.token = localStorage.getItem(this.#keyToken);
-    this.phone = localStorage.getItem(this.#keyPhone) || "+57 300 00 00";
-    this.info =
-      localStorage.getItem(this.#keyInfo) || "Hola! estoy usando All App";
-    this.imageUserProfile = localStorage.getItem(this.#keyImageProfile);
-
+    init(this);
     return false;
   }
 
   // TODO: save phone into db
   /**@param {string} value  */
   setPhone(value) {
-    if (typeof localStorage === "undefined") return false;
-    this.phone = value;
-    localStorage.setItem(this.#keyPhone, value);
+    setPhone(value, this);
   }
 
   // TODO: save info into db
   /**@param {string} value */
   setInfo(value) {
-    if (typeof localStorage === "undefined") return false;
-    this.info = value;
-    localStorage.setItem(this.#keyInfo, value);
+    setInfo(value, this);
   }
 
   // TODO: save image into db
   /**@param {string} value */
   setImageProfile(value) {
-    this.imageUserProfile = value;
-    if (typeof localStorage === "undefined") return;
-    localStorage.setItem(this.#keyImageProfile, value);
+    setImageProfile(value, this);
   }
 
   // TODO: save name into db
-  /**@param {string} name */
-  setName(name) {
-    this.name = name;
-    console.log({ name, thisName: this.name, this: this });
-    // if (typeof localStorage === "undefined") return;
-    localStorage.setItem(this.#keyName, name);
+  /**@param {string} value */
+  setName(value) {
+    setName(value, this);
+  }
+
+  setIsAuthenticate() {
+    setIsAuthenticate(this);
   }
 
   static get Instance() {
@@ -125,29 +126,7 @@ class UserBloc {
    * @param {'email'} [param0.method]
    */
   async getCode({ to, name, method }) {
-    to ??= "";
-    name ??= "";
-
-    const body = JSON.stringify({
-      to,
-      name,
-      method,
-    });
-
-    const options = {
-      body,
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const resp = await fetch("/api/v1/auth/get-code", options);
-
-    /** @type {{ success: boolean, name: string }} */
-    const data = await resp.json();
-
-    return data;
+    return getCode({ to, name, method });
   }
 
   /**
@@ -158,42 +137,11 @@ class UserBloc {
    * @returns
    */
   async verifyCode({ code, to, name }) {
-    code ??= "";
-    to ??= "";
-    name ??= "";
-
-    const body = JSON.stringify({
-      code,
-      to,
-      name,
-    });
-
-    const options = {
-      body,
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const resp = await fetch("/api/v1/auth/verify-code", options);
-
-    /** @type {{ success: boolean, token: string }} */
-    const data = await resp.json();
-
-    if (typeof localStorage === "undefined") return;
-
-    this.token = data.token;
-    localStorage.setItem(this.#keyToken, this.token);
-
-    return data;
+    return verifyCode({ code, to, name, it: this });
   }
 
   closeSession() {
-    if (typeof localStorage === "undefined") return;
-
-    this.token = "";
-    localStorage.setItem(this.#keyToken, this.token);
+    closeSession(this);
   }
 
   //
@@ -212,7 +160,7 @@ class UserBloc {
 
   /**@return {string} */
   get getImageProfile() {
-    return this.imageUserProfile;
+    return this.imageProfile;
   }
 
   get getInfo() {
@@ -221,6 +169,10 @@ class UserBloc {
 
   get getPhone() {
     return this.phone;
+  }
+
+  get getIsAuthenticate() {
+    return this.isAuthenticate;
   }
 }
 

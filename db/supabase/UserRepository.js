@@ -16,6 +16,8 @@ export class UserRolDTO {
  * @prop {string} sendVerifyCodeTo
  * @prop {UserRolDTO} [rol]
  * @prop {VerifyMethod} verifyMethod
+ * @prop {string} [create_at]
+ * @prop {string} [lastLogin]
  */
 
 export class UserRepository {
@@ -59,11 +61,25 @@ export class UserRepository {
    * @return {Promise<import("@supabase/supabase-js").PostgrestResponse<UserDTO>>}
    */
   async existUser({ sendVerifyCodeTo }) {
-    const existUser = await supabase
+    const user = await supabase
       .from(this.#users)
       .select("sendVerifyCodeTo, name")
       .match({ sendVerifyCodeTo });
 
-    return existUser;
+    return user;
+  }
+
+  /**
+   * @param {Object} param0
+   * @param {string} param0.sendVerifyCodeTo
+   * @return {Promise<import("@supabase/supabase-js").PostgrestResponse<UserDTO>>}
+   */
+  async updateLastLogin({ sendVerifyCodeTo }) {
+    const user = await supabase
+      .from(this.#users)
+      .update({ lastLogin: new Date() })
+      .match({ sendVerifyCodeTo });
+
+    return user;
   }
 }

@@ -3,11 +3,12 @@
 import { sendMail } from "providers/Mail";
 import memoryCache from "memory-cache";
 import { UserRepository } from "db/supabase/UserRepository";
+import { env } from "env";
 /**
  * @param {import("next").NextApiRequest} req
  * @param {import("next").NextApiResponse} res
  */
-export default async function handler(req, res) {
+export default async function getCode(req, res) {
   const { to, name = "" } = req.body;
 
   const numberRandom = (Math.random() * 999999999).toFixed() + "";
@@ -42,7 +43,11 @@ export default async function handler(req, res) {
       msjText: `Hola ${_name}, ${cacheCode} es su código de verificación`,
     });
 
-    return res.json({ success: true, name: _name });
+    return res.json({
+      success: true,
+      name: _name,
+      code: env.isProduction ? null : cacheCode,
+    });
   } catch (error) {
     return res.status(400).json({ success: false, error: error.message });
   }
