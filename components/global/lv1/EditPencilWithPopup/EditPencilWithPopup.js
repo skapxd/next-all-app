@@ -90,7 +90,6 @@ export function EditPencilWithPopup(props) {
                 onClick={() => {
                   setShow(false);
                   router.back();
-
                   onSave && onSave(text);
                 }}
               >

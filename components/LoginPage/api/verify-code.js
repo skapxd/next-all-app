@@ -22,7 +22,7 @@ export async function verifyCode(req, res) {
       throw new Error("*code*, *to* or *name* body fields is not valid");
 
     // step 3: validar si el usuario existe
-    const user = await userRepository.existUser({
+    const user = await userRepository.getUser({
       sendVerifyCodeTo: to,
     });
 

@@ -2,7 +2,6 @@
 
 import { supabaseConnection } from "providers/supabase/connection";
 import { decode } from "base64-arraybuffer";
-import { dataUrlToFile } from "./functions/dataUrlToFile";
 
 export class PublicImages {
   bucketName = "all-app-images";
@@ -12,16 +11,17 @@ export class PublicImages {
    * @param {string} props.uuid
    * @param {string} props.base64
    * @param {string} props.name
+   * @param {string} props.extension
    */
   async uploadUserImages(props) {
-    const { uuid, base64, name } = props;
+    const { uuid, base64, name, extension } = props;
 
     const file = decode(base64.replace(/^data:image\/.*;base64,/, ""));
 
     let resp = await supabaseConnection.storage
       .from(this.bucketName)
       .upload(`users/${uuid}/${name}`, file, {
-        contentType: "image/*",
+        contentType: `image/${extension}`,
         cacheControl: "0",
         upsert: false,
       });

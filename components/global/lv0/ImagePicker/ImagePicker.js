@@ -8,7 +8,7 @@ import { v4 } from "uuid";
 /**
  * @typedef {Object} onChange
  * @prop {string} url
- * @prop {string} size
+ * @prop {number} size
  * @prop {File} file
  */
 
@@ -21,7 +21,7 @@ import { v4 } from "uuid";
  * @param {number} [props.MAX_WIDTH = 512]
  * @param {string} [props.accept] type only images extensions, doc -> https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept
  * @param {boolean} [props.multiple] doc -> https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/multiple
- * @param {(props: {url: string | ArrayBuffer}) => JSX.Element} [props.imageBuilder]
+ * @param {(props: {url: string }) => JSX.Element} [props.imageBuilder]
  * @param {(props: onChange) => void} [props.onChange]
  */
 export function ImagePicker(props) {
@@ -38,8 +38,8 @@ export function ImagePicker(props) {
     imageBuilder: ImageBuilder,
   } = props;
 
-  /**@type {string | ArrayBuffer} */
-  const initUrl = initialImage;
+  /**@type {string} */
+  const initUrl = initialImage?.toString();
   const [url, setUrl] = useState(initUrl);
 
   return (

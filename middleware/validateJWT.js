@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
  * @param {import("next").NextApiRequest} req
  * @return {import("helpers/generateJWT").InterfaceJWT}
  */
-export function validateJWT(req) {
+export const validateJWT = (req) => {
   const token = req.headers["x-token"]?.toString();
 
   if (!token) throw new Error("header x-token don't exist");
@@ -22,4 +22,4 @@ export function validateJWT(req) {
   return {
     uuid: data["uuid"],
   };
-}
+};

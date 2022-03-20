@@ -31,7 +31,7 @@ export async function getCode(req, res) {
   );
 
   try {
-    const user = await new UserRepository().existUser({
+    const user = await new UserRepository().getUser({
       sendVerifyCodeTo: to,
     });
 

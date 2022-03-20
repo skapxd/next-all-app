@@ -7,7 +7,7 @@ export function SearchIcon(props) {
   const { className = "" } = props;
   return (
     <svg
-    className={`${className} ${Style.Icon_Size}`}
+      className={`${className} ${Style.Icon_Size}`}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       width="33.713"

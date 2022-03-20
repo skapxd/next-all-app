@@ -2,6 +2,11 @@
 
 import { supabaseConnection } from "../../connection";
 import { create } from "./functions/create";
+import { getUser } from "./functions/getUser";
+import { setImageProfile } from "./functions/setImageProfile";
+import { setInfo } from "./functions/setInfo";
+import { setName } from "./functions/setName";
+import { updateLastLogin } from "./functions/updateLastLogin";
 
 export class UserRolDTO {
   static Admin = "Admin";
@@ -31,9 +36,7 @@ export class UserRepository {
    * @param {string} props.sendVerifyCodeTo
    * @return {Promise<import("@supabase/supabase-js").PostgrestResponse<UserDTO>>}
    */
-  async create(props) {
-    let { sendVerifyCodeTo, name } = props;
-
+  async create({ sendVerifyCodeTo, name }) {
     return create({
       name,
       sendVerifyCodeTo,
@@ -46,13 +49,11 @@ export class UserRepository {
    * @param {string} param0.sendVerifyCodeTo
    * @return {Promise<import("@supabase/supabase-js").PostgrestResponse<UserDTO>>}
    */
-  async existUser({ sendVerifyCodeTo }) {
-    const user = await supabaseConnection
-      .from(this.users)
-      .select("sendVerifyCodeTo, name, uuid")
-      .match({ sendVerifyCodeTo });
-
-    return user;
+  async getUser({ sendVerifyCodeTo }) {
+    return await getUser({
+      it: this,
+      sendVerifyCodeTo,
+    });
   }
 
   /**
@@ -61,11 +62,45 @@ export class UserRepository {
    * @return {Promise<import("@supabase/supabase-js").PostgrestResponse<UserDTO>>}
    */
   async updateLastLogin({ uuid }) {
-    const user = await supabaseConnection
-      .from(this.users)
-      .update({ lastLogin: new Date() })
-      .match({ uuid });
+    return await updateLastLogin({
+      uuid,
+      it: this,
+    });
+  }
 
-    return user;
+  /**
+   * @param {Object} param0
+   * @param {string} param0.uuid
+   * @param {string} param0.urlImage
+   * @returns
+   */
+  async setImageProfile({ uuid, urlImage }) {
+    return await setImageProfile({
+      uuid,
+      it: this,
+      urlImage,
+    });
+  }
+
+  /**
+   * @param {Object} param0
+   * @param {string} param0.uuid
+   * @param {string} param0.value
+   */
+  async setName({ value, uuid }) {
+    return await setName({
+      it: this,
+      value,
+      uuid,
+    });
+  }
+
+  /**
+   * @param {Object} param0
+   * @param {string} param0.uuid
+   * @param {string} param0.value
+   */
+  async setInfo({ uuid, value }) {
+    return await setInfo({ it: this, uuid, value });
   }
 }

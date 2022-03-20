@@ -1,11 +1,9 @@
 // @ts-check
-
-import { saveImageProfile } from "components/UserProfilePage/api/saveImageProfile";
-
+import { setInfo } from "components/UserProfilePage/api/setInfo";
 /**
  * @param {import('next').NextApiRequest} req
  * @param {import('next').NextApiResponse} res
  */
 export default async function handler(req, res) {
-  return saveImageProfile(req, res);
+  return await setInfo(req, res);
 }

@@ -9,12 +9,17 @@ import { ImagePicker } from "components/global/lv0/ImagePicker/ImagePicker";
 import { observer } from "mobx-react-lite";
 import { InfoIcon } from "components/global/lv0/Icon/InfoIcon";
 import { PhoneIcon } from "components/global/lv0/Icon/PhoneIcon";
+import { setImageProfile } from "./services/setImageProfile";
+import { setName } from "./services/setName";
+import { useSnackBarMessage } from "hooks/useSnackBarMessage";
 
 export const userProfilePathName = () => `/user-profile`;
 
 export const UserProfilePage = observer(_UserProfile);
 
 function _UserProfile() {
+  const { show, SnackBarMessage } = useSnackBarMessage();
+
   return (
     <div className={`${Style.Box}`}>
       <AppBar title="Perfil" showArrowBack={true} />
@@ -23,9 +28,26 @@ function _UserProfile() {
         initialImage={userBlocInstance.getImageProfile}
         className={Style.Box_ImagePicker}
         accept="image/png, image/jpeg, image/jpg"
-        onChange={(props) => {
-          console.log({ props });
-          userBlocInstance.setImageProfile(props.url);
+        onChange={async (props) => {
+          try {
+            const { url, file } = props;
+            userBlocInstance.setImageProfile(url);
+            await setImageProfile({
+              base64: url,
+              file,
+            });
+            show({
+              message: "Guardado exitoso",
+              seg: 3,
+              typeMessage: "success",
+            });
+          } catch (error) {
+            show({
+              message: "Error al guardar",
+              seg: 3,
+              typeMessage: "error",
+            });
+          }
         }}
         imageBuilder={(props) => {
           const { url } = props;
@@ -44,6 +66,7 @@ function _UserProfile() {
           return (
             <div className={Style.Box_ImageProfile}>
               <img
+                alt="ImageProfile"
                 src={url}
                 style={{
                   objectFit: "cover",
@@ -64,8 +87,14 @@ function _UserProfile() {
         Icon={() => <PlaceholderPeopleIcon className={Style.Icon} />}
         title={"Nombre"}
         value={userBlocInstance.getName}
-        onSave={(value) => {
-          userBlocInstance.setName(value);
+        onSave={async (value) => {
+          try {
+            userBlocInstance.setName(value);
+            await setName({ name: value });
+            show({ typeMessage: "success" });
+          } catch (error) {
+            show({ typeMessage: "error" });
+          }
         }}
       />
 
@@ -74,7 +103,12 @@ function _UserProfile() {
         title={"Info"}
         value={userBlocInstance.getInfo}
         onSave={(value) => {
-          userBlocInstance.setInfo(value);
+          try {
+            userBlocInstance.setInfo(value);
+            show({ typeMessage: "success" });
+          } catch (error) {
+            show({ typeMessage: "error" });
+          }
         }}
       />
 
@@ -86,6 +120,8 @@ function _UserProfile() {
           userBlocInstance.setPhone(value);
         }}
       />
+
+      <SnackBarMessage />
     </div>
   );
 }
