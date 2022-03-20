@@ -10,5 +10,5 @@ export function getSizeToBase64(image) {
 
   const x_size = image.length * (3 / 4) - 4;
 
-  return Math.round(x_size / 1024) + "kb";
+  return Math.round(x_size / 1024);
 }

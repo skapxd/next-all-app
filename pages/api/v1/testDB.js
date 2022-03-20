@@ -1,6 +1,6 @@
 // @ts-check
 
-import { supabase } from "db/supabase/connection";
+import { supabaseConnection } from "providers/supabase/connection";
 
 /**
  * @param {import("next").NextApiRequest} req
@@ -14,7 +14,7 @@ export default async function handler(req, res) {
 
     console.log({ sendVerifyCodeTo });
 
-    const data = await supabase
+    const data = await supabaseConnection
       .from("users")
       .update({ lastLogin: now })
       .match({ sendVerifyCodeTo });

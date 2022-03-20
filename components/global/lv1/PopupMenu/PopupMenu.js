@@ -3,9 +3,9 @@ import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
 import { MenuIcon } from "components/global/lv0/Icon/MenuIcon";
 import { ListTileMenu } from "components/global/lv0/ListTileMenu/ListTileMenu";
 import { ScaffoldPopupMenu } from "components/global/lv0/ScaffoldPopupMenu/ScaffoldPopupMenu";
+import { loginPathName } from "components/LoginPage/LoginPage";
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
-import { loginPathName } from "pages/login";
 import { useEffect, useState } from "react";
 
 export const PopupMenu = observer(_PopupMenu);

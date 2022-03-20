@@ -49,30 +49,3 @@
         height: 35px;
     }
 }
-
-.BoxName {
-    display: flex;
-    flex-direction: row;
-    height: 30px;
-    width: max-content;
-    padding: 0 8px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 300px;
-    margin: 0 auto;
-    color: theme.$white2;
-    border: 1px solid theme.$white3;
-    gap: 8px;
-    margin-top: 10px;
-    &_Icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 3000px;
-        width: 20px;
-        background: theme.$subject;
-        color: theme.$dark;
-        // color: theme.$white;
-        aspect-ratio: 1/1;
-    }
-}

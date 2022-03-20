@@ -13,5 +13,6 @@ export const setBrowserFingerPrint = (it) => {
     const agent = await FingerPrint.load();
     const visitor = await agent.get();
     it.browserFingerPrint = FingerPrint.hashComponents(visitor.components);
+    localStorage.setItem(it.keyBrowserFingerPrint, it.browserFingerPrint);
   });
 };

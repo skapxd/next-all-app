@@ -8,9 +8,9 @@ import { PlaceholderPeopleIcon } from "components/global/lv0/Icon/PlaceholderPeo
 import { StoreIcon } from "components/global/lv0/Icon/StoreIcon";
 import { ListTileSettingsPage } from "components/global/lv0/ListTileSettingsPage/ListTileSettingsPage";
 import { AppBar } from "components/global/lv1/AppBar/AppBar";
+import { userProfilePathName } from "components/UserProfilePage/UserProfilePage";
 import Link from "next/link";
 import { storeProfilePathName } from "pages/store-profile";
-import { userProfilePathName } from "pages/user-profile";
 import Style from "./AccountPage.module.scss";
 export function SettingsPage() {
   return (
@@ -71,7 +71,8 @@ function Profile(props) {
               {userBlocInstance.getName}
             </h3>
             <p className={Style.BoxProfile_BoxDescription_Description}>
-              {userBlocInstance.getInfo + (userBlocInstance.getInfo.length > 26 ? "..." : "")}
+              {userBlocInstance.getInfo +
+                (userBlocInstance.getInfo.length > 26 ? "..." : "")}
             </p>
           </div>
         </div>

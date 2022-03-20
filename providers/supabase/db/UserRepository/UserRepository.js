@@ -1,5 +1,7 @@
 // @ts-check
-import { supabase } from "./connection";
+
+import { supabaseConnection } from "../../connection";
+import { create } from "./functions/create";
 
 export class UserRolDTO {
   static Admin = "Admin";
@@ -21,7 +23,7 @@ export class UserRolDTO {
  */
 
 export class UserRepository {
-  #users = "users";
+  users = "users";
 
   /**
    * @param {Object} props
@@ -32,27 +34,11 @@ export class UserRepository {
   async create(props) {
     let { sendVerifyCodeTo, name } = props;
 
-    if (!sendVerifyCodeTo || !name) {
-      throw new Error("sendVerifyCodeTo or name is falsy");
-    }
-
-    try {
-      /**@type {UserDTO} */
-      const data = {
-        name,
-        sendVerifyCodeTo,
-        verifyMethod: "email",
-      };
-
-      /**
-       * @type {import("@supabase/supabase-js").PostgrestResponse<UserDTO>}
-       */
-      const resp = await supabase.from(this.#users).insert(data);
-
-      return resp;
-    } catch (error) {
-      throw new Error("error to save user");
-    }
+    return create({
+      name,
+      sendVerifyCodeTo,
+      it: this,
+    });
   }
 
   /**
@@ -61,8 +47,8 @@ export class UserRepository {
    * @return {Promise<import("@supabase/supabase-js").PostgrestResponse<UserDTO>>}
    */
   async existUser({ sendVerifyCodeTo }) {
-    const user = await supabase
-      .from(this.#users)
+    const user = await supabaseConnection
+      .from(this.users)
       .select("sendVerifyCodeTo, name, uuid")
       .match({ sendVerifyCodeTo });
 
@@ -75,8 +61,8 @@ export class UserRepository {
    * @return {Promise<import("@supabase/supabase-js").PostgrestResponse<UserDTO>>}
    */
   async updateLastLogin({ uuid }) {
-    const user = await supabase
-      .from(this.#users)
+    const user = await supabaseConnection
+      .from(this.users)
       .update({ lastLogin: new Date() })
       .match({ uuid });
 

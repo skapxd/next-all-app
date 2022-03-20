@@ -4,6 +4,7 @@ import { closeSession } from "./functions/closeSession";
 import { getCode } from "./functions/getCode";
 import { init } from "./functions/init";
 import { setBrowserFingerPrint as setBrowserFingerPrint } from "./functions/setBrowserFingerPrint";
+import { setEmail } from "./functions/setEmail";
 import { setImageProfile } from "./functions/setImageProfile";
 import { setInfo } from "./functions/setInfo";
 import { setIsAuthenticate } from "./functions/setIsAuthenticate";
@@ -72,16 +73,20 @@ export class UserBloc {
       browserFingerPrint: observable,
       //
       init: action,
+      //
       setName: action,
+      getName: computed,
+      //
       setInfo: action,
+      getInfo: computed,
+      //
       setPhone: action,
+      getPhone: computed,
+      //
       closeSession: action,
       setImageProfile: action,
       setBrowserFingerPrint: action,
       //
-      getName: computed,
-      getInfo: computed,
-      getPhone: computed,
       getEmail: computed,
       getToken: computed,
       getImageProfile: computed,
@@ -110,11 +115,17 @@ export class UserBloc {
   setInfo(value) {
     setInfo(value, this);
   }
+  get getInfo() {
+    return this.info;
+  }
 
   // TODO: save image into db
   /**@param {string} value */
   setImageProfile(value) {
     setImageProfile(value, this);
+  }
+  get getImageProfile() {
+    return this.imageProfile;
   }
 
   // TODO: save name into db
@@ -122,13 +133,30 @@ export class UserBloc {
   setName(value) {
     setName(value, this);
   }
+  get getName() {
+    return this.name;
+  }
+
+  /**
+   * @param {string} value
+   */
+  setEmail(value) {
+    setEmail(value, this);
+  }
+  get getEmail() {
+    return this.email;
+  }
 
   setIsAuthenticate() {
     setIsAuthenticate(this);
   }
 
+  // TODO: save browser finger print into db
   setBrowserFingerPrint() {
     setBrowserFingerPrint(this);
+  }
+  get getBrowserFingerPrint() {
+    return this.browserFingerPrint;
   }
 
   /**
@@ -160,27 +188,8 @@ export class UserBloc {
     updateLastLogin(this);
   }
 
-  //
   get getToken() {
     return this.token;
-  }
-
-  get getEmail() {
-    return this.email;
-  }
-
-  /**@return {string}  */
-  get getName() {
-    return this.name;
-  }
-
-  /**@return {string} */
-  get getImageProfile() {
-    return this.imageProfile;
-  }
-
-  get getInfo() {
-    return this.info;
   }
 
   get getPhone() {
@@ -189,10 +198,6 @@ export class UserBloc {
 
   get getIsAuthenticate() {
     return this.isAuthenticate;
-  }
-
-  get getBrowserFingerPrint() {
-    return this.browserFingerPrint;
   }
 }
 
