@@ -26,7 +26,7 @@ export class UserRolDTO {
  * @prop {string} sendVerifyCodeTo
  * @prop {UserRolDTO} [rol]
  * @prop {VerifyMethod} verifyMethod
- * @prop {string} [create_at]
+ * @prop {string} [created_at]
  * @prop {string} [lastLogin]
  */
 

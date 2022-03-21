@@ -32,9 +32,19 @@ export const verifyCodeService = async ({ code, to, name }) => {
   const data = await resp.json();
   if (!resp.ok) throw new Error(data?.error ?? "Without connection");
 
+  /**@type {import("providers/supabase/db/UserRepository/UserRepository").UserDTO} */
+  const user = {
+    sendVerifyCodeTo: data?.user["sendVerifyCodeTo"],
+    verifyMethod: data?.user["verifyMethod"],
+    name: data?.user["name"],
+    imageProfile: "",
+    info: data?.user["info"] ?? "Hola! estoy usando All ",
+    phone: data?.user["phone"] ?? "+57 300 00 00",
+  };
+
   return {
+    user,
     success: true,
     token: data["token"],
-    user: data["user"],
   };
 };
