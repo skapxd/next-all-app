@@ -1,11 +1,11 @@
 // @ts-check
 
-import { updateLastLogin } from "components/LoginPage/api/update-last-login";
+import { updateLastLoginAPI } from "components/LoginPage/api/updateLastLogin.api";
 
 /**
  * @param {import("next").NextApiRequest} req
  * @param {import("next").NextApiResponse} res
  */
 export default async function handler(req, res) {
-  return updateLastLogin(req, res);
+  return updateLastLoginAPI(req, res);
 }

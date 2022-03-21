@@ -13,7 +13,7 @@ function _BottomNavigationBar() {
       <BottomNavigationBarButton type={CurrentPageRoot.store} />
       <BottomNavigationBarButton type={CurrentPageRoot.location} />
 
-      {userBlocInstance.token && (
+      {userBlocInstance.getIsAuthenticate && (
         <BottomNavigationBarButton type={CurrentPageRoot.cuenta} />
       )}
     </div>

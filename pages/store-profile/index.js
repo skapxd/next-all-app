@@ -43,6 +43,7 @@ function storeProfile() {
             <div className={Style.Box_ImageProfile}>
               <img
                 src={url}
+                alt="StoreImageProfile"
                 style={{
                   objectFit: "cover",
                   height: "100%",

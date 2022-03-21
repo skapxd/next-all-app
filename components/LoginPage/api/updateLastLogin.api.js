@@ -6,7 +6,7 @@ import { UserRepository } from "providers/supabase/db/UserRepository/UserReposit
  * @param {import("next").NextApiRequest} req
  * @param {import("next").NextApiResponse} res
  */
-export async function updateLastLogin(req, res) {
+export async function updateLastLoginAPI(req, res) {
   try {
     // step 1: en caso de que el req no contenga un header
     // x-token lanzara una excepción

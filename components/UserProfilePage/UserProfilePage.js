@@ -9,9 +9,11 @@ import { ImagePicker } from "components/global/lv0/ImagePicker/ImagePicker";
 import { observer } from "mobx-react-lite";
 import { InfoIcon } from "components/global/lv0/Icon/InfoIcon";
 import { PhoneIcon } from "components/global/lv0/Icon/PhoneIcon";
-import { setImageProfile } from "./services/setImageProfile";
-import { setName } from "./services/setName";
+import { setImageProfileService } from "./services/setImageProfile.service";
+import { setNameService } from "./services/setName.service";
 import { useSnackBarMessage } from "hooks/useSnackBarMessage";
+import { setPhoneService } from "./services/setPhone.service";
+import { setInfoService } from "./services/setInfo.service";
 
 export const userProfilePathName = () => `/user-profile`;
 
@@ -32,21 +34,13 @@ function _UserProfile() {
           try {
             const { url, file } = props;
             userBlocInstance.setImageProfile(url);
-            await setImageProfile({
+            await setImageProfileService({
               base64: url,
               file,
             });
-            show({
-              message: "Guardado exitoso",
-              seg: 3,
-              typeMessage: "success",
-            });
+            show({ typeMessage: "success" });
           } catch (error) {
-            show({
-              message: "Error al guardar",
-              seg: 3,
-              typeMessage: "error",
-            });
+            show({ typeMessage: "error" });
           }
         }}
         imageBuilder={(props) => {
@@ -90,7 +84,8 @@ function _UserProfile() {
         onSave={async (value) => {
           try {
             userBlocInstance.setName(value);
-            await setName({ name: value });
+
+            await setNameService({ name: value });
             show({ typeMessage: "success" });
           } catch (error) {
             show({ typeMessage: "error" });
@@ -105,6 +100,7 @@ function _UserProfile() {
         onSave={(value) => {
           try {
             userBlocInstance.setInfo(value);
+            setInfoService(value);
             show({ typeMessage: "success" });
           } catch (error) {
             show({ typeMessage: "error" });
@@ -117,7 +113,16 @@ function _UserProfile() {
         title={"Teléfono"}
         value={userBlocInstance.getPhone}
         onSave={(value) => {
-          userBlocInstance.setPhone(value);
+          try {
+            userBlocInstance.setPhone(value);
+
+            setPhoneService({
+              phone: value,
+            });
+            show({ typeMessage: "success" });
+          } catch (error) {
+            show({ typeMessage: "error" });
+          }
         }}
       />
 

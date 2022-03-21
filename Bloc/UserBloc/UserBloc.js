@@ -1,7 +1,6 @@
 // @ts-check
 import { action, computed, makeObservable, observable } from "mobx";
 import { closeSession } from "./functions/closeSession";
-import { getCode } from "./functions/getCode";
 import { init } from "./functions/init";
 import { setBrowserFingerPrint as setBrowserFingerPrint } from "./functions/setBrowserFingerPrint";
 import { setEmail } from "./functions/setEmail";
@@ -11,7 +10,6 @@ import { setIsAuthenticate } from "./functions/setIsAuthenticate";
 import { setName } from "./functions/setName";
 import { setPhone } from "./functions/setPhone";
 import { updateLastLogin } from "./functions/updateLastLogin";
-import { verifyCode } from "./functions/verifyCode";
 
 export class UserBloc {
   /**@type {string} */
@@ -44,6 +42,7 @@ export class UserBloc {
 
   /**@type {boolean} */
   isAuthenticate;
+  keyIsAuthenticate = "UserBlocIsAuthenticate";
 
   /**
    * @type {{
@@ -87,10 +86,14 @@ export class UserBloc {
       setImageProfile: action,
       setBrowserFingerPrint: action,
       //
-      getEmail: computed,
+      setToken: action,
       getToken: computed,
-      getImageProfile: computed,
+      //
       getIsAuthenticate: computed,
+      setIsAuthenticate: action,
+      //
+      getEmail: computed,
+      getImageProfile: computed,
       getBrowserFingerPrint: computed,
     });
   }
@@ -150,6 +153,9 @@ export class UserBloc {
   setIsAuthenticate() {
     setIsAuthenticate(this);
   }
+  get getIsAuthenticate() {
+    return this.isAuthenticate;
+  }
 
   // TODO: save browser finger print into db
   setBrowserFingerPrint() {
@@ -157,27 +163,6 @@ export class UserBloc {
   }
   get getBrowserFingerPrint() {
     return this.browserFingerPrint;
-  }
-
-  /**
-   * @param {Object} param0
-   * @param {string} [param0.to]
-   * @param {string} [param0.name]
-   * @param {'email'} [param0.method]
-   */
-  async getCode({ to, name, method }) {
-    return getCode({ to, name, method });
-  }
-
-  /**
-   * @param {Object} param0
-   * @param {string} [param0.code]
-   * @param {string} [param0.to]
-   * @param {string} [param0.name]
-   * @returns
-   */
-  async verifyCode({ code, to, name }) {
-    return verifyCode({ code, to, name, it: this });
   }
 
   closeSession() {
@@ -188,16 +173,17 @@ export class UserBloc {
     updateLastLogin(this);
   }
 
+  /**@param {string} token */
+  setToken(token) {
+    this.token = token;
+    localStorage.setItem(this.keyToken, this.token);
+  }
   get getToken() {
     return this.token;
   }
 
   get getPhone() {
     return this.phone;
-  }
-
-  get getIsAuthenticate() {
-    return this.isAuthenticate;
   }
 }
 

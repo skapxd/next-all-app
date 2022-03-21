@@ -1,9 +1,11 @@
 // @ts-check
-import { setInfoAPI } from "components/UserProfilePage/api/setInfo.api";
+
+import { setPhoneAPI } from "components/UserProfilePage/api/setPhone.api";
+
 /**
  * @param {import('next').NextApiRequest} req
  * @param {import('next').NextApiResponse} res
  */
 export default async function handler(req, res) {
-  return await setInfoAPI(req, res);
+  return await setPhoneAPI(req, res);
 }

@@ -12,10 +12,10 @@ import { useSetHeight } from "hooks/useSetHeight";
 import { useRouter } from "next/router";
 import { getQueryParams } from "helpers/getQueryParams";
 import { CurrentPageRoot, rootPathName } from "pages";
-import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
+import { UserBloc, userBlocInstance } from "Bloc/UserBloc/UserBloc";
 import { NameUser } from "./components/NameUser/NameUser";
-import { verifyCode } from "./functions/validatePass";
-import { getCode } from "./functions/validateUserName";
+import { verifyCodeFunction } from "./functions/verifyCode.function";
+import { getCodeFunction } from "./functions/getCode.function";
 import { AppBarLogin } from "./components/AppBarLogin/AppBarLogin";
 
 class CurrentPage {
@@ -65,7 +65,7 @@ export function LoginPage() {
     setLoading(true);
     try {
       currentPage === CurrentPage.getCode &&
-        getCode({
+        getCodeFunction({
           to: user.email,
           name: user.name,
           onFailed: () => {
@@ -78,13 +78,13 @@ export function LoginPage() {
               },
             }));
           },
-          onSuccess: (data) => {
+          onSuccess: (name) => {
             setLoading(false);
             setUser((s) => ({
               ...s,
               name: {
                 isValid: true,
-                value: data.name ?? s.name.value,
+                value: name ?? s.name.value,
               },
             }));
             router.push(loginPathName("validateCode"));
@@ -92,7 +92,7 @@ export function LoginPage() {
         });
 
       currentPage === CurrentPage.validateCode &&
-        verifyCode({
+        verifyCodeFunction({
           to: user.email,
           name: user.name,
           code: user.code,
@@ -106,15 +106,21 @@ export function LoginPage() {
               },
             }));
           },
-          onSuccess: () => {
+          onSuccess: (data) => {
+            // const { imageProfile, info, phone, name: userName } = data.user;
+            // userBlocInstance.setToken(data.token);
+            // userBlocInstance.setImageProfile(imageProfile);
+            // userBlocInstance.setInfo(info);
+            // userBlocInstance.setName(userName);
+            // userBlocInstance.setPhone(phone);
+            // userBlocInstance.setIsAuthenticate();
+
             setLoading(false);
-            userBlocInstance.setName(user.name.value);
-            userBlocInstance.setEmail(user.email.value);
-            router.push(rootPathName(CurrentPageRoot.cuenta));
+            setTimeout(() => {
+              router.push(rootPathName(CurrentPageRoot.cuenta));
+            }, 300);
           },
         });
-
-      // currentPage === CurrentPage.loadData && () => {}
     } catch (error) {
       console.error({ error: error.message });
     }

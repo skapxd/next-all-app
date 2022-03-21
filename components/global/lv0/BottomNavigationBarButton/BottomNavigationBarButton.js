@@ -3,7 +3,6 @@ import Style from "./BottomNavigationBarButton.module.scss";
 import { StoreIcon } from "components/global/lv0/Icon/StoreIcon";
 import { observer } from "mobx-react-lite";
 import { LocationIcon } from "../Icon/LocationIcon";
-import { SettingsIcon } from "../Icon/SettingsIcon";
 import { useChangeUrl } from "hooks/useChangeUrl";
 import { CurrentPageRoot } from "pages";
 import { PlaceholderPeopleIcon } from "../Icon/PlaceholderPeopleIcon";

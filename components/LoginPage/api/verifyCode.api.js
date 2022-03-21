@@ -6,7 +6,7 @@ import { UserRepository } from "providers/supabase/db/UserRepository/UserReposit
  * @param {import("next").NextApiRequest} req
  * @param {import("next").NextApiResponse} res
  */
-export async function verifyCode(req, res) {
+export async function verifyCodeAPI(req, res) {
   try {
     const { to, name, code } = req.body;
 
@@ -29,13 +29,13 @@ export async function verifyCode(req, res) {
     // step 4: en caso de que el usuario exista
     // actualizar [lastLogin] en la base de datos
     // borrar el código del cache y
-    // retornar el token
+    // retornar el usuario con el token
     if (user.data.length !== 0) {
       const uuid = user.data[0].uuid;
       const token = await generateJWT({ uuid });
       userRepository.updateLastLogin({ uuid });
       memoryCache.del(`codeNumberWithFormat`);
-      return res.json({ success: true, token });
+      return res.json({ success: true, token, user: user.data[0] });
     }
 
     // step 5: en caso de que no exista

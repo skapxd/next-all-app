@@ -8,7 +8,7 @@ import { UserRepository } from "providers/supabase/db/UserRepository/UserReposit
  * @param {import("next").NextApiRequest} req
  * @param {import("next").NextApiResponse} res
  */
-export async function getCode(req, res) {
+export async function getCodeAPI(req, res) {
   const { to, name = "" } = req.body;
 
   const numberRandom = (Math.random() * 999999999).toFixed() + "";

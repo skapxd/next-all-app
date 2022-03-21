@@ -14,7 +14,7 @@ export const getUser = async (props) => {
 
   const user = await supabaseConnection
     .from(it.users)
-    .select("sendVerifyCodeTo, name, uuid")
+    .select("*")
     .match({ sendVerifyCodeTo });
 
   return user;

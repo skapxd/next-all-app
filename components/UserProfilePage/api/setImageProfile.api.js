@@ -8,7 +8,7 @@ import { PublicImages } from "providers/supabase/storage/Public/PublicImages";
  * @param {import("next").NextApiRequest} req
  * @param {import("next").NextApiResponse} res
  */
-export const setImageProfile = async (req, res) => {
+export const setImageProfileAPI = async (req, res) => {
   try {
     const { base64, type } = req.body;
     const { uuid } = validateJWT(req);

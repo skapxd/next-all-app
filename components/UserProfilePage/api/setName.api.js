@@ -7,7 +7,7 @@ import { UserRepository } from "providers/supabase/db/UserRepository/UserReposit
  * @param {import('next').NextApiRequest} req
  * @param {import('next').NextApiResponse} res
  */
-export const setName = async (req, res) => {
+export const setNameAPI = async (req, res) => {
   try {
     const { uuid } = validateJWT(req);
     const { name } = req.body;

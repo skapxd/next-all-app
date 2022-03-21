@@ -1,11 +1,11 @@
 // @ts-check
 
-import { supabaseConnection } from "../../connection";
 import { create } from "./functions/create";
 import { getUser } from "./functions/getUser";
 import { setImageProfile } from "./functions/setImageProfile";
 import { setInfo } from "./functions/setInfo";
 import { setName } from "./functions/setName";
+import { setPhone } from "./functions/setPhone";
 import { updateLastLogin } from "./functions/updateLastLogin";
 
 export class UserRolDTO {
@@ -20,6 +20,9 @@ export class UserRolDTO {
  * @typedef {Object} UserDTO User Data Transfer Object ;)
  * @prop {string} [uuid]
  * @prop {string} name
+ * @prop {string} info
+ * @prop {string} phone
+ * @prop {string} imageProfile
  * @prop {string} sendVerifyCodeTo
  * @prop {UserRolDTO} [rol]
  * @prop {VerifyMethod} verifyMethod
@@ -102,5 +105,14 @@ export class UserRepository {
    */
   async setInfo({ uuid, value }) {
     return await setInfo({ it: this, uuid, value });
+  }
+
+  /**
+   * @param {Object} param0
+   * @param {Object} param0.uuid
+   * @param {Object} param0.value
+   */
+  async setPhone({ uuid, value }) {
+    return await setPhone({ uuid, value, it: this });
   }
 }

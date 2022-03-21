@@ -3,18 +3,13 @@
 import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
 
 /**
- *
  * @param {Object} props
- * @param {Object} props.name
- * @return {Promise<{
- * success: boolean,
- * error?: string
- * }>}
+ * @param {string} props.phone
  */
-export const setName = async (props) => {
-  const { name } = props;
+export const setPhoneService = async (props) => {
+  const { phone } = props;
 
-  if (!name) throw new Error("name is empty");
+  if (!phone) throw new Error("phone is empty");
 
   const headers = {
     "x-token": userBlocInstance.getToken,
@@ -22,7 +17,7 @@ export const setName = async (props) => {
   };
 
   const body = JSON.stringify({
-    name,
+    phone,
   });
 
   /**@type {RequestInit} */
@@ -34,11 +29,10 @@ export const setName = async (props) => {
 
   const url = "/api/v1/user/set-name";
   const resp = await fetch(url, options);
-
-  if (!resp.ok) throw new Error("Without connection");
+  const data = await resp.json();
+  if (!resp.ok) throw new Error(data?.error ?? "Without connection");
 
   return {
     success: true,
-    error: "false",
   };
 };
