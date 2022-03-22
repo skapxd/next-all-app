@@ -47,7 +47,7 @@ export async function verifyCodeAPI(req, res) {
     });
     const token = await generateJWT({ uuid: newUser.data[0].uuid });
     memoryCache.del(`codeNumberWithFormat`);
-    return res.json({ success: true, token });
+    return res.json({ success: true, token, user: newUser.data[0] });
   } catch (error) {
     return res.status(400).json({ success: false, error: error.message });
   }

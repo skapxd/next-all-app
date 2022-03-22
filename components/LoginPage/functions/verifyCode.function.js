@@ -37,6 +37,7 @@ export const verifyCodeFunction = async (props) => {
     userBlocInstance.setIsAuthenticate();
     onSuccess && onSuccess(data);
   } catch (error) {
+    console.log({ error: error.message });
     onFailed && onFailed();
   }
 };
