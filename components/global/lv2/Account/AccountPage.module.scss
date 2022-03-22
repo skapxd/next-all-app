@@ -12,6 +12,13 @@
     }
 }
 
+.BoxCol {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 22px 0;
+}
+
 .BoxProfile {
     display: flex;
     flex-direction: row;

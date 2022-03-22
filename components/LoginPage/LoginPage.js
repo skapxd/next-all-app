@@ -12,11 +12,11 @@ import { useSetHeight } from "hooks/useSetHeight";
 import { useRouter } from "next/router";
 import { getQueryParams } from "helpers/getQueryParams";
 import { CurrentPageRoot, rootPathName } from "pages";
-import { UserBloc, userBlocInstance } from "Bloc/UserBloc/UserBloc";
 import { NameUser } from "./components/NameUser/NameUser";
 import { verifyCodeFunction } from "./functions/verifyCode.function";
 import { getCodeFunction } from "./functions/getCode.function";
 import { AppBarLogin } from "./components/AppBarLogin/AppBarLogin";
+import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
 
 class CurrentPage {
   static getCode = "getCode";
@@ -55,6 +55,12 @@ export function LoginPage() {
       isValid: true,
     },
   });
+
+  useEffect(() => {
+    if (userBlocInstance.getIsAuthenticate) {
+      router.push("/");
+    }
+  }, []);
 
   useEffect(() => {
     const stepQuery = getQueryParams("step");
@@ -107,14 +113,6 @@ export function LoginPage() {
             }));
           },
           onSuccess: (data) => {
-            // const { imageProfile, info, phone, name: userName } = data.user;
-            // userBlocInstance.setToken(data.token);
-            // userBlocInstance.setImageProfile(imageProfile);
-            // userBlocInstance.setInfo(info);
-            // userBlocInstance.setName(userName);
-            // userBlocInstance.setPhone(phone);
-            // userBlocInstance.setIsAuthenticate();
-
             setLoading(false);
             setTimeout(() => {
               router.push(rootPathName(CurrentPageRoot.cuenta));

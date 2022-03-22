@@ -1,0 +1,25 @@
+@use 'styles/_theme' as theme;
+.BoxListTile {
+    display: flex;
+    flex-direction: row;
+    padding: 12px 34px;
+    gap: 28px;
+    align-items: center;
+    &_Icon {
+        & path,
+        & rect {
+            fill: theme.$white
+        }
+    }
+    &_BoxDescription {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        & h4 {
+            color: theme.$white;
+        }
+        & p {
+            color: theme.$white3;
+        }
+    }
+}

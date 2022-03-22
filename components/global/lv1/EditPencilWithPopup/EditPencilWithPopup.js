@@ -1,8 +1,8 @@
 // @ts-check
 import { EditPencilIcon } from "components/global/lv0/Icon/EditPencilIcon";
-import { InputText } from "components/global/lv0/InputText/InputText";
 import { useChangeUrl } from "hooks/useChangeUrl";
 import { useEffect, useState } from "react";
+import { Modal } from "./components/Modal";
 import Style from "./EditPencilWithPopup.module.scss";
 
 /**
@@ -12,7 +12,6 @@ import Style from "./EditPencilWithPopup.module.scss";
  * @param {string} [props.initValue]
  * @param {(value:string) => void} [props.onSave]
  * @param {() => void} [props.onCancel]
- * @param {() => void} [props.onClick]
  */
 export function EditPencilWithPopup(props) {
   const {
@@ -21,7 +20,6 @@ export function EditPencilWithPopup(props) {
     initValue,
     onCancel,
     onSave,
-    onClick,
   } = props;
 
   const [show, setShow] = useState(false);
@@ -34,73 +32,41 @@ export function EditPencilWithPopup(props) {
 
   useEffect(() => {
     if (currentPage === title) return;
+
     setShow(false);
   }, [currentPage]);
 
   return (
     <div className={`${Style.Box} ${className}`}>
       <EditPencilIcon
+        className={Style.Pencil}
         onClick={() => {
           setShow(true);
-          router.push(router.asPath, {
-            query: {
-              modal: title,
+          router.push(
+            router.asPath,
+            {
+              query: {
+                modal: title,
+              },
             },
-          });
+            {
+              scroll: false,
+            }
+          );
         }}
       />
       {show && (
-        <>
-          <div
-            className={Style.PopupBg}
-            onClick={() => {
-              setShow(false);
-              router.back();
-
-              onCancel && onCancel();
-            }}
-          ></div>
-          <div className={Style.Modal}>
-            <h4>{title}</h4>
-
-            <InputText
-              value={text}
-              className={Style.Modal_Input}
-              onChange={(e) => setText(e)}
-              onSubmit={() => {
-                setShow(false);
-                router.back();
-
-                onSave && onSave(text);
-              }}
-            />
-
-            <div className={Style.Modal_BoxBtn}>
-              <button
-                onClick={() => {
-                  setShow(false);
-                  router.back();
-
-                  onCancel && onCancel();
-                }}
-              >
-                CANCELAR
-              </button>
-              <button
-                onClick={() => {
-                  setShow(false);
-                  router.back();
-                  onSave && onSave(text);
-                }}
-              >
-                GUARDAR
-              </button>
-            </div>
-          </div>
-        </>
+        <Modal
+          ref2={scroll}
+          onCancel={onCancel}
+          onSave={onSave}
+          router={router}
+          setShow={setShow}
+          setText={setText}
+          text={text}
+          title={title}
+        />
       )}
     </div>
   );
 }
-
-export function Modal() {}

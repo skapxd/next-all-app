@@ -6,17 +6,17 @@ import { validate } from "@skapxd/validate";
 /**
  * @param {Object} props
  * @param {string} [props.name]
- * @param {string} [props.placeholder]
+ * @param {string} [props.value]
+ * @param {RegExp} [props.regExp]
+ * @param {boolean} [props.isValid]
  * @param {number} [props.maxLength]
  * @param {number} [props.minLength]
- * @param {boolean} [props.isValid]
  * @param {string} [props.className]
- * @param {string} [props.value]
- * @param {"off" | "on"} [props.autoComplete]
- * @param {RegExp} [props.regExp]
- * @param {(value: string, isValid: boolean, keyDown: string) => void} [props.onChange]
+ * @param {string} [props.placeholder]
  * @param {() => void} [props.onSubmit]
+ * @param {"off" | "on"} [props.autoComplete]
  * @param {import("react").InputHTMLAttributes<HTMLInputElement>['type']} [props.type]
+ * @param {(value: string, isValid: boolean, keyDown: string) => void} [props.onChange]
  * @returns
  */
 export function InputText(props) {
@@ -66,6 +66,8 @@ export function InputText(props) {
     <form
       onSubmit={(e) => {
         e.preventDefault();
+        // @ts-ignore
+        e.target.blur();
         onSubmit && onSubmit();
       }}
       className={`${Style.BoxInput} ${className}`}

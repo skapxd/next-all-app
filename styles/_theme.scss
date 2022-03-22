@@ -12,11 +12,11 @@ $white2: #A5A5A9;
 $white3: #707070;
 $error: #FF1212;
 @mixin ScaffoldBox {
-    background-color: red;
     max-width: 430px;
     width: 100%;
     min-height: calc(var(--vh, 1vh) * 100);
-    background: $dark;
+    background-color: $dark;
     display: flex;
     flex-direction: column;
+    padding-bottom: 80px;
 }

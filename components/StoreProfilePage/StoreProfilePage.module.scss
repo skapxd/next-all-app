@@ -1,4 +1,8 @@
 @use 'styles/_theme' as theme;
+.VistaPrevia {
+    color: theme.$white
+}
+
 .Box {
     @include theme.ScaffoldBox;
     &_ImagePicker {

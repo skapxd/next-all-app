@@ -2,7 +2,7 @@
 import { CameraIcon } from "components/global/lv0/Icon/CameraIcon";
 import { PlaceholderPeopleIcon } from "components/global/lv0/Icon/PlaceholderPeopleIcon";
 import { AppBar } from "components/global/lv1/AppBar/AppBar";
-import { ProfileListTile } from "components/user-profile/ProfileListTile/ProfileListTile";
+import { ProfileListTile } from "components/UserProfilePage/components/ProfileListTile/ProfileListTile";
 import Style from "./UserProfilePage.module.scss";
 import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
 import { ImagePicker } from "components/global/lv0/ImagePicker/ImagePicker";

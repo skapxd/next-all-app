@@ -19,8 +19,11 @@ import { setSchedule } from "./functions/setSchedule";
 
 /**
  * @typedef {Object} Contact
- * @prop {string} value
- * @prop {string} name
+ * @prop {string} whatsApp
+ * @prop {string} telegram
+ * @prop {string} email
+ * @prop {string} facebook
+ * @prop {string} instagram
  * */
 
 export class StoreBloc {
@@ -32,7 +35,7 @@ export class StoreBloc {
   description;
   keyDescription = "StoreBlocDescription";
 
-  /** @type {Object<string, Contact>} */
+  /** @type {Contact}  */
   contact;
   keyContact = "StoreBlocContact";
 
@@ -110,7 +113,7 @@ export class StoreBloc {
   }
 
   // TODO: Sabe contact in db
-  /** @param {{ [x: string]: Contact; }} value */
+  /** @param {Contact} value */
   setContact(value) {
     setContact(value, this);
   }

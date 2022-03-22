@@ -2,8 +2,7 @@
 .BoxListTile {
     display: flex;
     flex-direction: row;
-    padding: 34px;
-    padding-bottom: 0;
+    padding: 16px 34px;
     gap: 28px;
     align-items: center;
     &_Icon {

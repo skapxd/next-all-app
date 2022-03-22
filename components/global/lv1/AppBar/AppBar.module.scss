@@ -6,17 +6,16 @@
     display: flex;
     align-items: center;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.24);
-    &_ArrowIcon {
-        margin-left: 16px;
-    }
+    padding: 0 16px;
     &_Input {
         display: flex;
         flex-direction: column;
         height: 20px;
         margin-left: 24px;
-        width: 70%;
+        margin-right: auto;
         font-weight: 500;
         font-size: 22px;
         color: theme.$white;
+        justify-self: stretch;
     }
 }

@@ -19,7 +19,7 @@ export function ProfileListTile(props) {
 
       <div className={Style.BoxListTile_BoxDescription}>
         <p>{title}</p>
-        <h4>{value.substring(0, 26) + (value.length > 26 ? "..." : "")}</h4>
+        <h4>{value?.substring(0, 26) + (value?.length > 26 ? "..." : "")}</h4>
       </div>
 
       <EditPencilWithPopup

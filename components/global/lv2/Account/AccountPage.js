@@ -1,16 +1,17 @@
 // @ts-check
 
+import { Divider } from "@mui/material";
 import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
 import { DollarIcon } from "components/global/lv0/Icon/DollarIcon";
 import { InfoIcon } from "components/global/lv0/Icon/InfoIcon";
 import { LocationIcon } from "components/global/lv0/Icon/LocationIcon";
 import { PlaceholderPeopleIcon } from "components/global/lv0/Icon/PlaceholderPeopleIcon";
 import { StoreIcon } from "components/global/lv0/Icon/StoreIcon";
-import { ListTileSettingsPage } from "components/global/lv0/ListTileSettingsPage/ListTileSettingsPage";
+import { ListTileBoldTitle } from "components/global/lv0/ListTileBoldTitle/ListTileBoldTitle";
 import { AppBar } from "components/global/lv1/AppBar/AppBar";
+import { storeProfilePathName } from "components/StoreProfilePage/StoreProfilePage";
 import { userProfilePathName } from "components/UserProfilePage/UserProfilePage";
 import Link from "next/link";
-import { storeProfilePathName } from "pages/store-profile";
 import Style from "./AccountPage.module.scss";
 export function SettingsPage() {
   return (
@@ -18,35 +19,34 @@ export function SettingsPage() {
       <AppBar title="Cuenta" />
       <Profile />
       <Divider />
-      <ListTileSettingsPage
-        href={storeProfilePathName()}
-        Icon={() => <StoreIcon className={Style.Icon} />}
-        title="Herramientas para tu empresa"
-        description="Perfil, horarios, descripción, contactos"
-      />
-      <ListTileSettingsPage
-        Icon={() => <InfoIcon className={Style.Icon} />}
-        title="Novedades"
-        description="Visualiza el historial de cambios"
-      />
 
-      <ListTileSettingsPage
-        Icon={() => <LocationIcon className={Style.Icon} />}
-        title="Mi ubicación"
-        description="Visualiza las tiendas más cercanas"
-      />
+      <div className={Style.BoxCol}>
+        <ListTileBoldTitle
+          href={storeProfilePathName()}
+          Icon={() => <StoreIcon className={Style.Icon} />}
+          title="Herramientas para tu empresa"
+          value="Perfil, horarios, descripción, contactos"
+        />
+        <ListTileBoldTitle
+          Icon={() => <InfoIcon className={Style.Icon} />}
+          title="Novedades"
+          value="Visualiza el historial de cambios"
+        />
 
-      <ListTileSettingsPage
-        Icon={() => <DollarIcon className={Style.Icon} />}
-        title="Patrocinio"
-        description="Ayuda a este proyecto a crecer"
-      />
+        <ListTileBoldTitle
+          Icon={() => <LocationIcon className={Style.Icon} />}
+          title="Mi ubicación"
+          value="Visualiza las tiendas más cercanas"
+        />
+
+        <ListTileBoldTitle
+          Icon={() => <DollarIcon className={Style.Icon} />}
+          title="Patrocinio"
+          value="Ayuda a este proyecto a crecer"
+        />
+      </div>
     </>
   );
-}
-
-function Divider() {
-  return <div className={Style.Divider}></div>;
 }
 
 function Profile(props) {

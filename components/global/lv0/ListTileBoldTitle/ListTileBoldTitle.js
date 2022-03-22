@@ -1,17 +1,17 @@
 // @ts-check
 import Link from "next/link";
-import Style from "./ListTileSettingsPage.module.scss";
+import Style from "./ListTileBoldTitle.module.scss";
 /**
  * @param {Object} props
  * @param {string} props.title
  * @param {string} [props.href]
- * @param {Object} props.description
+ * @param {string} props.value
  * @param {() => void} [props.onClick]
  * @param {() => JSX.Element} props.Icon
  * @returns
  */
-export function ListTileSettingsPage(props) {
-  let { Icon = () => <></>, description, title, onClick, href = "" } = props;
+export function ListTileBoldTitle(props) {
+  let { Icon = () => <></>, value, title, onClick, href = "" } = props;
 
   onClick ??= () => {};
 
@@ -25,7 +25,7 @@ export function ListTileSettingsPage(props) {
 
               <div className={Style.BoxListTile_BoxDescription}>
                 <h4>{title}</h4>
-                <p>{description}</p>
+                <p>{value}</p>
               </div>
             </div>
           </a>
@@ -38,7 +38,7 @@ export function ListTileSettingsPage(props) {
 
           <div className={Style.BoxListTile_BoxDescription}>
             <h4>{title}</h4>
-            <p>{description}</p>
+            <p>{value}</p>
           </div>
         </div>
       )}

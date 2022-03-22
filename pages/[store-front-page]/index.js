@@ -1,6 +1,6 @@
 // @ts-check
 import Image from "next/image";
-import { AppBar } from "components/store-front-page/AppBar/AppBar";
+import { AppBar } from "components/StoreFrontPage/AppBar/AppBar";
 import Style from "./store-front-page.module.scss";
 import { getListPost } from "helpers/getListPost";
 import { useEffect, useState } from "react";
@@ -9,10 +9,10 @@ import {
   InfinityScroll,
 } from "components/global/lv0/InfinityScroll/InfinityScroll";
 import Head from "next/head";
-import { Metadata } from "components/store-front-page/Metadata/Metadata";
+import { Metadata } from "components/StoreFrontPage/Metadata/Metadata";
 import { convertDayFromNumberToString } from "helpers/convertDayFromNumberToString";
 import { getListStore } from "helpers/getListStore";
-import { Contact } from "components/store-front-page/Contact/Contact";
+import { Contact } from "components/StoreFrontPage/Contact/Contact";
 import { useRouter } from "next/router";
 import { Loading } from "components/global/lv0/Loading/Loading";
 

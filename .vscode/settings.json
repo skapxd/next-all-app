@@ -4,5 +4,6 @@
   "cSpell.language": "en,es-ES",
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
-  "cSpell.words": ["Postgrest", "skapxd", "supabase"]
+  "cSpell.words": ["Postgrest", "skapxd", "supabase"],
+  "files.eol": "\n"
 }
