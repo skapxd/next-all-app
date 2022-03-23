@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
  * @param {string} props.queryParam
  * @param {T} [props.typeCurrentPage]
  * @returns {{
- * currentPage: T,
+ * currentValue: T,
  * router: import("next/router").NextRouter
  * }}
  */
@@ -21,7 +21,7 @@ export const useChangeUrl = (props) => {
 
   /**@type {T} */
   const initCurrenPage = null;
-  const [currentPage, setCurrentPage] = useState(initCurrenPage);
+  const [currentValue, setCurrentPage] = useState(initCurrenPage);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -31,7 +31,7 @@ export const useChangeUrl = (props) => {
   }, [router.asPath]);
 
   return {
-    currentPage,
+    currentValue,
     router,
   };
 };

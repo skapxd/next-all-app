@@ -26,7 +26,7 @@ export function EditPencilWithPopup(props) {
 
   const [text, setText] = useState(initValue);
 
-  const { currentPage, router } = useChangeUrl({
+  const { currentValue: currentPage, router } = useChangeUrl({
     queryParam: "modal",
   });
 

@@ -18,7 +18,7 @@ function _BottomNavigationBarButton(props) {
 
   /**@type {CurrentPageRoot} */
   const typeCurrentPage = null;
-  const { currentPage, router } = useChangeUrl({
+  const { currentValue: currentPage, router } = useChangeUrl({
     typeCurrentPage,
     queryParam: "page",
   });

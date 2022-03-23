@@ -54,7 +54,7 @@ export default function Root(props) {
 const CurrentPage = observer(_CurrentPage);
 
 function _CurrentPage(props) {
-  const { currentPage } = useChangeUrl({
+  const { currentValue: currentPage } = useChangeUrl({
     queryParam: "page",
   });
 

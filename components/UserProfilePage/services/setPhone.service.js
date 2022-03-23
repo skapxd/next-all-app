@@ -27,7 +27,7 @@ export const setPhoneService = async (props) => {
     method: "PATCH",
   };
 
-  const url = "/api/v1/user/set-name";
+  const url = "/api/v1/user/set-phone";
   const resp = await fetch(url, options);
   const data = await resp.json();
   if (!resp.ok) throw new Error(data?.error ?? "Without connection");

@@ -13,7 +13,7 @@ export const Scaffold = observer(_Scaffold);
  */
 export function _Scaffold(props) {
   const { children } = props;
-  const { currentPage } = useChangeUrl({
+  const { currentValue: currentPage } = useChangeUrl({
     queryParam: "page",
   });
   return (

@@ -7,9 +7,13 @@ import Style from "./_app.module.scss";
 import { useEffect, useState } from "react";
 import { userBlocInstance } from "Bloc/UserBloc/UserBloc";
 import { storeBlocInstance } from "Bloc/StoreBloc/StoreBloc";
+import { env } from "env";
+import { getQueryParams } from "helpers/getQueryParams";
 
 function MyApp({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(true);
+
+  const isUrlDevActive = getQueryParams("dev");
 
   useEffect(() => {
     const _isUserLoading = userBlocInstance.init();
@@ -20,7 +24,33 @@ function MyApp({ Component, pageProps }) {
     } else {
       userBlocInstance.setBrowserFingerPrint();
     }
+
+    const isDev = !env.isProduction || isUrlDevActive === "true";
+
+    if (typeof window !== "undefined" && isDev) {
+      enableEruda();
+    }
   }, []);
+
+  const enableEruda = async () => {
+    const eruda = await import("eruda");
+
+    let erudaElement = document.createElement("div");
+    document.body.appendChild(erudaElement);
+
+    eruda.default.init({ container: erudaElement });
+
+    let erudaShadowDom = erudaElement.shadowRoot;
+    erudaShadowDom.querySelector(".eruda-entry-btn").setAttribute(
+      "style",
+      ` 
+        position: fixed!important;
+        bottom: 16px!important;
+        right: 16px!important;
+        left: auto!important;
+        top: auto!important;`
+    );
+  };
 
   if (isLoading)
     return (
@@ -362,7 +392,7 @@ function MyApp({ Component, pageProps }) {
           media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
         />
       </Head>
-      <div className={Style.app_Scaffold}>
+      <div id="root" className={Style.app_Scaffold}>
         <Component {...pageProps} />
       </div>
     </>
