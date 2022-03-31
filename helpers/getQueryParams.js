@@ -1,7 +1,7 @@
 /**
  * @param {string} name
  * @param {string} [url]
- * @returns {any}
+ * @returns {string}
  */
 export const getQueryParams = (name, url) => {
   url ??= typeof window !== "undefined" && window.location.href;

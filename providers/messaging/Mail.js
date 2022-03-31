@@ -1,4 +1,3 @@
-
 // @ts-check
 import { env } from "env";
 import { createTransport } from "nodemailer";
@@ -6,11 +5,11 @@ import { createTransport } from "nodemailer";
 /**
  * @param {Object} props
  * @param {string} props.email
- * @param {string} props.msjText
+ * @param {string} props.message
  * @param {string} [props.subject]
  */
 export const sendMail = async (props) => {
-  const { email, msjText, subject = "No responder a este email" } = props;
+  const { email, message, subject = "No responder a este email" } = props;
 
   let transporter = createTransport({
     host: "smtp.gmail.com",
@@ -32,8 +31,7 @@ export const sendMail = async (props) => {
   await transporter.sendMail({
     from: "automail.noresponder@gmail.com",
     to: email,
-    // html: options.msjHtml,
-    text: msjText,
+    html: message,
     subject,
   });
 };
