@@ -21,12 +21,7 @@ export const sendMail = async (props) => {
     },
   });
 
-  try {
-    const verify = await transporter.verify();
-    console.log({ transporterVerify: verify });
-  } catch (error) {
-    console.log({ transporterVerify: error });
-  }
+  await transporter.verify();
 
   await transporter.sendMail({
     from: "automail.noresponder@gmail.com",

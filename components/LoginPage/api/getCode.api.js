@@ -43,14 +43,14 @@ export async function getCodeAPI(req, res) {
 
     const codeToUrl = cacheCode.replace(" ", "_");
     const params = `/login?step=validateCode&email=${to}&code=${codeToUrl}&name=${_name}`;
-    const link = `<a href="${baseUrl}/${params}" >enlace</a>`;
+    const link = `<a href="${baseUrl}/${params}">enlace</a>`;
 
-    const message = `Hola ${_name}, ${cacheCode} pega este código de verificación ó accede a este ${link} `;
+    const message = `Hola ${_name}, accede a este <b>${link}</b> ó pega este código <b>${cacheCode}</b> de verificación.`;
 
     await sendMail({
       email: to,
       message,
-      subject: `Código de verificación de All App`,
+      subject: `${cacheCode} Código de verificación de All App`,
     });
 
     return res.json({
