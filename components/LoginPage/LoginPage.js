@@ -28,7 +28,10 @@ class CurrentPage {
  * @param {'getCode' | 'validateCode'} step
  * @returns
  */
-export const loginPathName = (step = "getCode") => `/login?step=${step}`;
+export const loginPathName = (
+  step = "getCode",
+  { email = "", code = "", name = "" } = {}
+) => `/login?step=${step}&email=${email}&code=${code}&name=${name}`;
 
 export function LoginPage() {
   useSetHeight();
@@ -37,9 +40,9 @@ export function LoginPage() {
 
   const [loading, setLoading] = useState(false);
 
-  /**@type {CurrentPage} */
-  const initCurrenPage = CurrentPage.getCode;
-  const [currentPage, setCurrentPage] = useState(initCurrenPage);
+  // /**@type {CurrentPage} */
+  // const initCurrenPage = CurrentPage.getCode;
+  const [currentPage, setCurrentPage] = useState(getQueryParams("step"));
 
   const [user, setUser] = useState({
     name: {
@@ -51,14 +54,40 @@ export function LoginPage() {
       isValid: true,
     },
     email: {
-      value: "",
+      value: getQueryParams("email"),
       isValid: true,
     },
   });
-
+  console.log("first");
   useEffect(() => {
     if (userBlocInstance.getIsAuthenticate) {
       router.push("/");
+    }
+
+    const code = getQueryParams("code");
+    const email = getQueryParams("email");
+    const name = getQueryParams("name");
+    console.log({ code, name, email });
+    if (code && email) {
+      verifyCodeFunction({
+        to: { isValid: true, value: email },
+        name: { isValid: true, value: name },
+        code: { isValid: true, value: code.replace("_", " ") },
+        onFailed: () => {
+          setLoading(false);
+          setUser((s) => ({
+            ...s,
+            code: {
+              isValid: false,
+              value: s.code.value,
+            },
+          }));
+        },
+        onSuccess: (data) => {
+          setLoading(false);
+          router.push(rootPathName(CurrentPageRoot.cuenta));
+        },
+      });
     }
   }, []);
 
@@ -93,7 +122,12 @@ export function LoginPage() {
                 value: name ?? s.name.value,
               },
             }));
-            router.push(loginPathName("validateCode"));
+            router.push(
+              loginPathName("validateCode", {
+                name,
+                email: user.email.value,
+              })
+            );
           },
         });
 
@@ -114,9 +148,7 @@ export function LoginPage() {
           },
           onSuccess: (data) => {
             setLoading(false);
-            setTimeout(() => {
-              router.push(rootPathName(CurrentPageRoot.cuenta));
-            }, 300);
+            router.push(rootPathName(CurrentPageRoot.cuenta));
           },
         });
     } catch (error) {
@@ -169,7 +201,7 @@ export function LoginPage() {
         {currentPage === CurrentPage.validateCode && (
           <div className={Style.Box_BoxLogin}>
             <h2>Iniciar sesión</h2>
-            <NameUser name={user.name.value} />
+            <NameUser name={user.name.value || getQueryParams("name")} />
             <InputText
               maxLength={7}
               isValid={user.code.isValid}

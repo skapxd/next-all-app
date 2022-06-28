@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
       userBlocInstance.setBrowserFingerPrint();
     }
 
-    const isDev = !env.isProduction || isUrlDevActive === "true";
+    const isDev = isUrlDevActive === "true";
 
     if (typeof window !== "undefined" && isDev) {
       enableEruda();
