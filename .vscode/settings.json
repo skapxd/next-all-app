@@ -4,6 +4,14 @@
   "cSpell.language": "en,es-ES",
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
-  "cSpell.words": ["eruda", "Postgrest", "skapxd", "supabase"],
-  "files.eol": "\n"
+  "cSpell.words": [
+    "eruda",
+    "Postgrest",
+    "skapxd",
+    "supabase"
+  ],
+  "files.eol": "\n",
+  "cSpell.enabledLanguageIds": [
+    "mjml"
+  ]
 }

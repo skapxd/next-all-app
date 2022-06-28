@@ -1,6 +1,6 @@
 // @ts-check
 
-import { sendMail } from "providers/messaging/Mail";
+import { sendMail } from "providers/messaging/Mail/Mail";
 import memoryCache from "memory-cache";
 import { env } from "env";
 import { UserRepository } from "providers/supabase/db/UserRepository/UserRepository";

@@ -1,0 +1,47 @@
+<mjml>
+
+  <mj-head>
+    <mj-attributes>
+      <mj-text padding="0" />
+      <mj-class name="h1" font-size="24px" color="#FFf" padding-top="15px" style="top: 15px" />
+      <!-- <mj-class name="box" background-color="red" /> -->
+      <mj-class name="p-text" color="#ddd" />
+      <mj-class name="p-code" align="center" font-size="30px" font-weight="600" />
+      <mj-class name="box-code" background-color="#474055" padding="10px" />
+      <mj-all font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" />
+    </mj-attributes>
+  </mj-head>
+
+
+  <mj-body background-color="#252833">
+
+    <mj-section width="400px" background-color="red">
+      <mj-column>
+        <mj-image src="./brand.svg" height="30px"></mj-image>
+      </mj-column>
+
+
+      <mj-column mj-class="box">
+
+        <mj-text mj-class="h1">
+          Complete el registro
+        </mj-text>
+
+        <mj-text padding-top="15px" mj-class="p-text">
+          Por favor verifique su correo electrónico pegando
+          el código en la aplicación o presionando el botón
+        </mj-text>
+      </mj-column>
+
+    </mj-section>
+
+    <mj-section>
+      <mj-column mj-class="box-code">
+        <mj-text mj-class="p-code">
+          550 776
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+  </mj-body>
+</mjml>
